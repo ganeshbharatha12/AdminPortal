@@ -1,0 +1,784 @@
+<div class="row">
+  <div class="col-12 col-md-12">
+  
+    <form class="plansform">
+      <div class="row">
+        <div class="form-group col-12 col-md-12">
+          <h6 class="admintitle">Add Employees to Health & Wellness Plans&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+  
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-md-12">
+  
+  <!-- <div>
+    <ul style="display: flex;column-gap: 15px;font-size: 14px;">
+      <li>Employee List</li>
+      <li>Max Employees: {{maxEmployeeCount}}</li>
+      <li>Employee Count: {{lengthofemployee}}</li>
+      <li><button id="DownloadButton"  (click)="exportAsXLSX()"><i class="bi bi-download"> </i>&nbsp;Download Template</button></li>
+      <li><label for="uploadButton" id="uploadButtonExcel"><i class="bi bi-upload"></i>&nbsp;Upload Employee List<input id="uploadButton" style="display: none" type="file" (change)="onFileChangeExcel($event)" /></label></li>
+      <li><button  id="DownloadButton" (click)="addemployee()">+&nbsp;Add</button></li>
+    </ul>
+  </div> -->
+          <div class="table-responsive">
+          <table class="table text-nowrap">
+            <tr>
+              <th>Employee List</th>
+              <th>Max Employees: {{maxEmployeeCount}}</th>
+              <th>Employee Count: {{lengthofemployee}}</th>
+              <th><button id="DownloadButton"  (click)="exportAsXLSX()"><i class="bi bi-download"> </i>&nbsp;Download Template</button></th>
+              <th>
+                <label for="uploadButton" id="uploadButtonExcel">
+                  <i class="bi bi-upload"></i>&nbsp;Upload Employee List
+                  <input id="uploadButton" #myFileInput  style="display: none" type="file" (input)="onFileChangeExcel($event)" />
+                </label>
+  
+                </th>
+              <th><button  id="DownloadButton" (click)="addemployee()">+&nbsp;Add</button></th>
+              <div id="output"></div>
+                <br>
+  
+            </tr>
+          </table>
+          </div>
+  
+  
+    </div>
+    </div>
+    <div class="row">
+      <div class="table-responsive">
+      <table class="table text-nowrap" style="white-space:nowrap">
+        <thead>
+        <tr>
+          <th>Employee ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Date of Hire</th>
+          <th>Province of Employment</th>
+          <th>Job Title</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>Marital Status</th>
+          <!-- <th>Phone No.</th> -->
+  
+  
+  
+  
+  
+          <!-- <th>Province</th> -->
+          <th *ngIf="walletConfigCheck">Annual Income</th>
+          <!-- <th>Tier</th> -->
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let admin of employeeList; let i = index">
+          <td class="text-uppercase">{{admin.employeeId}}</td>
+          <td class="text-capitalize">{{admin.firstName}}</td>
+          <td class="text-capitalize">{{admin.lastName}}</td>
+          <td>{{admin.email}}</td>
+          <td>{{admin.dateOfHire | date:'MM-dd-yyyy'}}</td>
+          <td>{{admin.province}}</td>
+          <td class="text-capitalize">{{admin.jobTitle}}</td>
+          <td>{{admin.dateOfBirth  | date:'MM-dd-yyyy'}}</td>
+          <td>{{admin.gender}}</td>
+          <td>{{admin.maritalStatus}}</td>
+          <!-- <td>{{admin.phoneNum}}</td> -->
+          <!-- <td>{{admin.provienceName}}</td> -->
+          <td *ngIf="walletConfigCheck">{{currencySymbol}} {{admin.annualIncome}}</td>
+          <!-- <td>{{admin.tier}}</td> -->
+  
+          <td style="display:flex">
+            <a class="btn btn-default editpencil" title="Edit" data-toggle="tooltip" (click)="editemployee(admin,i)"><i class="bi bi-pencil-fill"></i></a>&nbsp;&nbsp;
+            <a class="btn btn-default deleteicon" title="Delete" data-toggle="tooltip" (click)="deletemployee(admin,i)"><i class="bi bi-trash-fill"></i></a>
+          </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+  
+  
+  
+  
+  </div>
+  
+      </form>
+      <br>
+      <!-- <div class="row">
+        <div class=" text-white text-left">
+          <button class="btn btn-primary" id="backbuttonForm"
+          type="button" (click)="gotoplansorwalletInfo()" style="float:left"><i aria-hidden="true" class="fa fa-long-arrow-left" ></i>&nbsp;&nbsp;Previous</button>
+  
+        </div>
+        <div class=" text-white text-right">
+          <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitEmployeeInfoInfo()"> Save & Next&nbsp;&nbsp;<i aria-hidden="true" class="fa fa-long-arrow-right" ></i></button>
+        </div>
+      </div> -->
+      <div class="row">
+  
+        <div id="container1">
+          <button class="btn btn-primary" id="leftButton" type="button" (click)="gotoplansorwalletInfo()"><i aria-hidden="true" class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;Previous</button>
+          <button class="btn btn-primary" id="rightButton" type="button" (click)="submitEmployeeInfoInfo()">Save & Next&nbsp;&nbsp;<i aria-hidden="true" class="fa fa-long-arrow-right"></i></button>
+      </div>
+      </div>
+  
+  </div>
+  </div>
+  
+  
+  <div class="modal fade" data-bs-backdrop="static" id="addEmployee-modal" tabindex="-1">
+    <div class="modal-dialog model-lg modal-dialog-centered " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Add Employee</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="addbordingform" [formGroup]="addEmployeeformList">
+  
+  
+              <div class="row">
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Employee ID</label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+  
+                  id="Employee ID"
+                  placeholder="Employee ID"
+                  formControlName="employeeId"  (keypress)="alphaNumaricssWithHipen($event)"
+                />
+                <div *ngIf="emp['employeeId'].touched && emp['employeeId'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeId'].errors && emp['employeeId'].errors['required']">Please enter Employee ID</div>
+                </div>
+              </div>
+                </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">First Name<span style="color: red">*</span></label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+  
+                  id="firstname"
+                  placeholder="First Name" (keypress)="alphabatesOnly($event)"
+                  formControlName="employeeFirstName"
+                />
+                <div *ngIf="emp['employeeFirstName'].touched && emp['employeeFirstName'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['required']">Please enter first name</div>
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['minlength']">First name should be 3 character</div>
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['maxlength']">First name must not exceed 20 characters</div>
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['pattern']">First name Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                </div>
+                </div>
+                </div>
+  
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Last Name<span style="color: red">*</span></label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="lastname"
+                  placeholder="Last Name" (keypress)="alphabatesOnly($event)"
+                  formControlName="employeeLastName"
+  
+                />
+                <div *ngIf="emp['employeeLastName'].touched && emp['employeeLastName'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['required']">Please enter last name </div>
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['minlength']">Last name should be 3 character</div>
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['maxlength']">Last name must not exceed 20 characters</div>
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['pattern']">Last name Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                </div>
+                </div>
+                </div>
+  
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-6">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+  
+                    <input
+                    type="text"
+                    class="form-control checking-field text-lowercase"
+                    id="email"
+                    placeholder="Email"
+                    formControlName="employeeEmail"
+  
+                    (input)="textChangeToLowerCase('employeeEmail')"
+                  />
+                  <div *ngIf="emp['employeeEmail'].touched && emp['employeeEmail'].invalid" class="help-block text-danger">
+                    <div *ngIf="emp['employeeEmail'].errors && emp['employeeEmail'].errors['required']">Please enter email</div>
+                    <div *ngIf="emp['employeeEmail'].errors && emp['employeeEmail'].errors['pattern']">Please enter valid email</div>
+                  </div>
+                  </div>
+                  </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Date of Hire</label>
+  
+                <input type="text"
+                placeholder="Date of Hire"
+                class="form-control"
+                formControlName="employeeDateofhire"
+                bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                [minDate]="dateOfHire"
+                 >
+                <div *ngIf="emp['employeeDateofhire'].touched && emp['employeeDateofhire'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeDateofhire'].errors && emp['employeeDateofhire'].errors['required']">Please select date of hire</div>
+                  <div *ngIf="emp['employeeDateofhire'].errors && emp['employeeDateofhire'].errors['pattern']">Date of hire Shouldn't allow numbers, special characters and blank spaces</div>
+  
+  
+                  </div>
+                </div>
+                </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Country<span style="color: red">*</span></label>
+                <!-- <select
+                class="form-control"
+                id="country"
+                formControlName="employeeCountry"
+                (change)="getprovincelist($event)">
+                <option *ngFor="let country of countryList" [value]="country.name">
+                  {{country.name}}
+                </option>
+              </select> -->
+              <!-- <select formControlName="employeeCountry" class="form-control"
+                name="mySelect" (change)="getprovincelist($event)" [(ngModel)]="empCountryCanada">
+                <option [value]="null" disabled>Select</option>
+                 <option *ngFor="let country of countryList" [value]="country.name" >
+                  {{country.name}}
+                </option>
+  
+              </select> -->
+  
+              <select
+              class="form-control"
+              id="country"
+              placeholder="country"
+              formControlName="employeeCountry"
+              (change)="getprovincelist($event)" [(ngModel)]="empCountryCanada">
+              <option [value]="null" disabled>Select</option>
+              <option *ngFor="let country of countryList" [value]="country.name" selected>
+                {{country.name}}
+              </option>
+            </select>
+  
+  
+                <div *ngIf="emp['employeeCountry'].touched && emp['employeeCountry'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeCountry'].errors && emp['employeeCountry'].errors['required']">Please select country</div>
+  
+                </div>
+                </div>
+                </div>
+  
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Province of Employment<span style="color: red">*</span></label>
+                <select
+                class="form-control"
+                id="Province"
+                formControlName="employeeResidence"
+                (change)="provincelist($event)">
+  
+                <option [value]="null" disabled>Select</option>
+  
+                <option
+                  *ngFor="let name of employeeWorkingProviance"
+                  [value]="name.shortName"
+                >
+                  {{ name.shortName }}
+                </option>
+  
+  
+              </select>
+                <div *ngIf="emp['employeeResidence'].touched && emp['employeeResidence'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeResidence'].errors && emp['employeeResidence'].errors['required']">Please select province</div>
+  
+                </div>
+                </div>
+                </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Job Title</label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="Occupation"
+                  placeholder="Job Title"
+                   (keypress)="alphabatesOnly($event)"
+                   (input)="titleCase($event.target.value)"
+                  formControlName="employeeOccupation"
+                />
+                <div *ngIf="emp['employeeOccupation'].touched && emp['employeeOccupation'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeOccupation'].errors && emp['employeeOccupation'].errors['required']">Please enter occupation</div>
+                  <div *ngIf="emp['employeeOccupation'].errors && emp['employeeOccupation'].errors['pattern']">Job title not allow numbers, special characters and blank spaces</div>
+  
+                </div>
+                </div>
+                </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Date of Birth</label>
+  
+                <input type="text"
+                placeholder="Date of Birth"
+                class="form-control"
+                formControlName="employeeDateofbirth"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+  
+                bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                <div *ngIf="emp['employeeDateofbirth'].touched && emp['employeeDateofbirth'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeDateofbirth'].errors && emp['employeeDateofbirth'].errors['required']">Please select date of hire</div>
+                  <div *ngIf="emp['employeeDateofbirth'].errors && emp['employeeDateofbirth'].errors['pattern']">Date of birth Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                </div>
+                </div>
+                </div>
+  
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-6">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Gender</label>
+                  <select
+                      class="form-control"
+                      id="gender"
+  
+                      formControlName="employeeGender" >
+  
+                      <option [value]="null">Select</option>
+                      <option value="Male"> Male </option><option value="Female"> Female </option><option value="Non-Binary"> Non-Binary </option><option value="Undisclosed"> Undisclosed </option>
+  
+                    </select>
+                    <div *ngIf="emp['employeeGender'].touched && emp['employeeGender'].invalid" class="help-block text-danger">
+                      <div *ngIf="emp['employeeGender'].errors && emp['employeeGender'].errors['required']">Please select gender</div>
+  
+                    </div>
+                    </div>
+                  </div>
+  
+                  <div class="col-md-4 col-6">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Marital Status</label>
+                  <select
+                      class="form-control"
+                      id="familyStatus"
+  
+                      formControlName="employeefamilyStatus">
+  
+                      <option [value]="null">Select</option>
+                      <option value="Single"> Single </option>
+                      <option value="Couple"> Couple </option>
+                      <option value="Family">Family</option>
+  
+                    </select>
+  
+                    <div *ngIf="emp['employeefamilyStatus'].touched && emp['employeefamilyStatus'].invalid" class="help-block text-danger">
+                      <div *ngIf="emp['employeefamilyStatus'].errors && emp['employeefamilyStatus'].errors['required']">Please select Marital Status</div>
+                    </div>
+                    </div>
+  
+                  </div>
+  
+  
+                  <div class="col-md-4 col-6" *ngIf="walletConfigCheck">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Annual Income<span *ngIf="walletConfigforemployee" style="color: red">*</span></label>
+  
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="walletlimit"
+                    placeholder="Annual Income"
+                    formControlName="empployeeAnnualIncome"  (keypress)="numberOnly($event)"
+                  />
+                  <div *ngIf="emp['empployeeAnnualIncome'].touched && emp['empployeeAnnualIncome'].invalid" class="help-block text-danger">
+                    <div *ngIf="emp['empployeeAnnualIncome'].errors && emp['empployeeAnnualIncome'].errors['required']">Please enter annual income</div>
+                    <div *ngIf="emp['empployeeAnnualIncome'].errors && emp['empployeeAnnualIncome'].errors['pattern']">Annual Income Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                  </div>
+                  </div>
+                  </div>
+  
+  
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-6" *ngIf="tierConfigCheck">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Classification Tier<span *ngIf="tierConfigforemployee" style="color: red">*</span></label>
+                <select
+                    class="form-control"
+                    id="employeeTier"
+                    placeholder="Select"
+                    formControlName="employeeTier"
+  
+                  >
+                  <option [value]="null">Select</option>
+                  <option
+                      *ngFor="let name of configureTierList" value={{name.id}}>
+                      {{ name.name}}
+                    </option>
+                  </select>
+                  <div *ngIf="emp['employeeTier'].touched && emp['employeeTier'].invalid" class="help-block text-danger">
+                    <div *ngIf="emp['employeeTier'].errors && emp['employeeTier'].errors['required']">Please select tier</div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+  
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal" #closemodel>
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary"  (click)="addemployeetolist()">
+            &nbsp;Save&nbsp;&nbsp;
+          </button>
+        </div>
+        <!-- <button class="btn btn-primary"  type="submit">Submit</button> -->
+      </div>
+    </div>
+  </div>
+  <!-- edit employee -->
+  <div class="modal fade" id="editEmployee-modal" tabindex="-1">
+    <div class="modal-dialog model-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Edit Employee</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="addbordingform" [formGroup]="addEmployeeformList">
+  
+  
+              <div class="row">
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Employee ID</label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="Employee ID"
+                  placeholder="Employee ID"
+                  formControlName="employeeId"
+                   [(ngModel)]="editEmployeeId"
+                   (keypress)="alphaNumaricssWithHipen($event)"
+  
+                />
+                <div *ngIf="emp['employeeId'].touched && emp['employeeId'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeId'].errors && emp['employeeId'].errors['required']">Please enter Employee ID</div>
+                </div>
+              </div>
+                </div>
+  
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">First Name<span style="color: red">*</span></label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="firstname" (keypress)="alphabatesOnly($event)"
+                  placeholder="First Name"
+  
+                  formControlName="employeeFirstName" [(ngModel)]="editEmployeefirstname"
+                />
+                <div *ngIf="emp['employeeFirstName'].touched && emp['employeeFirstName'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['required']">Please enter first name</div>
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['minlength']">First name should be 3 character</div>
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['maxlength']">First name must not exceed 20 characters</div>
+                  <div *ngIf="emp['employeeFirstName'].errors && emp['employeeFirstName'].errors['pattern']">First name Shouldn't allow numbers, special characters and blank spaces</div>
+                </div>
+              </div>
+                </div>
+  
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Last Name<span style="color: red">*</span></label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="lastname"
+                  placeholder="Last Name"
+                   (keypress)="alphabatesOnly($event)"
+                  formControlName="employeeLastName"
+                   [(ngModel)]="editEmployeelastname"
+  
+                />
+                <div *ngIf="emp['employeeLastName'].touched && emp['employeeLastName'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['required']">Please enter last name </div>
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['minlength']">Last name should be 3 character</div>
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['maxlength']">Last name must not exceed 20 characters</div>
+                  <div *ngIf="emp['employeeLastName'].errors && emp['employeeLastName'].errors['pattern']">last name Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                </div>
+              </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="email"
+                  placeholder="Email"
+                  formControlName="employeeEmail"
+                   [(ngModel)]="editEmployeeemail"
+                   (input)="textChangeToLowerCase('employeeEmail')"
+                />
+                <div *ngIf="emp['employeeEmail'].touched && emp['employeeEmail'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeEmail'].errors && emp['employeeEmail'].errors['required']">Please enter email</div>
+                  <div *ngIf="emp['employeeEmail'].errors && emp['employeeEmail'].errors['pattern']">please enter valid email</div>
+                </div>
+              </div>
+                </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Date of Hire</label>
+  
+                <input type="text"
+                placeholder="Date of Hire"
+                class="form-control"
+                formControlName="employeeDateofhire"  [(ngModel)]="editEmployeeDateofhire"
+                bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+  
+                <div *ngIf="emp['employeeDateofhire'].touched && emp['employeeDateofhire'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeDateofhire'].errors && emp['employeeDateofhire'].errors['required']">Please select date of hire</div>
+                  <div *ngIf="emp['employeeDateofhire'].errors && emp['employeeDateofhire'].errors['pattern']">Date of hire Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                </div>
+              </div>
+  
+                </div>
+  
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Country<span style="color: red">*</span></label>
+                <select
+                class="form-control"
+                id="country"
+                placeholder="country"
+                formControlName="employeeCountry"
+                (change)="getprovincelist($event)" [(ngModel)]="editemployeeCountry">
+                <option [value]="null" disabled>Select</option>
+                <option *ngFor="let country of countryList" [value]="country.name">
+                  {{country.name}}
+                </option>
+              </select>
+                <div *ngIf="emp['employeeCountry'].touched && emp['employeeCountry'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeCountry'].errors && emp['employeeCountry'].errors['required']">Please select country</div>
+  
+                </div>
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Province of Employment<span style="color: red">*</span></label>
+                <select
+                class="form-control"
+                id="Province"
+                placeholder="Province"
+                formControlName="employeeResidence"
+                (change)="provincelist($event)" [(ngModel)]="editEmployeeResidenetIn">
+                <option [value]="null" disabled>Select</option>
+  
+                <option
+                  *ngFor="let name of employeeWorkingProviance"
+                  [value]="name.shortName"
+                >
+                  {{ name.shortName }}
+                </option>
+              </select>
+  
+                <div *ngIf="emp['employeeResidence'].touched && emp['employeeResidence'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeResidence'].errors && emp['employeeResidence'].errors['required']">Please select province</div>
+  
+                </div>
+                </div>
+                </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Job Title</label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="Occupation"
+                  placeholder="Job Title"
+                   (keypress)="alphabatesOnly($event)"
+                    (input)="titleCase($event.target.value)"
+                  formControlName="employeeOccupation" [(ngModel)]="editEmployeeOccupation"
+                />
+                <div *ngIf="emp['employeeOccupation'].touched && emp['employeeOccupation'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeOccupation'].errors && emp['employeeOccupation'].errors['required']">Please enter occupation</div>
+                  <div *ngIf="emp['employeeOccupation'].errors && emp['employeeOccupation'].errors['pattern']">Job title not allow numbers, special characters and blank spaces</div>
+  
+                </div>
+              </div>
+                </div>
+  
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Date of Birth</label>
+  
+                <input type="text"
+                placeholder="Date of Birth"
+                class="form-control"
+                [minDate]="minDate"
+                [maxDate]="maxDate"
+  
+                formControlName="employeeDateofbirth"  [(ngModel)]="editEmployeeDateofbirth"
+                bsDatepicker
+                [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+  
+                <div *ngIf="emp['employeeDateofbirth'].touched && emp['employeeDateofbirth'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['employeeDateofbirth'].errors && emp['employeeDateofbirth'].errors['required']">Please select date of birth</div>
+                  <div *ngIf="emp['employeeDateofbirth'].errors && emp['employeeDateofbirth'].errors['pattern']">Date of birth Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                </div>
+              </div>
+  
+                </div>
+                </div>
+  
+                <div class="row">
+  
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Gender</label>
+                <select
+                    class="form-control"
+                    id="gender"
+                    placeholder="Select"
+                    formControlName="employeeGender" [(ngModel)]="editEmployeesex">
+                  <option [value]="null">Select</option>
+                  <option value="Male"> Male </option>
+                    <option value="Female"> Female </option>
+                    <option value="Non-Binary"> Non-Binary </option>
+                    <option value="Undisclosed"> Undisclosed </option>
+  
+                  </select>
+                  <div *ngIf="emp['employeeGender'].touched && emp['employeeGender'].invalid" class="help-block text-danger">
+                    <div *ngIf="emp['employeeGender'].errors && emp['employeeGender'].errors['required']">Please select gender</div>
+  
+                  </div>
+                </div>
+                </div>
+                <div class="col-md-4 col-6">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Marital Status</label>
+                <select
+                    class="form-control"
+                    id="familyStatus"
+                    placeholder="Select"
+                    formControlName="employeefamilyStatus" [(ngModel)]="editEmployeefamilyStatus"
+  
+                  >
+  
+                  <option [value]="null">Select</option>
+                  <option value="Single"> Single </option>
+                    <option value="Couple"> Couple </option>
+                    <option value="Family">Family</option>
+  
+                  </select>
+                  <div *ngIf="emp['employeefamilyStatus'].touched && emp['employeefamilyStatus'].invalid" class="help-block text-danger">
+                    <div *ngIf="emp['employeefamilyStatus'].errors && emp['employeefamilyStatus'].errors['required']">Please select Marital Status</div>
+                  </div>
+                </div>
+                </div>
+  
+                <div class="col-md-4 col-6" *ngIf="walletConfigCheck">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Annual Income<span *ngIf="walletConfigforemployee" style="color: red">*</span></label>
+  
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="walletlimit" (keypress)="numberOnly($event)"
+                  placeholder="Annual Income"
+                  formControlName="empployeeAnnualIncome" [(ngModel)]="editEmployeeeAnnualIncome"
+                />
+                <div *ngIf="emp['empployeeAnnualIncome'].touched && emp['empployeeAnnualIncome'].invalid" class="help-block text-danger">
+                  <div *ngIf="emp['empployeeAnnualIncome'].errors && emp['empployeeAnnualIncome'].errors['required']">Please enter annual income</div>
+                  <div *ngIf="emp['empployeeAnnualIncome'].errors && emp['empployeeAnnualIncome'].errors['pattern']">Annual Income Shouldn't allow numbers, special characters and blank spaces</div>
+  
+                </div>
+              </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-12" *ngIf="tierConfigCheck">
+                  <div class="form-group">
+                  <label for="Corporation" class="Corporation">Tier<span *ngIf="tierConfigforemployee" style="color: red">*</span></label>
+  
+  
+                <select
+                    class="form-control"
+                    id="employeeTier"
+                    placeholder="Select"
+                    formControlName="employeeTier"
+  
+                  >
+                  <option [value]="null" >Select</option>
+                  <option
+                      *ngFor="let name of configureTierList" value={{name.id}}   [(ngModel)]="editEmployeeetier">
+                      {{ name.name}}
+                    </option>
+                  </select>
+                  <div *ngIf="emp['employeeTier'].touched && emp['employeeTier'].invalid" class="help-block text-danger">
+                    <div *ngIf="emp['employeeTier'].errors && emp['employeeTier'].errors['required']">Please select tier</div>
+                  </div>
+                </div>
+                </div>
+                </div>
+  
+          <!-- <div class="row" style="margin:0px">
+            <div class="col-md-12">
+              <button class="btn btn-primary" type="button" (click)="editemployeetolist()"><i class="fa fa-save" ></i>&nbsp;Save&nbsp;&nbsp;</button>
+  
+              <button class="btn btn-primary" id="employeeCancelButton" type="button" (click)="editemployeeform()"> Cancel &nbsp;&nbsp;</button>&nbsp;&nbsp;
+            </div>
+          </div> -->
+  
+  
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal" #closemodel>
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary"  (click)="editemployeetolist()">
+            &nbsp;Save&nbsp;&nbsp;
+          </button>
+        </div>
+        <!-- <button class="btn btn-primary"  type="submit">Submit</button> -->
+      </div>
+    </div>
+  </div>
+  

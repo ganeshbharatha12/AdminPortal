@@ -1,0 +1,104 @@
+.gaugeMeter {
+  position: Relative;
+  text-align: Center;
+  overflow: Hidden;
+  cursor: Default;
+  display: inline-block;
+}
+
+.gaugeMeter SPAN, .gaugeMeter B {
+  width: 54%;
+  position: Absolute;
+  text-align: Center;
+  display: Inline-Block;
+  color: RGBa(0,0,0,.8);
+  font-weight: 100;
+  font-family: "Open Sans", Arial;
+  overflow: Hidden;
+  white-space: NoWrap;
+  text-overflow: Ellipsis;
+  margin: 0 23%;
+}
+
+.gaugeMeter[data-style="Semi"] B {
+  width: 80%;
+  margin: 0 10%;
+}
+
+.gaugeMeter S, .gaugeMeter U {
+  text-decoration: None;
+  font-size: .60em;
+  font-weight: 200;
+  opacity: .6;
+}
+
+.gaugeMeter B {
+  color: #000;
+  font-weight: 200;
+  opacity: .8;
+}
+.gaugeMeter SPAN{
+  line-height: 300px!important;
+    font-size: 35px!important;
+}
+
+.gaugeMeter SPAN.s200 {
+  line-height: 210px!important;
+  font-size: 25px!important;
+  left: 0px;
+}
+
+.gaugeMeter[data-style="Semi"] B{
+  /* line-height:unset!important; */
+  /* color:blue !important; */
+  height:20px;
+  position:relative ;
+overflow:unset;
+  white-space:unset;
+}
+
+.gaugeMeter em{
+  line-height: 420px;
+    position: Absolute;
+  text-align: Center;
+  display: Inline-Block;
+}
+.gaugeMeter em.s200{
+  line-height: 225px;
+    position: Absolute;
+  text-align: Center;
+  display: Inline-Block;
+  font-size: 12px
+}
+
+
+em.min{
+  left:30px;
+}
+em.value{
+  left: 160;
+}
+em.max{
+  left:305px;
+}
+
+em.min.s200{
+  left:60px;
+}
+em.value.s200{
+  left: 160;
+}
+em.max.s200{
+  left:200px;
+}
+/* canvas{
+  height:300px;
+} */
+.orgb{
+  display: none !important;
+}
+.newb{
+  line-height: unset !important;
+  height: auto !important;
+  top: -50px;
+}

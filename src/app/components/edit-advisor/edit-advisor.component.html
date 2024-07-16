@@ -1,0 +1,2233 @@
+<main id="main" class="main">
+  <section class="section dashboard">
+
+    <div class="row">
+      <div class="col-sm-10">
+
+       <!-- Main Corporate Details Form -->
+     <div class="row">
+
+        <div class="col-sm-12">
+
+            <form class="onbordingform" [formGroup]="brokerregform">
+              <!-- <fieldset disabled="disabled" id="fieldsetattr"> -->
+              <div class="row">
+                <div class="form-group col-12">
+
+                <h6 class="admintitle"><a class="bartitlelabel">Broker Information&nbsp;&nbsp;<i class="bi bi-info-circle"></i></a></h6>
+
+              </div>
+              </div>
+              <div class="input-wrapper row" *ngIf="allBrokers && allBrokers.length>0">
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Brokerage / Parent Advisor</label>
+
+                  <select
+                  class="form-control select2"
+                  id="parentidrole"
+                  placeholder="Select" [ngModel]="parentBrokerId"
+                  formControlName="ParentbrokerName" data-live-search="true"   (change)="getBrokerlistData($event)">
+
+
+                  <option value="" label="" disabled>Select</option>
+                  <option
+                    *ngFor="let broker of allBrokers"
+                    [value]="broker.id"
+
+                    >{{broker.name}}-{{broker.brokerType}}-{{broker.salesTrackingCodeWithStatement}}
+                  </option>
+                </select>
+
+
+
+                <!-- <div *ngIf="client['corporationName'].touched && client['corporationName'].invalid" class="help-block text-danger">
+                  <div *ngIf="client['corporationName'].errors && client['corporationName'].errors['required']">Please enter corporation name</div>
+                  <div *ngIf="client['corporationName'].errors && client['corporationName'].errors['minlength']">Corporation name should be 3 character</div>
+                  <div *ngIf="client['corporationName'].errors && client['corporationName'].errors['maxlength']">Corporation name must not exceed 30 characters</div>
+                </div> -->
+
+                </div>
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Role<span style="color: red">*</span></label>
+
+                  <select
+                  class="form-control"
+                  id="brokerType"   [ngModel]="brokerinfobrokerType"
+                  placeholder="Select"  (change)="brokertype(brokername.value)" #brokername
+                  formControlName="brokerType">
+                  <option value="" disbaled>Select</option>
+
+                  <option
+                    *ngFor="let name of brokerType"
+                    [value]="name.label"
+                  >
+                    {{ name.display }}
+                  </option>
+                </select>
+                <div *ngIf="broker['brokerType'].touched && broker['brokerType'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['brokerType'].errors && broker['brokerType'].errors['required']">Please select broker type</div>
+                  <!-- <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['minlength']">Broker name should be 3 character</div>
+                  <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['maxlength']">Broker name must not exceed 30 characters</div> -->
+                </div>
+
+                </div>
+              </div>
+              <div class="input-wrapper row">
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Name of Broker<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="nameofcorporation"  [(ngModel)]="brokerinfoName"
+                  placeholder="Name of Broker" style="text-transform: capitalize;"  disabled
+                   formControlName="brokersName"
+                />
+                <div *ngIf="broker['brokersName'].touched && broker['brokersName'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['required']">Please enter broker name</div>
+                  <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['minlength']">Broker name must be atleast 3 characters</div>
+                  <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['maxlength']">Broker name must not exceed 30 characters</div>
+                </div>
+
+                </div>
+                <div class="form-group col-6"  *ngIf="showBusinessnumber">
+                  <label for="Corporation" class="Corporation">Business Number<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="businessnumber"
+                  placeholder="Business Number"
+                   formControlName="businessnumber"
+                />
+                <div *ngIf="broker['businessnumber'].touched && broker['businessnumber'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['businessnumber'].errors && broker['businessnumber'].errors['required']">Please enter business number</div>
+
+                </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Phone<span style="color: red">*</span> </label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="primaryPhone"
+                  placeholder="Primary Phone"  [(ngModel)]="primaryPhone"
+                  formControlName="primaryPhone"
+                  (change)="phoneFormatForGroupCont(brokerregform,'primaryPhone')"
+                />
+                <div *ngIf="broker['primaryPhone'].touched && broker['primaryPhone'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['primaryPhone'].errors && broker['primaryPhone'].errors['required']">Please enter phone number</div>
+                  <div *ngIf="broker['primaryPhone'].errors && broker['primaryPhone'].errors['minlength']">Phone number minimum of 10 digits</div>
+                  <div *ngIf="broker['primaryPhone'].errors && broker['primaryPhone'].errors['maxlength']">Phone number maximum of 10 digits</div>
+
+                </div>
+                </div>
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Secondary Phone </label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="secondaryPhone"
+                  placeholder="Secondary Phone"  [(ngModel)]="secondaryPhone"
+                  formControlName="secondaryPhone"
+                  (change)="phoneFormatForGroupCont(brokerregform,'secondaryPhone')"
+                />
+
+
+                <div *ngIf="broker['secondaryPhone'].touched && broker['secondaryPhone'].invalid" class="help-block text-danger">
+                  <!-- <div *ngIf="broker['primaryPhone'].errors && broker['primaryPhone'].errors['required']">Please enter Phone number</div> -->
+                  <div *ngIf="broker['secondaryPhone'].errors && broker['secondaryPhone'].errors['minlength']">Phone number minimum of 10 digits</div>
+                  <div *ngIf="broker['secondaryPhone'].errors && broker['secondaryPhone'].errors['maxlength']">Phone number maximum of 10 digits</div>
+
+                </div>
+
+                </div>
+                <div class="form-group col-3">
+                  <!-- <i class="fa fa-eye" aria-hidden="true"></i> -->
+                  <label for="Corporation" class="Corporation">Email&nbsp;<span style="color: red">*</span></label>
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="email"
+                  placeholder="Primary Email"   [(ngModel)]="primaryEmail"
+                  formControlName="primaryEmail"
+                />
+                <div *ngIf="broker['primaryEmail'].touched && broker['primaryEmail'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['primaryEmail'].errors && broker['primaryEmail'].errors['required']">Please enter email</div>
+                  <div *ngIf="broker['primaryEmail'].errors && broker['primaryEmail'].errors['pattern']">Please enter valid email</div>
+                </div>
+                </div>
+                <div class="form-group col-3">
+                  <!-- <i class="fa fa-plus" data-bs-toggle="modal" data-bs-target="#addExtraEmail" aria-hidden="true"></i> -->
+                  <label for="Corporation" class="Corporation">Secondary Email &nbsp;</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="email"
+                  placeholder="Secondary Email" [(ngModel)]="secondaryEmail"
+                  formControlName="secondaryEmail"
+                />
+
+                <div *ngIf="broker['secondaryEmail'].touched && broker['secondaryEmail'].invalid" class="help-block text-danger">
+                  <!-- <div *ngIf="broker['primaryEmail'].errors && broker['primaryEmail'].errors['required']">Please enter email</div> -->
+                  <div *ngIf="broker['secondaryEmail'].errors && broker['secondaryEmail'].errors['pattern']">Please enter valid email</div>
+                </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-4">
+                  <!-- <i class="fa fa-plus" data-bs-toggle="modal" data-bs-target="#addExtraEmail" aria-hidden="true"></i> -->
+                  <label for="Corporation" class="Corporation">Third Email &nbsp;</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="email"
+                  placeholder="Third Email"
+                  formControlName="thirdemail"
+                />
+
+                <div *ngIf="broker['thirdemail'].touched && broker['thirdemail'].invalid" class="help-block text-danger">
+                  <!-- <div *ngIf="broker['primaryEmail'].errors && broker['primaryEmail'].errors['required']">Please enter email</div> -->
+                  <div *ngIf="broker['thirdemail'].errors && broker['thirdemail'].errors['pattern']">Please enter valid email</div>
+                </div>
+
+                </div>
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Street Address<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="Street Address"
+                  placeholder="Street Address" [(ngModel)]="streetAddressline1"
+                  formControlName="streetAddress"
+                />
+                <div *ngIf="broker['streetAddress'].touched && broker['streetAddress'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['required']">Please enter street address name</div>
+
+                </div>
+                </div>
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Street Address Line 2</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="StreetAddreess2" [(ngModel)]="streetAddressline2"
+                  placeholder="Street Address Line 2"
+                  formControlName="streetAddress2"
+                />
+
+                </div>
+              </div>
+
+
+              <div class="row" style="margin-top:5px">
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Country<span style="color: red">*</span></label>
+
+                  <select
+                  class="form-control"
+                  id="country"
+                  placeholder="Country"
+                  formControlName="country" [ngModel]="country"
+                  >
+                  <option value="" disabled>Select</option>
+                  <option value="Canada" selected>Canada</option>
+                  <!-- <option value="usa">USA</option> -->
+
+                  <!-- <option
+                    *ngFor="let name of configprovinceres"
+                    [value]="name.shortName"
+                  >
+                    {{ name.shortName }}
+                  </option> -->
+                  </select>
+                  <div *ngIf="broker['country'].touched && broker['country'].invalid" class="help-block text-danger">
+                    <div *ngIf="broker['country'].errors && broker['country'].errors['required']">Please select country</div>
+                    <!-- <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['minlength']">Corporation name should be 3 character</div>
+                    <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['maxlength']">Corporation name must not exceed 30 characters</div> -->
+                  </div>
+
+                </div>
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">City<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="city" [(ngModel)]="city"
+                  placeholder="City" style="text-transform: capitalize;"
+                  formControlName="city"
+                />
+                <div *ngIf="broker['city'].touched && broker['city'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['city'].errors && broker['city'].errors['required']">Please enter city name</div>
+                  <!-- <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['minlength']">Corporation name should be 3 character</div>
+                  <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['maxlength']">Corporation name must not exceed 30 characters</div> -->
+                </div>
+
+                </div>
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Province<span style="color: red">*</span></label>
+
+
+                <select
+                class="form-control"
+                id="Province"
+                placeholder="Province"  [(ngModel)]="state"
+                formControlName="Province"
+                (change)="provincelist($event)">
+                <option value="">Select</option>
+
+                <option
+                  *ngFor="let name of configprovinceres"
+                  [value]="name.shortName"
+                >
+                  {{ name.shortName }}
+                </option>
+              </select>
+
+
+              <div *ngIf="broker['Province'].touched && broker['Province'].invalid" class="help-block text-danger">
+                <div *ngIf="broker['Province'].errors && broker['Province'].errors['required']">Please select province</div>
+                <!-- <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['minlength']">Corporation name should be 3 character</div>
+                <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['maxlength']">Corporation name must not exceed 30 characters</div> -->
+              </div>
+                </div>
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Postal Code<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"  [(ngModel)]="postalCode"
+                  id="postalcode"
+                  placeholder="Postal Code" onkeyup="this.value = this.value.toUpperCase();"
+                  formControlName="postalCode"
+                  (input)="changeTextToUppercase('postalcode', $event)"/>
+                  <div *ngIf="broker['postalCode'].touched" class="help-block text-danger">
+                    <div *ngIf="broker['postalCode'].errors && broker['postalCode'].errors['required']">Please enter postal code</div>
+                    <div *ngIf="invalidpostalcodeprivince || broker['postalCode'].touched &&broker['postalCode'].hasError('invalidPostalCode')">Please enter valid postal code</div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row pt-2" >
+                <div class="form-group col-12">
+                <h6 class="admintitle">Group Contacts&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+              </div>
+              </div>
+
+              <form class="onbordingform" [formGroup]="adminform" (ngSubmit)="addadmin()" *ngIf="addadminform">
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">First Name<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="firstName"
+                    placeholder="First Name"
+                    formControlName="firstName"  style="text-transform: capitalize;"
+                  />
+
+                  <div *ngIf="grpcontact['firstName'].touched && grpcontact['firstName'].invalid" class="help-block text-danger">
+                    <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['required']">Please enter first name</div>
+                    <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['minlength']">First name should be 3 characters</div>
+                    <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['maxlength']">First name must not exceed 20 characters</div>
+                  </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Last Name<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="lastName"
+                    placeholder="Last Name" style="text-transform: capitalize;"
+                    formControlName="lastName"
+                  />
+
+
+                  <div *ngIf="grpcontact['lastName'].touched && grpcontact['lastName'].invalid" class="help-block text-danger">
+                    <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['required']">Please enter Last name</div>
+                    <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['minlength']">Last name should be 3 characters</div>
+                    <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['maxlength']">Last name must not exceed 20 characters</div>
+                  </div>
+                  </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Phone Number<span style="color: red">*</span></label>
+
+                    <input
+                     type="tel"
+                    class="form-control checking-field"
+                    id="phoneNum"
+                    placeholder="Phone" (change)="phoneFormatForGroupCont(adminform,'phoneNum')"
+                    formControlName="phoneNum"
+                  />
+
+
+                  <div *ngIf="grpcontact['phoneNum'].touched && grpcontact['phoneNum'].invalid" class="help-block text-danger">
+                    <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['required']">Please enter Phone number</div>
+                    <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['minlength']">Phone number minimum of 10 digits</div>
+                    <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['maxlength']">Phone number maximum of 10 digits</div>
+
+                  </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="email"
+                    placeholder="Email"
+                    formControlName="email"
+                  />
+                  <div *ngIf="grpcontact['email'].touched && grpcontact['email'].invalid" class="help-block text-danger">
+                    <div *ngIf="grpcontact['email'].errors && grpcontact['email'].errors['required']">Please enter email</div>
+                    <div *ngIf="grpcontact['email'].errors && grpcontact['email'].errors['pattern']">Please enter valid email</div>
+
+
+                  </div>
+                  </div>
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Role<span style="color: red">*</span></label>
+
+
+                  <select  (change)="groupContactChange($event)" class="form-control" id="adminrole"  formControlName="role" placeholder="Role">
+                    <option value="" disabled>Select</option>
+                    <option
+                *ngFor="let name of advisorGroupContact"
+                [value]="name.key"
+              >
+                {{ name.display }}
+              </option>
+                  </select>
+
+
+                  <div *ngIf="grpcontact['role'].touched && grpcontact['role'].invalid" class="help-block text-danger">
+                    <div *ngIf="grpcontact['role'].errors && grpcontact['role'].errors['required']">Please select role</div>
+
+                  </div>
+                  </div>
+                  </div>
+                  <div class="col-md-4" *ngIf="ShowOthers">
+                    <div class="form-group">
+                    <label for="Corporation" class="Corporation">Others<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="roleName"
+                    placeholder="Others"
+                    formControlName="roleName"
+                  />
+                  <div *ngIf="grpcontact['roleName'].touched && grpcontact['roleName'].invalid" class="help-block text-danger">
+                    <div *ngIf="grpcontact['roleName'].errors && grpcontact['roleName'].errors['required']">please enter role.</div>
+
+                  </div>
+                  </div>
+                  </div>
+                  <div class="col-md-12 pt-2">
+                    <button [hidden]="adminform.invalid" type="submit" class="btn btn-primary">Save</button>
+
+
+                  </div>
+                </div>
+
+                </form>
+
+                <div class="row">
+                  <div class="col-md-12 mb-2">
+                    <div class="form-group">
+                    <div style="overflow: auto; direction:ltr;  width: 100%;">
+                  <table align="left" *ngIf="showaddadmin">
+                    <tr>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Phone Number</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                      <th></th>
+                    </tr>
+                    <tbody>
+
+                      <tr *ngFor="let admin of adminData; let i = index" [ngClass]="{'orange': i % 2 == 0, 'white': i % 2 != 0}">
+                        <td>{{admin.firstName}}</td>
+                        <td>{{admin.lastName}}</td>
+                        <td>{{admin.phoneNum}}</td>
+                        <td>{{admin.email}}</td>
+                        <td >
+                          <span *ngIf="admin.role=='ADVISOR_EXECUTIVE'">Executive</span>
+                          <span *ngIf="admin.role=='ADVISOR_ADMINISTRATOR'">Administrator</span>
+                          <span *ngIf="admin.role=='ADVISOR_CONTACT'">Support</span>
+                          <span *ngIf="admin.role=='ADVISOR_OTHERS'">Others</span>
+                        </td>
+
+                          <!-- <td *ngFor="let item of advisorGroupContact">
+                            <span *ngIf="admin.role=='item.key'">{{item.display}}</span>
+
+                          </td> -->
+
+                        <td style="text-align:right;display:flex">
+                          <!-- <button class="brokertablestatus"    data-bs-toggle="modal" data-bs-target="#basicModaleditgroupcontact"(click)="editadmin(admin,i)">Edit</button>&nbsp;
+                          <button class="brokertablestatus" style="color:red" (click)="deleteadmin(admin,i)">Delete</button> -->
+                          <button class="btn btn-default editpencil" data-bs-toggle="modal"
+                          data-bs-target="#basicModaleditgroupcontact"(click)="editadmin(admin,i)">
+                          <i class="bi bi-pencil-fill"></i></button>&nbsp;&nbsp;<button
+                          class="btn btn-default deleteicon" (click)="deleteadmin(admin,i)">
+                          <i class="bi bi-trash-fill"></i>
+                        </button>
+                        </td>
+                    </tr>
+
+                  </tbody>
+
+
+
+                  </table>
+                 </div>
+                </div>
+                  <button *ngIf="showaddadmin"  class="btn btn-primary addgroupadmininfo" type="button"  data-bs-toggle="modal" data-bs-target="#basicModaladdgrpcontact" (click)="hidegrpadmindetails()" >Add More</button>
+
+
+
+                </div>
+               </div>
+
+              <!-- LinceInformation -->
+
+
+              <div class="row">
+                <div class="form-group col-12 mb-2">
+                <h6 class="admintitle">License Information&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+              </div>
+              </div>
+
+              <form class="onbordingform" [formGroup]="licenseform" (ngSubmit)="addlicense()" *ngIf="showlicenseForm">
+
+                <div class="input-wrapper row">
+                  <div class="form-group col-4 mb-2">
+                    <label for="Corporation" class="Corporation">License #<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="licenseNumber"
+                    placeholder="License Number"
+                    formControlName="licenseNumber"  style="text-transform: capitalize;"/>
+
+                  <div *ngIf="f['licenseNumber'].touched && f['licenseNumber'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['required']">Please enter license number</div>
+                    <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['minlength']">License number must be atleast 3 characters</div>
+                    <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['maxlength']">License number must not exceed 100 characters</div>
+
+                  </div>
+
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Coverage<span style="color: red">*</span></label>
+
+                  <select
+                  class="form-control"
+                  formControlName="licenseCoverage">
+                  <option value="" disabled>Select</option>
+                  <option
+                    *ngFor="let name of licenseCoverage"
+                    [value]="name.label"
+                  >
+                    {{ name.display }}
+                  </option>
+                </select>
+
+
+                  <div *ngIf="f['licenseCoverage'].touched && f['licenseCoverage'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['licenseCoverage'].errors && f['licenseCoverage'].errors['required']">Please select license coverage</div>
+
+                  </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Province<span style="color: red">*</span></label>
+
+                    <select
+                    class="form-control"
+                    id="state"
+                    placeholder="state"
+                    formControlName="state"
+                    (change)="insuranceprovincelist($event)">
+                    <option value="" disabled>Select</option>
+
+                    <option
+                      *ngFor="let name of configprovinceres"
+                      [value]="name.shortName"
+                    >
+                      {{ name.shortName }}
+                    </option>
+                  </select>
+
+
+                  <div *ngIf="f['state'].touched && f['state'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['state'].errors && f['state'].errors['required']">Please select province</div>
+
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Expiry Date<span style="color: red">*</span></label>
+
+
+                     <input type="text"
+                  placeholder="Expiry Date"
+                  class="form-control"
+                  [min]="minDate"
+                  formControlName="expiryDate"   (keypress)="dateExpression($event)"
+                  bsDatepicker
+                  [minDate] ="todayDate"
+                  [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                  <div *ngIf="f['expiryDate'].touched && f['expiryDate'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['expiryDate'].errors && f['expiryDate'].errors['required']">Please select expiry date</div>
+
+
+
+                  </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Reminder Days<span style="color: red">*</span></label>
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="remainder_days"  value="30"
+                    placeholder="Reminder Days" (keypress)="numberOnly($event)"
+                    formControlName="remainder_days"  style="text-transform: capitalize;"/>
+
+
+                  <div *ngIf="f['remainder_days'].touched && f['remainder_days'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['remainder_days'].errors && f['remainder_days'].errors['required']">Please enter reminder email days</div>
+
+                  </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <button  type="submit" [hidden]="licenseform.invalid" class="btn btn-primary">Save</button>
+
+
+                  </div>
+                </div>
+
+                </form>
+                <!-- lincenseInfo Table -->
+              <div class="row" *ngIf="!showlicenseForm">
+                <div class="form-group col-12 mb-2">
+
+                  <div style="direction:ltr;  width: 100%;">
+                    <div class="row">
+                      <div class="form-group col-12 mb-2">
+                <table align="left">
+                  <tr>
+                    <th>License #</th>
+                    <th>Coverage</th>
+                    <th>Province</th>
+                    <th>Expiry Date</th>
+                    <th>Reminder Days</th>
+                    <th></th>
+                  </tr>
+                  <tbody>
+
+                    <tr *ngFor="let broker of brokerLicensedStatesAndProvinces; let i = index" [ngClass]="{'orange': i % 2 == 0, 'white': i % 2 != 0}">
+
+                      <td>
+                      <input type="text" class="form-control checking-field" id="licenseNumber"  [(ngModel)]="broker.licenseNumber"  [ngModelOptions]="{standalone: true}" [disabled]="isEditable|| enableEditIndex != i"/>
+                    </td>
+                      <td>
+                        <select
+                        class="form-control"
+                        id="licenseCoverage"
+                        placeholder="Select"
+                      [(ngModel)]="broker.licenseCoverage" [ngModelOptions]="{standalone: true}" [disabled]="isEditable|| enableEditIndex != i">
+                        <option value="">Select</option>
+
+                        <option
+                          *ngFor="let name of licenseCoverage"
+                          [value]="name.label"
+                        >
+                          {{ name.display }}
+                        </option>
+                      </select></td>
+                      <td>
+                        <select
+                        class="form-control"
+                        id="province"
+                        placeholder="Select" (change)="insuranceprovincelist($event)"
+                      [(ngModel)]="broker.stateFullDetails.shortName" [ngModelOptions]="{standalone: true}" [disabled]="isEditable|| enableEditIndex != i">
+                        <option value="">Select</option>
+                        <option
+                          *ngFor="let name of configprovinceres"
+                          [value]="name.shortName"
+                        >
+                          {{ name.shortName }}
+                        </option>
+                      </select>
+                    </td>
+                      <td>
+                        <input type="text"
+                        placeholder="Expiry Date"
+                        class="form-control"
+
+                        [(ngModel)]="broker.expiryDate"  [minDate] ="todayDate"[ngModelOptions]="{standalone: true}" [disabled]="isEditable || enableEditIndex != i"
+                        bsDatepicker
+                        [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"></td>
+                      <td>
+                        <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="remainder_days"
+                    placeholder="Reminder Days" (keypress)="numberOnly($event)" [(ngModel)]="broker.reminderEmail" [ngModelOptions]="{standalone: true}"  style="text-transform: capitalize;" [disabled]="isEditable || enableEditIndex != i"/></td>
+                      <td style="display: flex;margin-top:10px;">
+
+                        <button class="btn btn-default editpencil" data-bs-toggle="modal"
+                        data-bs-target="#basicModaledit" (click)="editadvisorlicenseDetails($event, i,broker)" *ngIf="enableEditIndex != i">
+                        <i class="bi bi-pencil-fill"></i></button>&nbsp;&nbsp;<button
+                        class="btn btn-default deleteicon" (click)="deletelicense(broker,i)" *ngIf="enableEditIndex != i">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+
+                        <!-- <button class="brokertablestatus"  data-bs-toggle="modal" data-bs-target="#basicModaledit" (click)="editadvisorlicenseDetails($event, i,broker)" *ngIf="enableEditIndex != i">Edit</button>&nbsp;
+                        <button class="brokertablestatus" style="color:red" (click)="deletelicense(broker,i)" *ngIf="enableEditIndex != i">Delete</button> -->
+                        <button class="brokertablestatus" style="color:green" *ngIf="!isEditable && enableEditIndex == i" (click)="saveLicense(broker,i)">Save</button>&nbsp;
+                        <button class="brokertablestatus" style="color:red" *ngIf="!isEditable && enableEditIndex == i" (click)="cancellicneseEdit($event, i)">Cancel</button>
+
+                     </td>
+
+                      <!-- <td style="text-align:right"><button class="btn btn-default editpencil" data-bs-toggle="modal" data-bs-target="#basicModaledit"(click)="editbrokerlicense(broker,i)"><i class="bi bi-pencil-fill"></i></button>&nbsp;&nbsp;<button class="btn btn-default deleteicon" (click)="deletebrokerlicense(i)"><i class="bi bi-trash-fill"></i></button></td> -->
+                  </tr>
+
+                </tbody>
+
+
+
+                </table>
+                </div>
+                </div>
+                <button class="btn btn-primary addgroupadmininfo" type="button"  data-bs-toggle="modal" data-bs-target="#basicModal1" (click)="addnewlicense()" >Add More</button>
+
+                </div>
+              </div>
+
+             </div>
+
+              <!-- E&O Information -->
+             <div class="row">
+              <div class="form-group col-12">
+              <h6 class="admintitle">E&O Information&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+            </div>
+            </div>
+
+
+              <form class="onbordingform" [formGroup]="eoform" (ngSubmit)="addeo()" *ngIf="showEOForm">
+
+              <div class="input-wrapper row">
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Insurer Name</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="InsuranceName"
+                  placeholder="Insurer Name"
+                  formControlName="insurerName"  style="text-transform: capitalize;"/>
+
+                <div *ngIf="eo['insurerName'].touched && eo['insurerName'].invalid" class="help-block text-danger">
+                  <div *ngIf="eo['insurerName'].errors && eo['insurerName'].errors['required']">Please enter Insurance name</div>
+                  <div *ngIf="eo['insurerName'].errors && eo['insurerName'].errors['minlength']">Insurer name must be atleast 3 characters</div>
+                  <div *ngIf="eo['insurerName'].errors && eo['insurerName'].errors['maxlength']">Insurer name must not exceed 100 characters</div>
+                </div>
+
+                </div>
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Certificate #</label>
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="certificatename"
+                  placeholder="Certificate Name"
+                  formControlName="certificateNumber"/>
+
+
+                <div *ngIf="eo['certificateNumber'].touched && eo['certificateNumber'].invalid" class="help-block text-danger">
+                  <div *ngIf="eo['certificateNumber'].errors && eo['certificateNumber'].errors['required']">Please enter Certificate Name</div>
+
+                </div>
+                </div>
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Policy #</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="PolicyNumber"
+                  placeholder="Policy Number"
+                  formControlName="policyNumber"/>
+
+
+                <div *ngIf="eo['policyNumber'].touched && eo['policyNumber'].invalid" class="help-block text-danger">
+                  <div *ngIf="eo['policyNumber'].errors && eo['policyNumber'].errors['required']">Please enter Policy Number</div>
+
+                </div>
+                </div>
+
+              </div>
+              <div class="input-wrapper row">
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Expiry Date</label>
+
+                  <input type="text"
+                  placeholder="Expiry Date"
+                  class="form-control"
+                  formControlName="expiryDate"
+                  [minDate] ="todayDate"
+                  bsDatepicker
+                  [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                  <div *ngIf="eo['expiryDate'].touched && eo['expiryDate'].invalid" class="help-block text-danger">
+                    <div *ngIf="eo['expiryDate'].errors && eo['expiryDate'].errors['required']">Please select expiry date</div>
+
+
+
+                  </div>
+
+                </div>
+                <div class="form-group col-4">
+                  <!-- <button  type="submit" [hidden]="licenseform.invalid" class="btn btn-primary">Save</button> -->
+
+
+                </div>
+                <div class="form-group col-4">
+                  <button  type="submit" [hidden]="eoform.invalid" class="btn btn-primary">Save</button>
+
+
+                </div>
+
+              </div>
+              </form>
+
+            <div class="row" *ngIf="!showEOForm">
+              <div class="form-group col-12 mb-2">
+
+                <div style="overflow: auto; direction:ltr;  width: 100%;">
+
+              <table align="left">
+                <tr>
+                  <th>Insurer Name</th>
+                  <th>Certificate #</th>
+                  <th>Policy #</th>
+                  <th>Expiry Date</th>
+
+                  <th></th>
+                </tr>
+                <tbody>
+
+                  <tr *ngFor="let broker of brokerEOinformation; let i = index" [ngClass]="{'orange': i % 2 == 0, 'white': i % 2 != 0}">
+
+                    <td>
+                    <input type="text" class="form-control checking-field"    id="insurerName"  [(ngModel)]="broker.insurerName"  [ngModelOptions]="{standalone: true}"  [disabled]="isEditableEO || enableEditIndexEO != i"/>
+                  </td>
+                  <td>
+                    <input type="text"
+                    class="form-control"
+                    id="certificateNumber"
+                    placeholder="Select" [disabled]="isEditableEO || enableEditIndexEO != i"
+                  [(ngModel)]="broker.certificateNumber" [ngModelOptions]="{standalone: true}" >
+
+                </td>
+                    <td>
+                      <input type="text"
+                      class="form-control"
+                      id="policyNumber"
+                      placeholder="Select" [disabled]="isEditableEO || enableEditIndexEO != i"
+                      [(ngModel)]="broker.policyNumber" [ngModelOptions]="{standalone: true}" >
+                     </td>
+
+                    <td>
+                      <input type="text"
+                      placeholder="Expiry Date"
+                      class="form-control" [disabled]="isEditableEO || enableEditIndexEO != i"
+
+                      [(ngModel)]="broker.expiryDate" [minDate] ="todayDate" [ngModelOptions]="{standalone: true}"
+                      bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }" ></td>
+
+                    <td style="display: flex;margin-top:10px;">
+
+                      <button class="btn btn-default editpencil" data-bs-toggle="modal" data-bs-target="#basicModaleditEO"
+                      (click)="editadvisorEODetails($event,i,broker)" *ngIf="enableEditIndexEO != i">
+                      <i class="bi bi-pencil-fill"></i></button>&nbsp;&nbsp;<button
+                      class="btn btn-default deleteicon" (click)="deleteEO(broker,i)" *ngIf="enableEditIndexEO != i">
+                      <i class="bi bi-trash-fill"></i>
+                    </button>
+
+                      <!-- <button class="brokertablestatus" data-bs-toggle="modal" data-bs-target="#basicModaleditEO" (click)="editadvisorEODetails($event,i,broker)" *ngIf="enableEditIndexEO != i">Edit</button>&nbsp;
+                      <button class="brokertablestatus" style="color:red" (click)="deleteEO(broker,i)" *ngIf="enableEditIndexEO != i">Delete</button> -->
+                      <button class="brokertablestatus" style="color:green" *ngIf="!isEditableEO && enableEditIndexEO == i" (click)="saveEOInfo(broker,i)">Save</button>&nbsp;
+                      <button class="brokertablestatus" style="color:red" *ngIf="!isEditableEO && enableEditIndexEO == i" (click)="cancelEOEdit($event, i)">Cancel</button>
+                   </td>
+
+                    <!-- <td style="text-align:right"><button class="btn btn-default editpencil" data-bs-toggle="modal" data-bs-target="#basicModaledit"(click)="editbrokerlicense(broker,i)"><i class="bi bi-pencil-fill"></i></button>&nbsp;&nbsp;<button class="btn btn-default deleteicon" (click)="deletebrokerlicense(i)"><i class="bi bi-trash-fill"></i></button></td> -->
+                </tr>
+
+              </tbody>
+              </table>
+
+              <!-- <label  class="addgroupadmininfo" data-bs-toggle="modal" data-bs-target="#basicModal1" ><strong>Add More</strong></label> -->
+              <button *ngIf="addlicenseformtable"  class="btn btn-primary addgroupadmininfo" type="button"  data-bs-toggle="modal" data-bs-target="#basicModal1" (click)="hidegrpadmindetails()" >Add More</button>
+
+              </div>
+            </div>
+           </div>
+
+              <!-- <div class="input-wrapper row">
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Insurance Name<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="InsuranceName"
+                  placeholder="Name"
+                  formControlName="InsuranceName"  style="text-transform: capitalize;"/>
+
+                <div *ngIf="broker['InsuranceName'].touched && broker['InsuranceName'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['InsuranceName'].errors && broker['InsuranceName'].errors['required']">Please enter Insurance name</div>
+                </div>
+
+                </div>
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Policy #<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="PolicyNumber"
+                  placeholder="Policy Number"
+                  formControlName="policyNumber"/>
+
+
+                <div *ngIf="broker['policyNumber'].touched && broker['policyNumber'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['policyNumber'].errors && broker['policyNumber'].errors['required']">Please enter Policy Number</div>
+
+                </div>
+                </div>
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Certificate #<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="certificatename"
+                  placeholder="Certificate Name"
+                  formControlName="certificateName"/>
+
+
+                <div *ngIf="broker['certificateName'].touched && broker['certificateName'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['certificateName'].errors && broker['certificateName'].errors['required']">Please select Certificate Name</div>
+
+                </div>
+                </div>
+              </div>
+              <div class="input-wrapper row">
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Expiry Date<span style="color: red">*</span></label>
+
+                  <input type="text"
+                  placeholder="Expiry Date"
+                  class="form-control"
+
+                  formControlName="Insuranceexpiry"
+                  bsDatepicker
+                  [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                  <div *ngIf="broker['Insuranceexpiry'].touched && broker['Insuranceexpiry'].invalid" class="help-block text-danger">
+                    <div *ngIf="broker['Insuranceexpiry'].errors && broker['Insuranceexpiry'].errors['required']">Please select expiry date</div>
+
+
+
+                  </div>
+
+                </div>
+
+              </div> -->
+
+                <!-- <div class="row">
+                  <div class="form-group col-3">
+              <h6 class="admintitle">Use Parent Logo?&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+                <div class="form-check form-check-inline">
+                  <input  type="radio" name="parentlogo" id="parentlogoyes" value=true formControlName="parentlogo" (change)="checkParentlogo($event)">
+                  <label  for="parentlogoyes" class="parentlogo">&nbsp;&nbsp;Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input  type="radio" name="parentlogo" id="parentlogono" value=false formControlName="parentlogo" (change)="checkParentlogo($event)">
+                  <label  for="parentlogono" class="parentlogo">&nbsp;&nbsp;No</label>
+                </div>
+
+
+                <div *ngIf="broker['parentlogo'].touched && broker['parentlogo'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['parentlogo'].errors && broker['parentlogo'].errors['required']">Please select parentlogo configuration</div>
+
+                </div>
+                <div class="clearfix"></div>
+                </div>
+                <div class="form-group col-3"  *ngIf="showparentlogocondition">
+                  <h6 class="admintitle">Logo&nbsp;&nbsp;<i class="bi bi-info-circle"></i>
+                    </h6>
+
+                    <div class="uploadCorporateLogo">
+
+                      <label for="adminlogo" class="adminlogo">
+                      <span *ngIf="showimagelogo">
+                       <p style="font-size:12px;"> Click to upload
+                        <br>
+                         LOGO
+                        <br>
+                        Max. 300x100 px .png,.jpg </p>
+                      </span>
+                        <img [src]="imagedisplay" style="max-height: 50px">
+                      </label>
+                      <input id="adminlogo" type="file" accept="image/*" style="display: none;" formControlName="logo" (change)="uploadadminlogo($event)">
+
+                    </div>
+
+
+
+                </div>
+                <div class="form-group col-3">
+                  <h6 class="admintitle">Use Parent Disclosure?&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+                    <div class="form-check form-check-inline">
+                      <input  type="radio" name="parentdisclosure" id="parentdisclosureyes" value=true formControlName="parentdisclosure" (change)="checkParentdisclosure($event)">
+                      <label  for="parentdisclosureyes" class="parentlogo">&nbsp;&nbsp;Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input  type="radio" name="parentdisclosure" id="parentdisclosureno" value=false formControlName="parentdisclosure" (change)="checkParentdisclosure($event)">
+                      <label  for="parentdisclosureno" class="parentlogo">&nbsp;&nbsp;No</label>
+                    </div>
+
+
+                    <div *ngIf="broker['parentdisclosure'].touched && broker['parentdisclosure'].invalid" class="help-block text-danger">
+                      <div *ngIf="broker['parentdisclosure'].errors && broker['parentdisclosure'].errors['required']">Please select parentdisclosure</div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                    </div>
+                <div class="form-group col-3" *ngIf="showparentdisclosurecondition">
+                  <h6 class="admintitle">Disclosure Agreement&nbsp;&nbsp;<i class="bi bi-info-circle"></i>
+                    </h6>
+
+                    <div class="uploadCorporateLogo">
+
+                      <label for="Disclosure" class="Disclosure">
+                      <span *ngIf="showdisclosureaggrement">
+                       <p style="font-size:12px;"> Click to upload
+                        <br>
+                        Disclosure Agreement
+                    </p>
+                      </span>
+                        <img [src]="imagedisplaypdf" style="max-height: 50px">
+                      </label>
+                      <input id="Disclosure" type="file"  style="display: none;" formControlName="disclosureAgreement" (change)="uploadadmindisclosure($event)">
+
+                    </div>
+                    <div *ngIf="broker['disclosureAgreement'].touched && broker['disclosureAgreement'].invalid" class="help-block text-danger">
+                      <div *ngIf="broker['disclosureAgreement'].errors && broker['disclosureAgreement'].errors['required']">Please upload disclosureAgreement</div>
+
+                    </div>
+                </div>
+                </div> -->
+
+              <div class="row">
+
+                <div class="form-group col-12">
+                  <!-- <h6 class="admintitle">Do you want to Create Signup Form?&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6> -->
+
+                  <h6 class="admintitle">Signup Form Information&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+                    <!-- <div class="form-check form-check-inline">
+                      <input  type="radio" name="signupForm" id="signupFormyes" value=true formControlName="signupForm" (change)="signupFormCheck($event)" >
+                      <label  for="signupFormyes" class="signupForm">&nbsp;&nbsp;Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input  type="radio" name="signupForm" id="parentlogono" value=false formControlName="signupForm" (change)="signupFormCheck($event)">
+                      <label  for="signupForm" class="signupForm">&nbsp;&nbsp;No</label>
+                    </div>
+                    <div *ngIf="broker['signupForm'].touched && broker['signupForm'].invalid" class="help-block text-danger">
+                      <div *ngIf="broker['signupForm'].errors && broker['signupForm'].errors['required']">Please select signupForm configuration</div>
+
+                    </div> -->
+                    </div>
+
+              </div>
+
+              <div class="row">
+                <div class="form-group col-12">
+
+                <div style="direction:ltr;  width: 100%;">
+                  <div class="row">
+                    <div class="form-group col-12 mb-2">
+                  <table align="left" *ngIf="showFormsDetails">
+                    <tr>
+
+                      <th>Type</th>
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>Logo</th>
+                      <th>Link</th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                    <tbody>
+
+                      <tr *ngFor="let broker of brokerFormData; let i = index" [ngClass]="{'orange': i % 2 == 0, 'white': i % 2 != 0}">
+
+                        <td>
+                          <select
+                          class="form-control"
+                          id="Signupformtype"
+                          placeholder="Select" [(ngModel)]="broker.formType" [ngModelOptions]="{standalone: true}" [disabled]="isEditableForm|| enableEditIndexForm != i"
+                        (change)="selectFormname($event)">
+
+                          <option value="">Select</option>
+                          <option
+                            *ngFor="let name of formType"
+                            [value]="name.label">
+                            {{ name.display }}
+                          </option>
+                        </select>
+                  </td>
+                        <td>
+                          <input
+                          type="text"
+                          class="form-control checking-field"
+                          id="FormName"
+                          placeholder="formName"  [(ngModel)]="broker.name" [ngModelOptions]="{standalone: true}"  style="text-transform: capitalize;" [disabled]="isEditableForm || enableEditIndexForm != i"/>
+                      </td>
+                        <td>
+                          <input
+                          type="text"
+                          class="form-control checking-field"
+                          id="Description"
+                          placeholder="Description"  [(ngModel)]="broker.description" [ngModelOptions]="{standalone: true}"  style="text-transform: capitalize;" [disabled]="isEditableForm || enableEditIndexForm != i"/>
+                      </td>
+                      <td>
+                        <img [src]="broker.logo" style="max-height: 50px">
+
+                        <!-- <input
+                        type="file"
+                        class="form-control checking-field"
+                        id="file"
+                        placeholder="file"  [(ngModel)]="broker.logo" [ngModelOptions]="{standalone: true}"  style="text-transform: capitalize;" [disabled]="isEditableForm || enableEditIndexForm != i"/> -->
+                    </td>
+                    <td>
+                      <input type="text" class="form-control1" value={{broker.link}} #inputTarget />
+
+                    </td>
+                    <td><button class="copyButton" (click)="copylink()" [ngxClipboard]="inputTarget">Copy</button></td>
+
+                        <td style="display: flex;margin-top:10px;">
+
+                          <button class="btn btn-default editpencil" data-bs-toggle="modal"
+                          data-bs-target="#basicModalFormedit" (click)="editadvisorformDetails($event, i,broker)"
+                           *ngIf="enableEditIndexForm != i">
+                          <i class="bi bi-pencil-fill"></i></button>&nbsp;&nbsp;<button
+                          class="btn btn-default deleteicon"  (click)="deleteForm(broker,i)" *ngIf="enableEditIndexForm != i">
+                          <i class="bi bi-trash-fill"></i>
+                        </button>
+
+                          <!-- <button class="brokertablestatus" data-bs-toggle="modal" data-bs-target="#basicModalFormedit" (click)="editadvisorformDetails($event, i,broker)" *ngIf="enableEditIndexForm != i">Edit</button>&nbsp;
+                          <button class="brokertablestatus" style="color:red" (click)="deleteForm(broker,i)" *ngIf="enableEditIndexForm != i">Delete</button> -->
+                          <button class="brokertablestatus" style="color:green" *ngIf="!isEditableForm && enableEditIndexForm == i" (click)="saveForm(broker,i)">Save</button>&nbsp;
+                          <button class="brokertablestatus" style="color:red" *ngIf="!isEditableForm && enableEditIndexForm == i" (click)="cancelFormEdit($event, i)">Cancel</button>
+
+                       </td>
+
+                      </tr>
+
+                  </tbody>
+
+                  </table>
+                  </div>
+                  </div>
+
+                <button *ngIf="showFormsDetails"  class="btn btn-primary addgroupadmininfo" type="button"  data-bs-toggle="modal" data-bs-target="#addFormDetails"  (click)="addextraform()" >Add More</button>
+                </div>
+
+              </div>
+             </div>
+             <form class="onbordingform" [formGroup]="formCreation" (ngSubmit)="addform()" *ngIf="showaddform">
+              <div class="input-wrapper row" >
+              <div class="form-group col-4">
+                <label for="Corporation" class="Corporation">Form Type<span style="color: red">*</span></label>
+                <select
+                class="form-control"
+                id="Signupformtype"
+                placeholder="Select"
+                formControlName="Signupformtype" (change)="selectFormname($event)">
+                <option value="">Select</option>
+
+                <option
+                  *ngFor="let name of formType"
+                  [value]="name.label"
+                >
+                  {{ name.display }}
+                </option>
+              </select>
+
+
+
+              </div>
+              <div class="form-group col-4">
+                <label for="Corporation" class="Corporation">Type<span style="color: red">*</span></label>
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="formName"
+                placeholder="Name" [(ngModel)]="formTitle"
+                formControlName="formName"  style="text-transform: capitalize;"/>
+
+
+              </div>
+              <div class="form-group col-4">
+                <label for="Corporation" class="Corporation">Title<span style="color: red">*</span></label>
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="formDescription"
+                placeholder="Description" [(ngModel)]="formDescription"
+                formControlName="formDescription"  style="text-transform: capitalize;"/>
+
+
+              </div>
+              </div>
+              <div class="input-wrapper row" >
+                  <div class="form-group col-4"  *ngIf="customForm">
+                  <label for="Corporation" class="Corporation">Select Products<span style="color: red">*</span></label>
+
+                  <ng-multiselect-dropdown
+                  [placeholder]="'custom placeholder'"
+                  class="form-control checking-field"
+                  [settings]="dropdownSettings"
+                  [data]="productsArray"
+                  [(ngModel)]="selectedItems"
+                  (onSelect)="onItemSelect($event)"
+                  (onSelectAll)="onSelectAll($event)"
+                >
+                </ng-multiselect-dropdown>
+                </div>
+
+
+                <div class="form-group col-4">
+                  <label for="Corporation" class="Corporation">Logo</label>
+                  <input
+                  type="file"
+                  class="form-control checking-field"
+                  id="formlogo"
+                  placeholder="logog"
+                  formControlName="formlogo" />
+
+
+                </div>
+
+              </div>
+
+
+              <div class="row">
+                <div class="form-group col-8"></div>
+                <div class="form-group col-4">
+                  <button  type="submit" [hidden]="formCreation.invalid" class="btn btn-primary">Save</button>
+                  </div>
+              </div>
+
+              </form>
+              </form>
+
+
+<br>
+<br>
+
+
+              <div class="row">
+                <div class=" text-white text-left">
+                  <button class="btn btn-primary" id="backbuttonForm" type="button" (click)="gotoadvsiorpage()" style="float:left"><i aria-hidden="true" class="fa fa-long-arrow-left" ></i>&nbsp;&nbsp;Previous</button>
+
+                </div>
+                <div class=" text-white text-right">
+                  <!-- <button class="btn btn-primary" type="button" > Save & Next&nbsp;&nbsp;<i aria-hidden="true" class="fa fa-long-arrow-right" ></i></button> -->
+
+                  <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitbasicInfo()"> Save&nbsp;&nbsp;<i aria-hidden="true" class="fa fa-long-arrow-right" ></i></button>
+                </div>
+              </div>
+
+        </div>
+
+     </div>
+
+    </div>
+    <div class="col-sm-2 actionspage">
+      <div class="row">
+        <div class="form-group col-12">
+    <h6 class="actionsrequired">Welcome {{adminName |titlecase}}</h6>
+      </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  </main>
+
+ <!-- Edit Group Contact -->
+
+ <div class="modal fade" id="basicModaleditgroupcontact" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h6 class="modal-title">Edit Group Contact</h6>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="onbordingform" [formGroup]="adminform" (ngSubmit)="addadmin()">
+
+            <div class="input-wrapper row">
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">First Name<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="firstName"
+                placeholder="First Name"
+                formControlName="firstName"
+
+              />
+
+              <div *ngIf="grpcontact['firstName'].touched && grpcontact['firstName'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['required']">Please enter first name</div>
+                <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['minlength']">First name should be 3 characters</div>
+                <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['maxlength']">First name must not exceed 20 characters</div>
+              </div>
+
+              </div>
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Last Name<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="lastName"
+                placeholder="Last Name"
+                formControlName="lastName"
+
+
+              />
+
+
+              <div *ngIf="grpcontact['lastName'].touched && grpcontact['lastName'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['required']">Please enter Last name</div>
+                <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['minlength']">Last name should be 3 characters</div>
+                <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['maxlength']">Last name must not exceed 20 characters</div>
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Phone Number<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="phoneNum"
+                placeholder="Phone" (change)="phoneFormatForGroupCont(adminform,'phoneNum')"
+                formControlName="phoneNum"
+
+              />
+
+
+              <div *ngIf="grpcontact['phoneNum'].touched && grpcontact['phoneNum'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['required']">Please enter Phone number</div>
+                <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['minlength']">Phone number minimum of 10 digits</div>
+                <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['maxlength']">Phone number maximum of 10 digits</div>
+              </div>
+              </div>
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="email"
+                placeholder="Email"   disabled
+                formControlName="email"
+
+              />
+              <div *ngIf="grpcontact['email'].touched && grpcontact['email'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['email'].errors && grpcontact['email'].errors['required']">Please enter email</div>
+                <div *ngIf="grpcontact['email'].errors && grpcontact['email'].errors['pattern']">Please enter valid email</div>
+
+
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Role<span style="color: red">*</span></label>
+
+
+              <select (change)="groupContactChange($event)" class="form-control"  id="lengthofService"  formControlName="role" name="adminrole" >
+                <option value="" disabled>Select</option>
+                <option
+            *ngFor="let name of advisorGroupContact"
+            [value]="name.key" >
+            {{ name.display }}
+          </option>
+              </select>
+              <div *ngIf="grpcontact['role'].touched && grpcontact['role'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['role'].errors && grpcontact['role'].errors['required']">Please select role</div>
+
+              </div>
+              </div>
+              <div class="form-group col-6" *ngIf="ShowOthers">
+                <!-- <div> -->
+                <label for="Corporation" class="Corporation">Others<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="roleName"
+                placeholder="Others"
+                formControlName="roleName"
+              />
+              <div *ngIf="grpcontact['roleName'].touched&& grpcontact['roleName'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['roleName'].errors && grpcontact['roleName'].errors['required']">please enter role.</div>
+
+              <!-- </div> -->
+              </div>
+              </div>
+
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="hidegrpadmindetails()">Close</button>
+           <button type="button" class="btn btn-primary"  (click)="editadminSubmit(adminform)">Save</button></div>
+     </div>
+  </div>
+</div>
+
+<!-- add group contact -->
+
+<div class="modal fade" id="basicModaladdgrpcontact" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h6 class="modal-title">Add Group Contact</h6>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="onbordingform" [formGroup]="adminform" (ngSubmit)="addadmin()">
+
+            <div class="input-wrapper row">
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">First Name<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="firstName"
+                placeholder="First Name"
+                formControlName="firstName"
+              />
+
+              <div *ngIf="grpcontact['firstName'].touched && grpcontact['firstName'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['required']">Please enter first name</div>
+                <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['minlength']">First name should be 3 characters</div>
+                <div *ngIf="grpcontact['firstName'].errors && grpcontact['firstName'].errors['maxlength']">First name must not exceed 20 characters</div>
+              </div>
+              <!-- <div *ngIf="submittedadmin && grpcontact['firstName'].errors" class="invalid-feedback">
+                <div *ngIf="grpcontact['firstName'].errors['required']">First Name is required</div>
+                <div *ngIf="grpcontact['firstName'].errors['minlength']">
+                  First Name must be at least 3 characters
+                </div>
+                <div *ngIf="grpcontact['firstName'].errors['maxlength']">
+                  First Name must not exceed 20 characters
+                </div>
+              </div> -->
+              </div>
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Last Name<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="lastName"
+                placeholder="Last Name"
+                formControlName="lastName"
+              />
+
+
+              <div *ngIf="grpcontact['lastName'].touched && grpcontact['lastName'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['required']">Please enter Last name</div>
+                <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['minlength']">Last name should be 3 characters</div>
+                <div *ngIf="grpcontact['lastName'].errors && grpcontact['lastName'].errors['maxlength']">Last name must not exceed 20 characters</div>
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Phone Number<span style="color: red">*</span></label>
+
+                <input
+                 type="tel"
+                class="form-control checking-field"
+                id="phoneNum"
+                placeholder="Phone" (change)="phoneFormatForGroupCont(adminform,'phoneNum')"
+                formControlName="phoneNum"
+              />
+
+
+              <div *ngIf="grpcontact['phoneNum'].touched && grpcontact['phoneNum'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['required']">Please enter Phone number</div>
+                <!-- <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['pattern']">Please enter valid phone number</div> -->
+                <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['minlength']">Phone number minimum of 10 digits</div>
+                <div *ngIf="grpcontact['phoneNum'].errors && grpcontact['phoneNum'].errors['maxlength']">Phone number maximum of 10 digits</div>
+              </div>
+              </div>
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="email"
+                placeholder="Email"
+                formControlName="email"
+              />
+              <div *ngIf="grpcontact['email'].touched && grpcontact['email'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['email'].errors && grpcontact['email'].errors['required']">Please enter email</div>
+                <div *ngIf="grpcontact['email'].errors && grpcontact['email'].errors['pattern']">Please enter valid email</div>
+
+
+              </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-6">
+                <label for="Corporation" class="Corporation">Role<span style="color: red">*</span></label>
+              <select (change)="groupContactChange($event)" class="form-control" id="lengthofService"  formControlName="role">
+                <option value="" disabled>Select</option>
+                <option
+            *ngFor="let name of advisorGroupContact"
+            [value]="name.key"
+          >
+            {{ name.display }}
+          </option>
+
+              </select>
+              <div *ngIf="grpcontact['role'].touched && grpcontact['role'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['role'].errors && grpcontact['role'].errors['required']">Please select role</div>
+              </div>
+              </div>
+              <div class="form-group col-6" *ngIf="ShowOthers">
+                <!-- <div> -->
+                <label for="Corporation" class="Corporation">Others<span style="color: red">*</span></label>
+
+                <input
+                type="text"
+                class="form-control checking-field"
+                id="roleName"
+                placeholder="Others"
+                formControlName="roleName"
+              />
+              <div *ngIf="grpcontact['roleName'].touched&&grpcontact['roleName'].invalid" class="help-block text-danger">
+                <div *ngIf="grpcontact['roleName'].errors && grpcontact['roleName'].errors['required']">please enter role.</div>
+
+              <!-- </div> -->
+              </div>
+              </div>
+
+            </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal"  #closemodel (click)="hidegrpadmindetails()">Close</button>
+           <button type="button" class="btn btn-primary"  [disabled]="adminform.invalid" (click)="addadmin()">Save</button></div>
+           <!-- <button class="btn btn-primary"  type="submit">Submit</button> -->
+     </div>
+  </div>
+</div>
+
+        <!-- Model For Add Broker License -->
+        <div class="modal fade" id="basicModal1" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h6 class="modal-title">Add Broker License</h6>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="onbordingform" [formGroup]="licenseform" (ngSubmit)="addlicense()">
+
+                    <div class="input-wrapper row">
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">License #<span style="color: red">*</span></label>
+
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="licenseNumber"
+                        placeholder="License Number"
+                        formControlName="licenseNumber"  style="text-transform: capitalize;"/>
+
+                      <div *ngIf="f['licenseNumber'].touched && f['licenseNumber'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['required']">Please enter license number</div>
+                        <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['minlength']">License number must be atleast 3 characters</div>
+                        <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['maxlength']">License number must not exceed 100 characters</div>
+
+                      </div>
+
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Coverage<span style="color: red">*</span></label>
+
+                      <select
+                      class="form-control"
+                      id="licenseCoverage"
+                      placeholder="Select"
+                      formControlName="licenseCoverage">
+                      <option value="">Select</option>
+
+                      <option
+                        *ngFor="let name of licenseCoverage"
+                        [value]="name.label"
+                      >
+                        {{ name.display }}
+                      </option>
+                    </select>
+
+                      <div *ngIf="f['licenseCoverage'].touched && f['licenseCoverage'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['licenseCoverage'].errors && f['licenseCoverage'].errors['required']">Please select license Coverage</div>
+
+                      </div>
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Province<span style="color: red">*</span></label>
+
+                        <select
+                        class="form-control"
+                        id="Province"
+                        placeholder="Select"
+                        formControlName="state"
+                        (change)="insuranceprovincelist($event)">
+                        <option value="">Select</option>
+
+                        <option
+                          *ngFor="let name of configprovinceres"
+                          [value]="name.shortName"
+                        >
+                          {{ name.shortName }}
+                        </option>
+                      </select>
+
+
+                      <div *ngIf="f['state'].touched && f['state'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['state'].errors && f['state'].errors['required']">Please select state</div>
+
+                      </div>
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Expiry Date<span style="color: red">*</span></label>
+
+
+                         <input type="text"
+                      placeholder="Expiry Date"
+                      class="form-control"
+
+                      formControlName="expiryDate"
+                      [minDate] ="todayDate"
+                      bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                      <div *ngIf="f['expiryDate'].touched && f['expiryDate'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['expiryDate'].errors && f['expiryDate'].errors['required']">Please select expiry date</div>
+
+
+
+                      </div>
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Reminder Days<span style="color: red">*</span></label>
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="remainder_days"
+                        placeholder="Reminder Days" (keypress)="numberOnly($event)"
+                        formControlName="remainder_days"  style="text-transform: capitalize;"/>
+
+
+                      <div *ngIf="f['remainder_days'].touched && f['remainder_days'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['remainder_days'].errors && f['remainder_days'].errors['required']">Please enter reminder days</div>
+
+                      </div>
+                      </div>
+
+                    </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal"  #closemodel (click)="hideaddlicenseform()">Close</button>
+                   <button type="button" class="btn btn-primary"  [disabled]="licenseform.invalid" (click)="addlicense()">Save</button></div>
+                   <!-- <button class="btn btn-primary"  type="submit">Submit</button> -->
+             </div>
+          </div>
+        </div>
+
+
+         <!-- Model For Edit broker  license -->
+        <div class="modal fade" id="basicModaledit" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h6 class="modal-title">Edit License</h6>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="onbordingform" [formGroup]="licenseform" (ngSubmit)="addlicense()">
+
+                    <div class="input-wrapper row">
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">License #<span style="color: red">*</span></label>
+
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="licenseNumber"
+                        placeholder="Number"
+                        formControlName="licenseNumber" [(ngModel)]="editbrokerlicensenumber" style="text-transform: capitalize;"/>
+
+                      <div *ngIf="f['licenseNumber'].touched && f['licenseNumber'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['required']">Please enter license number</div>
+                        <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['minlength']">License number must be atleast 3 characters</div>
+                        <div *ngIf="f['licenseNumber'].errors && f['licenseNumber'].errors['maxlength']">License number must not exceed 100 characters</div>
+
+                      </div>
+
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Coverage<span style="color: red">*</span></label>
+
+                      <select
+                      class="form-control"
+                      id="licenseCoverage"
+                      placeholder="Select"
+                      formControlName="licenseCoverage" [(ngModel)]="editbrokerlicensecoverage">
+                      <option value="" disabled>Select</option>
+
+                      <option
+                        *ngFor="let name of licenseCoverage"
+                        [value]="name.label"
+                      >
+                        {{ name.display }}
+                      </option>
+                    </select>
+
+                      <div *ngIf="f['licenseCoverage'].touched && f['licenseCoverage'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['licenseCoverage'].errors && f['licenseCoverage'].errors['required']">Please select license Coverage</div>
+
+                      </div>
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Province<span style="color: red">*</span></label>
+
+                        <select
+                        class="form-control"
+                        id="Province"
+                        placeholder="Select"
+                        formControlName="state" [(ngModel)]="editbrokerlicensestate"
+                        (change)="insuranceprovincelist($event)">
+                        <option value="" disabled>Select</option>
+
+                        <option
+                          *ngFor="let name of configprovinceres"
+                          [value]="name.shortName"
+                        >
+                          {{ name.shortName }}
+                        </option>
+                      </select>
+
+
+                      <div *ngIf="f['state'].touched && f['state'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['state'].errors && f['state'].errors['required']">Please enter State</div>
+
+                      </div>
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Expiry Date<span style="color: red">*</span></label>
+
+
+                         <input type="text"
+                      placeholder="Expiry Date"
+                      class="form-control"
+
+                      formControlName="expiryDate" [minDate] ="todayDate" [(ngModel)]="editbrokerlicenseexpirydate"
+                      bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                      <div *ngIf="f['expiryDate'].touched && f['expiryDate'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['expiryDate'].errors && f['expiryDate'].errors['required']">Please select expiry date</div>
+
+
+
+                      </div>
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Reminder Days<span style="color: red">*</span></label>
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="remainder_days"
+                        placeholder="Reminder Days" [(ngModel)]="editbrokerlicenseexpiryremainder"  (keypress)="numberOnly($event)"
+                        formControlName="remainder_days"  style="text-transform: capitalize;"/>
+
+
+                      <div *ngIf="f['remainder_days'].touched && f['remainder_days'].invalid" class="help-block text-danger">
+                        <div *ngIf="f['remainder_days'].errors && f['remainder_days'].errors['required']">Please enter reminder days</div>
+
+                      </div>
+                      </div>
+
+                    </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="hideaddlicenseform()">Close</button>
+                   <button type="button" class="btn btn-primary"  (click)="editLicenseSubmit()">Save</button></div>
+             </div>
+          </div>
+        </div>
+
+        <!-- Model For Add Form Details -->
+        <div class="modal fade" id="addFormDetails" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content" style="width:850px;margin-left:-100px">
+                <div class="modal-header">
+                   <h6 class="modal-title">Add Form</h6>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="onbordingform" [formGroup]="formCreation">
+                    <div class="input-wrapper row" >
+                    <div class="form-group col-4">
+                      <label for="Corporation" class="Corporation">Type<span style="color: red">*</span></label>
+                      <select
+                      class="form-control"
+                      id="Signupformtype"
+                      placeholder="Select"
+                      formControlName="Signupformtype" (change)="selectFormname($event)">
+
+                      <option value="" disabled>Select</option>
+                      <option
+                        *ngFor="let name of formType"
+                        [value]="name.label">
+                        {{ name.display }}
+                      </option>
+                    </select>
+
+                    <div *ngIf="form['Signupformtype'].touched && form['Signupformtype'].invalid" class="help-block text-danger">
+                      <div *ngIf="form['Signupformtype'].errors && form['Signupformtype'].errors['required']">Please select type</div>
+
+                    </div>
+
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="Corporation" class="Corporation">Title<span style="color: red">*</span></label>
+                      <input
+                      type="text"
+                      class="form-control checking-field"
+                      id="formName"
+                      placeholder="Title" [(ngModel)]="formTitle"
+                      formControlName="formName"  style="text-transform: capitalize;"/>
+
+                      <div *ngIf="form['formName'].touched && form['formName'].invalid" class="help-block text-danger">
+                        <div *ngIf="form['formName'].errors && form['formName'].errors['required']">Please enter form title</div>
+                      </div>
+
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="Corporation" class="Corporation">Description<span style="color: red">*</span></label>
+                      <input
+                      type="text"
+                      class="form-control checking-field"
+                      id="formDescription"
+                      placeholder="Description" [(ngModel)]="formDescription"
+                      formControlName="formDescription"  style="text-transform: capitalize;"/>
+
+                        <div *ngIf="form['formDescription'].touched && form['formDescription'].invalid" class="help-block text-danger">
+                        <div *ngIf="form['formDescription'].errors && form['formDescription'].errors['required']">Please enter form description</div>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="input-wrapper row" >
+                        <div class="form-group col-4"  *ngIf="customForm">
+                        <label for="Corporation" class="Corporation">Select Products<span style="color: red">*</span></label>
+                        <!-- <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="formplanLevels"
+                        placeholder="Select"
+                        formControlName="formplanLevels" /> -->
+
+                        <ng-multiselect-dropdown
+                        [placeholder]="'custom placeholder'"
+                        class="form-control checking-field"
+                        [settings]="dropdownSettings"
+                        [data]="productsArrayList"
+                        [(ngModel)]="selectedItems"
+                        (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)"
+                        (onDeSelect)="onItemDeSelect($event)"
+                        formControlName="formplanLevels"
+                      >
+                      </ng-multiselect-dropdown>
+                      <div *ngIf="form['formplanLevels'].touched && form['formplanLevels'].invalid" class="help-block text-danger">
+                        <div *ngIf="form['formplanLevels'].errors && form['formplanLevels'].errors['required']">Please enter form plan levels</div>
+                      </div>
+                      </div>
+
+
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Logo</label>
+                        <input
+                        type="file"
+                        class="form-control checking-field"
+                        id="formlogo"
+                        placeholder="logo"
+                        formControlName="formlogo"  (change)="uploadadminFormlogo($event)"/>
+
+                        <div *ngIf="form['formlogo'].touched && form['formlogo'].invalid" class="help-block text-danger">
+                          <div *ngIf="form['formlogo'].errors && form['formlogo'].errors['required']">Please choose form logo</div>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                   </form>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal"  #closemodel (click)="hideaddlicenseform()">Close</button>
+                   <button type="button" class="btn btn-primary"  [disabled]="formCreation.invalid" (click)="addform()">Save</button></div>
+                   <!-- <button class="btn btn-primary"  type="submit">Submit</button> -->
+             </div>
+          </div>
+        </div>
+
+        <!-- Model For Edit form Details -->
+        <div class="modal fade" id="basicModalFormedit" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content" style="width:850px;margin-left:-100px">
+                <div class="modal-header">
+                   <h6 class="modal-title">Edit Form Details</h6>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="onbordingform" [formGroup]="formCreation" (ngSubmit)="addform()">
+                    <div class="input-wrapper row" >
+                    <div class="form-group col-4">
+                      <label for="Corporation" class="Corporation">Type<span style="color: red">*</span></label>
+                      <select
+                      class="form-control"
+                      id="Signupformtype"
+                      placeholder="Select" [(ngModel)]="editFormType"
+                      formControlName="Signupformtype" (change)="selectFormname($event)">
+                      <option value="" disabled>Select</option>
+
+                      <option
+                        *ngFor="let name of formType"
+                        [value]="name.label"
+                      >
+                        {{ name.display }}
+                      </option>
+                    </select>
+
+                    <div *ngIf="form['Signupformtype'].touched && form['Signupformtype'].invalid" class="help-block text-danger">
+                      <div *ngIf="form['Signupformtype'].errors && form['Signupformtype'].errors['required']">Please select type</div>
+
+                    </div>
+
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="Corporation" class="Corporation">Title<span style="color: red">*</span></label>
+                      <input
+                      type="text"
+                      class="form-control checking-field"
+                      id="formName"
+                      placeholder="Name" [(ngModel)]="editFormName"
+                      formControlName="formName"  style="text-transform: capitalize;"/>
+                      <div *ngIf="form['formName'].touched && form['formName'].invalid" class="help-block text-danger">
+                        <div *ngIf="form['formName'].errors && form['formName'].errors['required']">Please enter form title</div>
+                      </div>
+
+                    </div>
+                    <div class="form-group col-4">
+                      <label for="Corporation" class="Corporation">Description<span style="color: red">*</span></label>
+                      <input
+                      type="text"
+                      class="form-control checking-field"
+                      id="formDescription"
+                      placeholder="Description" [(ngModel)]="editFormDescription"
+                      formControlName="formDescription"  style="text-transform: capitalize;"/>
+                      <div *ngIf="form['formDescription'].touched && form['formDescription'].invalid" class="help-block text-danger">
+                        <div *ngIf="form['formDescription'].errors && form['formDescription'].errors['required']">Please enter form description</div>
+                      </div>
+
+                    </div>
+                    </div>
+                    <div class="input-wrapper row" >
+
+                      <div class="form-group col-4"  *ngIf="customForm">
+                        <label for="Corporation" class="Corporation">Select Products<span style="color: red">*</span></label>
+
+                        <ng-multiselect-dropdown
+                        [placeholder]="'custom placeholder'"
+                        class="form-control checking-field"
+                        [settings]="dropdownSettings"
+                        [data]="productsArrayList"
+                        [(ngModel)]="selectedItems"
+                        (onSelect)="onItemSelect($event)"
+                        (onSelectAll)="onSelectAll($event)"
+                        (onDeSelect)="onItemDeSelect($event)"
+                        formControlName="formplanLevels"
+                      >
+                      </ng-multiselect-dropdown>
+                      <div *ngIf="form['formplanLevels'].touched && form['formplanLevels'].invalid" class="help-block text-danger">
+                        <div *ngIf="form['formplanLevels'].errors && form['formplanLevels'].errors['required']">Please enter form plan levels</div>
+                      </div>
+
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Logo</label>
+                        <!-- <input
+                        type="file"
+                        class="form-control checking-field"
+                        id="formlogo"
+                        placeholder="logog" [(ngModel)]="editFormlogo"
+                        formControlName="formlogo" /> -->
+
+                        <div class="uploadCorporateLogo" *ngIf="editFormlogo && editFormlogo.length>0;else showLogo">
+                          <label for="adminformlogo" class="adminformlogo">
+                            <img [src]="editFormlogo" style="max-height: 50px">
+                          </label>
+                          <input id="adminformlogo" class="form-control checking-field" style="display: none;" type="file" accept="image/*" formControlName="formlogo" (change)="uploadadminFormlogo($event)">
+
+                        </div>
+                        <ng-template #showLogo>
+                          <input id="adminformlogo" class="form-control checking-field" type="file" accept="image/*" formControlName="formlogo" (change)="uploadadminFormlogo($event)">
+
+                        </ng-template>
+                        <!-- <div class="uploadCorporateLogo" *ngIf="editFormdisplaylogo && editFormdisplaylogo.length>0;else showLogo">
+                          <label for="adminformlogo" class="adminformlogo">
+                            <img [src]="editFormdisplaylogo" style="max-height: 50px">
+                          </label>
+                          <input id="adminformlogo" class="form-control checking-field" style="display: none;" type="file" accept="image/*" formControlName="uploadadminFormlogo" (change)="uploadadminFormlogo($event)">
+
+                        </div>
+                        <ng-template #showLogo>
+                          <input id="adminformlogo" class="form-control checking-field" type="file" accept="image/*" formControlName="uploadadminFormlogo" (change)="uploadadminFormlogo($event)">
+
+                        </ng-template> -->
+
+
+                      </div>
+                      <div *ngIf="form['formlogo'].touched && form['formlogo'].invalid" class="help-block text-danger">
+                        <div *ngIf="form['formlogo'].errors && form['formlogo'].errors['required']">Please choose form logo</div>
+                      </div>
+                    </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="hideaddlicenseform()">Close</button>
+                   <button type="button" class="btn btn-primary" [disabled]="formCreation.invalid" (click)="editFormSubmit()">Save</button></div>
+             </div>
+          </div>
+        </div>
+
+
+        <!-- Model For Edit e&0 Details -->
+        <div class="modal fade" id="basicModaleditEO" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h6 class="modal-title">Edit  E&O Details</h6>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="onbordingform" [formGroup]="eoform" >
+
+                    <div class="input-wrapper row">
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Insurer Name<span style="color: red">*</span></label>
+
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="insurerName"
+                        placeholder="Number"
+                        formControlName="insurerName" [(ngModel)]="editEOinsurerName" style="text-transform: capitalize;"/>
+
+                      <div *ngIf="eo['insurerName'].touched && eo['insurerName'].invalid" class="help-block text-danger">
+                        <div *ngIf="eo['insurerName'].errors && eo['insurerName'].errors['required']">Please enter Insurer name</div>
+                        <div *ngIf="eo['insurerName'].errors && eo['insurerName'].errors['minlength']">Insurer name must be atleast 3 characters</div>
+                        <div *ngIf="eo['insurerName'].errors && eo['insurerName'].errors['maxlength']">Insurer name must not exceed 100 characters</div>
+                        <!-- <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['minlength']">Broker name must be atleast 3 characters</div>
+                        <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['maxlength']">Broker name must not exceed 30 characters</div> -->
+                      </div>
+
+                      </div>
+
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Certificate #<span style="color: red">*</span></label>
+
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="certificateNumber"
+                        placeholder="Certificate Name"
+                        formControlName="certificateNumber" [(ngModel)]="editEOcertificate" style="text-transform: capitalize;"/>
+
+                      <div *ngIf="eo['certificateNumber'].touched && eo['certificateNumber'].invalid" class="help-block text-danger">
+                        <div *ngIf="eo['certificateNumber'].errors && eo['certificateNumber'].errors['required']">Please enter Certificate number</div>
+
+                      </div>
+
+                      </div>
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Policy #<span style="color: red">*</span></label>
+
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="policyNumber"
+                        placeholder="Policy Number"
+                        formControlName="policyNumber" [(ngModel)]="editEOpolicy" style="text-transform: capitalize;"/>
+
+                      <div *ngIf="eo['policyNumber'].touched && eo['policyNumber'].invalid" class="help-block text-danger">
+                        <div *ngIf="eo['policyNumber'].errors && eo['policyNumber'].errors['required']">Please enter policy number</div>
+
+                      </div>
+
+                      </div>
+                    </div>
+                    <div class="row">
+
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Expiry Date<span style="color: red">*</span></label>
+
+
+                         <input type="text"
+                      placeholder="Expiry Date"
+                      class="form-control"
+
+                      formControlName="expiryDate" [minDate] ="todayDate" [(ngModel)]="editEOExpiryDate"
+                      bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }">
+                      <div *ngIf="eo['expiryDate'].touched && eo['expiryDate'].invalid" class="help-block text-danger">
+                        <div *ngIf="eo['expiryDate'].errors && eo['expiryDate'].errors['required']">Please select expiry date</div>
+
+
+
+                      </div>
+                      </div>
+
+
+                    </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="hideaddlicenseform()">Close</button>
+                   <button type="button" class="btn btn-primary"  (click)="editeoinfosumbit()">Save</button></div>
+             </div>
+          </div>
+        </div>
+
+        <!-- Model For Add Employee -->
+        <div class="modal fade" id="addExtraEmail" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+             <div class="modal-content">
+                <div class="modal-header">
+                   <h6 class="modal-title">Add Email</h6>
+                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form class="onbordingform" [formGroup]="eoform" >
+
+                    <div class="input-wrapper row">
+                      <div class="form-group col-4">
+                        <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+
+                        <input
+                        type="text"
+                        class="form-control checking-field"
+                        id="insurerName"
+                        placeholder="Number"
+                        formControlName="insurerName" [(ngModel)]="editEOinsurerName" style="text-transform: capitalize;"/>
+
+                      <div *ngIf="eo['insurerName'].touched && eo['insurerName'].invalid" class="help-block text-danger">
+                        <div *ngIf="eo['insurerName'].errors && eo['insurerName'].errors['required']">Please enter Insurer name</div>
+
+                      </div>
+
+                      </div>
+                    </div>
+
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="hideaddlicenseform()">Close</button>
+                   <button type="button" class="btn btn-primary"  (click)="editeoinfosumbit()">Save</button></div>
+             </div>
+          </div>
+        </div>
+
+        <footer id="footer" class="footer">
+          <div class="copyright">Version IB:3.0.0 © 2024 :
+            <a class="text-reset fw-bold" href="https://www.groupbenefitz.ca/" target="-blank"> The GroupBenefitz Platform Inc.</a></div>
+       </footer>
+       <a (click)="scrollTop()" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

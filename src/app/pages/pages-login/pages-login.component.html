@@ -1,0 +1,183 @@
+
+ <main class="backgroundstyle">
+  <div class="container">
+     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+         <form name="myForm" [formGroup]="loginform">
+           <div class="login-container shadow">
+             <div class="row">
+              <div class="offset-1 col-10 text-center">
+                <div class="form-group">
+                  <!-- <span class="d-none d-lg-block"> -->
+
+                    <!-- <img src="assets/img/logo.png" alt="" style=width:100%> -->
+
+                    <img [src]="logo" alt="" style=width:100%>
+
+                    <!-- <img src="../../../assets/img/ibms.png" alt="" style=width:100%> -->
+                  <!-- </span> -->
+
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="offset-1 col-10 py-3 text-center" id="heading"><u>Admin Portal</u></div>
+                </div>
+
+               <div class="col-12 col-md-10 offset-md-1">
+                 <div class="form-group">
+
+                  <input type="text" name="username" class="form-control shadow" id="yourUsername" formControlName="username"  placeholder="Email"  [ngClass]="{ 'is-invalid': submitted && f['username'].errors}">
+                  <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                   <div *ngIf="f['username'].errors['required']">Email is required</div>
+                   <div *ngIf="f['username'].errors && f['username'].errors['pattern']">Please enter valid email</div>
+                 </div>
+                 </div>
+               </div>
+               <div class="col-12 col-md-10 offset-md-1">
+                 <div class="form-group">
+                  <!-- <input type="password" name="password" class="form-control shadow" formControlName="password"  id="yourPassword" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors}"> -->
+                  <input name="password" [type]="showPassword" class="form-control shadow" formControlName="password"  id="yourPassword" placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors}">
+                  <i [class]="fafaEye" class="fafaEyes" (click)="togglePasswordVisibility()"></i>
+                  <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                   <div *ngIf="f['password'].errors['required']">Password is required</div>
+                   <div *ngIf="f['password'].errors['minlength']">
+                     Password must be at least 8 characters
+                   </div>
+                   <div *ngIf="f['password'].errors['maxlength']">
+                     Password must not exceed 40 characters
+                   </div>
+                 </div>
+                 </div>
+               </div>
+               <div class="col-12 col-md-10 offset-md-1">
+                <div class="form-group">
+                 <button class="btn btn-primary w-100 submitbutton" type="submit" (click)="onSubmit()">Submit</button></div>
+                 <div class="clearfix"></div>
+                </div>
+                <div class="row pt-3">
+                  <div class="col-6 col-md-4 offset-md-1">
+                    <div class="form-group">
+                    <p class="small mb-0" style="text-align:left;cursor:pointer" (click)="forgotpassword()"><img src="assets/img/lock.png" alt="" style="margin-top:-5px;cursor:pointer" >&nbsp;&nbsp;<u>Forgot Password?</u></p>
+                    </div>
+                 </div>
+                 <!-- <div class="version col 12 col-md-6 text-end">V{{version}}</div> -->
+                </div>
+
+             </div>
+
+
+           </div>
+         </form>
+
+
+     </section>
+  </div>
+</main>
+
+<footer id="footer" class="footer">
+  <div class="copyright">
+    Version IB:{{version}} © 2024:
+    <a class="text-reset fw-bold" href="https://www.groupbenefitz.ca/" target="-blank">
+      The GroupBenefitz Platform Inc.</a>
+  </div>
+</footer>
+
+
+ <!-- Forgotpassword Model -->
+
+    <div class="modal" id="forgotpassword" tabindex="-1" role="dialog" aria-labelledby="forgotpasswordLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title">Forgot Password</h6>
+            <!-- bi bi-x-circle -->
+            <button type="button" class="closeButton " data-dismiss="modal"  aria-label="Close">
+              <span aria-hidden="true" (click)="closeForgotmodel()">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <form [formGroup]="forgotform">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="form-group">
+      <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+
+      <input
+      type="text"
+      class="form-control checking-field"
+      id="nameofcorporation"
+      placeholder="Email"
+       formControlName="email"
+    />
+
+    <div *ngIf="forgot['email'].touched && forgot['email'].invalid" class="help-block text-danger">
+      <div *ngIf="forgot['email'].errors && forgot['email'].errors['required']">Please enter email</div>
+      <div *ngIf="forgot['email'].errors && forgot['email'].errors['pattern']">Please enter valid email</div>
+    </div>
+  </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+
+ </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary submitbutton" [disabled]="forgotform.invalid"  (click)="SubmitforgotPassword()">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeForgotmodel()">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="activationlink" tabindex="-1" role="dialog" aria-labelledby="activationlinkLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="modal-title">Activate your account </h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" (click)="closeActivationCode()">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+          <form [formGroup]="activation">
+            <div class="row">
+              <small>Please enter activation code from your credentials Email.</small>
+              <small>Note: If you do not have that Email, please click on `Forgot Password` and then check your Email.</small>
+
+            </div>
+    <div class="row">
+    <div class="form-group col-1"></div>
+    <div class="form-group col-10">
+      <label for="Corporation" class="Corporation">Activation Code<span style="color: red">*</span></label>
+
+      <input
+      type="text"
+      class="form-control checking-field"
+      id="nameofcode"
+      placeholder="Enter the Activation code given in your Email"
+       formControlName="activationcode"
+    />
+    <div *ngIf="activate['activationcode'].touched && activate['activationcode'].invalid" class="help-block text-danger">
+      <div *ngIf="activate['activationcode'].errors && activate['activationcode'].errors['required']">Please enter Activation Code</div>
+
+    </div>
+
+    </div>
+    <div class="form-group col-1"></div>
+    </div>
+
+    </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary submitbutton" [disabled]="activation.invalid"  (click)="SubmitactivationCode()">Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeActivationCode()">Close</button>
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+      <button type="button" class="btn btn-primary w-100 submitbutton" >Submit</button> -->
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+

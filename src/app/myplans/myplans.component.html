@@ -1,0 +1,236 @@
+<main id="main" class="main">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="admintitle">
+        Plans & Cost&nbsp;&nbsp;<i class="bi bi-info-circle"></i>
+      </h6>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row">
+      <div class="button-container">
+        <button class="right-button">
+          <i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Upload Plans
+        </button>
+        <button class="right-button">
+          <i class="fa fa-download" aria-hidden="true"></i>&nbsp;Download
+        </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="button-container1">
+        <button
+          *ngFor="let button of buttons; let i = index"
+          [class.selected]="i === selectedButtonIndex"
+          (click)="selectButton(i)"
+        >
+          {{ button.label }}
+        </button>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="form-group col-2">
+        <label for="Corporation" class="Corporation"
+          >Current period<span style="color: red">*</span></label
+        >
+
+        <input
+          type="text"
+          class="form-control checking-field"
+          id="nameofcorporation"
+          placeholder="" value="Jan 1 2023 - Dec 31st 2023"
+          style="text-transform: capitalize"
+        />
+      </div>
+      <div class="form-group col-2">
+        <label for="Corporation" class="Corporation"
+          >Upcoming Period<span style="color: red">*</span></label
+        >
+
+        <input
+          type="text"
+          class="form-control checking-field"
+          id="nameofcorporation"
+          placeholder="" value="Jan 1st 2024 - Dec 31st 2024"
+          style="text-transform: capitalize"
+        />
+      </div>
+      <div class="form-group col-3">
+        <!-- <label for="Corporation" class="Corporation">Province<span style="color: red">*</span></label> -->
+
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" *ngFor="let name of configprovinceres"  [value]="name.id">{{ name.shortName }} ({{name.name}})</div>
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+      <div class="form-group col-5">
+        <label for="Corporation" class="Corporation"
+          >Search Plan<span style="color: red">*</span></label
+        >
+
+        <input
+          type="text"
+          class="form-control checking-field"
+          id="nameofcorporation"
+          placeholder="Search"
+          style="text-transform: capitalize"
+        />
+      </div>
+
+      <div class="row">
+        <span style="text-align: center; color: #041e39; font-weight: 600"
+          >Smart Choice</span
+        >
+      </div>
+    </div>
+
+    <section id="tranding">
+      <div class="container">
+        <p *ngIf="showPlanAvailbletext" style="text-align: center;">No Plans Defined Currently</p>
+        <div class="swiper tranding-slider">
+          <div class="swiper-wrapper" *ngIf="showPlanAvailble">
+            <!-- Slide-start -->
+            <div
+              class="swiper-slide tranding-slide"
+              *ngFor="let plan of plansResults"
+            >
+              <div class="tranding-slide-img">
+                <div class="card">
+                  <div class="section-header p-0">
+                    <!-- <div class="imagetext">
+
+                           <span *ngIf="plan.logo ==''">{{plan.name}}</span>
+
+                        </div> -->
+                    <img
+                      *ngIf="plan.logo != ''; else backgroundImage"
+                      src="{{ plan.logo }}"
+                      style="max-height: 50px"
+                    />
+                    <div class="text-overlay">
+                      <span *ngIf="plan.logo ==''">{{plan.name}}</span>
+                    </div>
+                    <ng-template #backgroundImage>
+                      <div>
+                        <img src="{{ plan.backgroundImage }}" width="100%" />
+                      </div>
+                    </ng-template>
+                  </div>
+
+                  <div
+                    class="card-body pt-2 px-1"
+
+                  >
+                    <div class="planBody" [style.background-color]="plan.backgroundColor">
+                      <ng-container>
+                        <div
+                          *ngIf="
+                            plan.content.productFeatureItems;
+                            else showdata
+                          "
+                        >
+                        </div>
+                      </ng-container>
+                      <ng-container
+                            *ngFor="
+                              let feature of plan.content.productFeatureItems
+                            "
+                            class="accordion-item"
+                          >
+                            <div
+                              class="accordion-sub-header"
+                              class="accordion-header"
+                              (click)="toggleItem(feature)"
+                            >
+                              {{ feature.title }}
+                              <span>
+                                <i
+                                  *ngIf="feature.expanded; else downarrowIcon1"
+                                  class="fa fa-angle-right featureinfofaicon"
+                                  aria-hidden="true"
+                                ></i>
+                                <ng-template #downarrowIcon1>
+                                  <i
+                                    class="fa fa-angle-down featureinfofaicon"
+                                    aria-hidden="true"
+                                  ></i>
+                                </ng-template>
+                              </span>
+                            </div>
+                            <div
+                              *ngIf="feature.expanded"
+                              class="accordion-content"
+                            >
+                              <p
+                                style="text-align: left;font-size: 14px;"
+                                [innerHTML]="feature.description"
+                              ></p>
+                            </div>
+                          </ng-container>
+                    </div>
+                    <ng-template #showdata>
+                      <div class="featuutrebody1">
+                        <p
+                          style="text-align: left; font-size: 14px"
+                          [innerHTML]="plan.content.description"
+                        ></p>
+                      </div>
+                    </ng-template>
+                    <div class="plancoverage">
+                      <table class="table table-bordered" id="customerPlansTable">
+
+                    <tbody>
+                      <tr>
+
+                        <th >Coverage</th>
+                        <th >Tax</th>
+                        <th >Amount</th>
+                      </tr>
+
+                      <tr *ngFor="let coverage of plan.coverages;let j = index">
+                        <td>
+                        {{coverage.planCoverage}}
+                        </td>
+
+                        <td *ngFor="let tax of coverage.taxdata">
+                          {{tax.tax_rate*100}}% {{tax.tax_name}}
+                          </td>
+                          <td>
+                            {{coverage.price}}
+                            </td>
+
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="tranding-slider-control">
+            <div class="swiper-button-prev slider-arrow">
+              <i class="fa fa-angle-left" style="font-size:24px" ></i>
+            </div>
+            <div class="swiper-button-next slider-arrow">
+              <i class="fa fa-angle-right" style="font-size:24px" ></i>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- <span class="rightslides">1 of {{plansResults.length}}</span> -->
+      </div>
+    </section>
+  </div>
+</main>
+

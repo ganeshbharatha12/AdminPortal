@@ -1,0 +1,2459 @@
+<!-- <p>add-customer works!</p> -->
+
+<!-- <main id="main" class="main"><div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1"> -->
+
+  <main  class="main" id="main">
+    <div class="container" id="container">
+      <div class="">
+        <!-- <div class=""> -->
+          <div class="row justify-content-center">
+            <div class="col-10 headertabs1">
+          <!-- <div class="headertabs"> -->
+            <div class="row bg-white">
+              <!-- <div class="col-12 text-end">
+            <img class="cartlogo" src="./../../assets/img/logo/cart.png" alt="Cart logo" />
+
+            <span><b> {{planAmount}}</b></span>
+          </div> -->
+              <div class="col-12 text-end d-flex justify-content-end">
+                <span> <img class="cartlogo" src="../../../assets/img/cart.png" alt="Cart logo" /></span>
+                <span class="text-start" style="margin-top: 15px;">
+                  <!-- ./../../assets/img/cart.png -->
+                  <div><b> {{planAmount}}</b></div>
+                  <div>{{lang.monthlyPremium}}</div>
+                  <div>{{lang.taxesIncluded}}</div>
+                </span>
+              </div>
+            </div>
+            <div class="row tabs">
+              <div class="col-12 d-flex">
+                <div class="tab col-12 col-md-4 justify-content-between"
+                 [ngClass]="{ active: selectedTab === 'tab1' }"
+                  (click)="selectTab('tab1')">
+                  {{lang.personalInformation}}
+                  <img style="display: none;" src="./../../assets/img/logo/blue_checkmark.png" alt="" id=""
+                    class="checkmark-width imgdisplay1">
+
+                </div>
+                <div class="tab col-12 col-md-4" [ngClass]="{ active: selectedTab === 'tab2', isNotActive:(selectedTab==='tab1')}"
+                  (click)="selectTab('tab2')">
+                  {{lang.planSelection}}
+
+                  <!-- <img [ngClass]="{ activeTab1Img: selectedTab === 'tab2', isNotActive:(selectedTab==='tab1')}" src="./../../assets/img/logo/checkmark.png" alt=""  id="" class="checkmark-width"> -->
+                  <img style="display: none;" src="./../../assets/img/logo/blue_checkmark.png" alt="" id=""
+                    class="checkmark-width imgdisplay2">
+
+                </div>
+                <div class="tab col-12 col-md-4"
+                  [ngClass]="{ active: selectedTab === 'tab3', isNotActive:(selectedTab==='tab1'||selectedTab==='tab2')}"
+                  (click)="selectTab('tab3')">
+                  {{lang.plans_summary}}
+
+                  <!-- <img [ngClass]="{ activeTab1Img: selectedTab === 'tab3', isNotActive:(selectedTab==='tab1')}" src="./../../assets/img/logo/checkmark.png" alt=""  id="" class="checkmark-width"> -->
+                  <img style="display: none;" src="./../../assets/img/logo/blue_checkmark.png" alt="" id=""
+                    class="checkmark-width imgdisplay3">
+                </div>
+              </div>
+
+              <!-- <div class="col-3 bordertopColour">
+            <div class="tab" [ngClass]="{ active: selectedTab === 'tab4' }" (click)="selectTab('tab4')">
+
+            </div>
+          </div> -->
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+<!--  -->
+          <div class="tab-content alltabs">
+            <div *ngIf="selectedTab === 'tab1'">
+              <form [formGroup]="userForm" #myForm="ngForm">
+
+                <!-- Employee Information start ************************** -->
+
+                <div class="row">
+                  <div class="form-group col-12">
+                    <b id="header-font">Employee Information</b>
+                    <hr class="employeeInfoHrLine hrLineMargins">
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <!-- <div class="form-group col 12 col-md-4">
+                    <label for="memberType">Member Type<span class="text-danger">*</span></label>
+                    <select class="form-select border border-dark"
+                     name="memberType"
+                      id="memberType"
+                      formControlName="memberType"
+                      (change)="memberTypeChange($event)">
+                    <option value="null" selected>Select</option>
+                    <option value="GIG">GIG</option>
+                      <option value="STUDENT">Student</option>
+                    </select>
+                    <div class="help-block text-danger" *ngIf="(userForm.get('memberType')?.touched &&
+                    userForm.get('memberType')?.hasError('required'))||
+                    (userForm.get('memberType')?.hasError('required') && myForm.submitted)">
+                    Please select member type
+                      </div>
+                  </div> -->
+                  <div class="form-group col-12 col-md-4" *ngIf="allBrokers">
+                    <label for="broker">
+                     Broker<span class="text-danger">*</span>
+                    </label>
+                    <select class="form-select border border-dark"
+                    formControlName="brokername" name="broker" id="broker" (change)="getForms($event.target.value)">
+                      <option value="null">Select</option>
+                     <option *ngFor="let broker of allBrokers" [value]="broker.id">{{broker.name}} / {{broker.salesTrackingCodeShare}}</option>
+                    </select>
+                    <div class="help-block text-danger" *ngIf="(userForm.get('brokername')?.touched &&
+                  userForm.get('brokername')?.hasError('required'))||
+                  (userForm.get('brokername')?.hasError('required') && myForm.submitted)">
+                  Please select broker name
+                    </div>
+                  </div>
+                  <div class="form-group col-12 col-md-4" *ngIf="showForm">
+                    <label for="form">Form<span class="text-danger">*</span></label>
+                    <select class="form-select border border-dark"
+                    formControlName="formrname" name="broker" id="form">
+                      <option value="null">Select</option>                            <!-- {{form?.name}}- -->
+                      <option *ngFor="let form of forms[0]?.signupForms" [value]="form.id">{{form?.formType}}-{{form?.link}}</option>
+                    </select>
+                    <div class="help-block text-danger" *ngIf="(userForm.get('brokername')?.touched &&
+                    userForm.get('formrname')?.hasError('required'))||
+                    (userForm.get('formrname')?.hasError('required') && myForm.submitted)">
+                    Please select Form type
+                      </div>
+                  </div>
+
+                  </div>
+                  <div class="row" *ngIf="role=='ADMINISTRATOR'">
+
+                  <div class="form-group col 12 col-md-4">
+                    <label for="fusbill" > IGBMS Id</label>
+                    <!-- <input type="text" class="form control checking-field border border-dark" > -->
+                    <input type="text" class="form-control checking-field border border-dark" id="fusbillId"
+                        placeholder="IGBMS Id"
+                    formControlName="fusbillId" (keypress)="numberOnly($event)" />
+                  </div>
+                  <div class="form-group col 12 col-md-3 pt-4">
+                    <button class="checkButton" (click)="checkFusBillId()">Check</button>
+                  </div>
+                  </div>
+                <div class="row">
+
+                  <div class="form-group col-12 col-md-6">
+                    <label id="label">{{ lang.planEnrollDate }}<span class="text-danger">*</span></label>
+                    <select class="form-select border border-dark" id="planenrollmentdate" placeholder="Select"
+                      formControlName="planEnrollmentDate">
+                      <option value="null" label="" selected>{{ lang.select }}</option>
+                      <option *ngFor="let name of configPlanEnrollmentDate" [value]="name" [label]="name">
+                        {{ name }}
+                      </option>
+                    </select>
+
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('planEnrollmentDate')?.touched &&
+                  userForm.get('planEnrollmentDate')?.hasError('required')) ||
+                  (userForm.get('planEnrollmentDate')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_choose_plan_enrolment_date }}
+                    </div>
+
+
+
+                  </div>
+                  <div class="form-group col-12 col-md-6" *ngIf="displayStudentId">
+                    <label id="label">Student Id<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control checking-field border border-dark" id="studentId"
+                      onkeydown="return /[A-Za-z0-9-]/i.test(event.key)" placeholder="Student Id"
+                      formControlName="studentId" (input)="changeTextToUppercase('studentId')" />
+                    <div class="help-block text-danger" *ngIf="(userForm.get('studentId')?.touched &&
+                  userForm.get('studentId')?.hasError('required')) ||
+                  (userForm.get('studentId')?.hasError('required') && myForm.submitted)">
+                   Please enter student id
+                   <!-- {{ lang.Please_enter_studentId }}  -->
+                    </div>
+
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-12 col-md-6  ">
+                    <label id="label">{{ lang.first_name }}<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control border border-dark text-capitalize" id="givenname"
+                       (keypress)="alphabatesOnly($event)" [(ngModel)]="firstName" placeholder="{{ studentPlaceHolder }}"
+                      formControlName="givenname" maxlength="40" minlength="1" />
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('givenname')?.touched &&
+                userForm.get('givenname')?.hasError('required')) ||
+              (userForm.get('givenname')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_first_name }}
+
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('givenname')?.hasError('minlength')">
+                      {{ lang.firstName_minm_error }}
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('givenname')?.hasError('pattern')">
+                      {{shouldtallownumberandspecialcharacters}}
+                    </div>
+
+                  </div>
+                  <div class="form-group col-12 col-md-6  ">
+                    <label id="label" for="lastname">{{ lang.lastName }}<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control checking-field border border-dark text-capitalize"
+                      id="lastname" placeholder="{{ studentPlaceHolderln }}" [(ngModel)]="lastName"
+                       (keypress)="alphabatesOnly($event)" formControlName="lastname" maxlength="40"
+                      minlength="1" />
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('lastname')?.touched &&
+                  userForm.get('lastname')?.hasError('required')) ||
+                (userForm.get('lastname')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_last_name }}
+
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('lastname')?.hasError('minlength')">
+                      {{ lang.lastName_minm_error }}
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('lastname')?.hasError('pattern')">
+                      {{shouldtallownumberandspecialcharacters}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-12 col-md-6  ">
+                    <label id="label">{{ lang.email }}<span class="text-danger">*</span></label>
+                    <input type="email" class="form-control checking-field border border-dark" id="email"
+                      placeholder="{{ lang.email }}"
+                      formControlName="email" [(ngModel)]="primaryEmail"
+                      (keypress)="checkEmailValidation($event)"
+                      (input)="TextToLowerCase(userForm,'email')"
+                     />
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('email')?.touched &&
+                   userForm.get('email')?.hasError('required')) ||
+                   (userForm.get('email')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_email }}
+
+                    </div>
+                    <!-- <div class="help-block text-danger" *ngIf="userForm.get('email')?.hasError('invalidEmail')">
+                      {{ lang.please_enter_valid_email }}
+                    </div> -->
+                    <div class="help-block text-danger" *ngIf="userForm.get('email')?.hasError('pattern')">
+                      {{ lang.please_enter_valid_email }}
+                    </div>
+                    <!-- <div class="help-block text-danger" *ngIf="(userForm.get('email')?.touched &&
+                      userForm.get('email')?.hasError('pattern')) ||
+                    (userForm.get('email')?.hasError('pattern') && myForm.submitted)">
+                  {{ lang.please_enter_valid_email }}
+                    </div>  -->
+
+                  </div>
+                  <div class="form-group col-12 col-md-6  ">
+                    <label id="label">{{ lang.phoneNumber }}<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control border border-dark" id="phonenumber"
+                      placeholder="{{ lang.phoneNumber }}" (change)="phoneFormat($event)" formControlName="phonenumber"
+                      (keypress)="numberOnly($event)"
+                      maxlength="20" [(ngModel)]="primaryPhone"/>
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('phonenumber')?.touched &&
+                  userForm.get('phonenumber')?.hasError('required')) ||
+                  (userForm.get('phonenumber')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_phone_number }}
+
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('phonenumber')?.hasError('minlength')">
+                      {{ lang.phone_number_is_minimum_of_10_digits }}
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('phonenumber')?.hasError('maxlength')">
+                      {{ lang.phn_num_max }}
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('phonenumber')?.hasError('pattern')">
+                      Invalid phone number format.
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row  ">
+                  <div class="form-group col-12 col-md-6  ">
+                    <label id="label" for="dateofbirth">{{ lang.dateOfBirth
+                      }}<span class="text-danger">*</span></label>
+
+                    <!-- <input type="text" placeholder="MM-DD-YYYY" [(ngModel)]="applicantDateofBirth"
+                      class="form-control checking-field border border-dark" formControlName="dateofbirth" bsDatepicker
+                      [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" /> -->
+                      <input type="text" class="form-control border border-dark" id="childInfoDOB" placeholder="MM-DD-YYYY"
+                      formControlName="dateofbirth" [minDate]="minDatevalue" [maxDate]="maxDatevalue"  bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('dateofbirth')?.touched &&
+                                userForm.get('dateofbirth')?.hasError('required')) ||
+                                (userForm.get('dateofbirth')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_choose_date_of_birth }}
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('dateofbirth')?.hasError('mindateofbirth')">
+                      {{ lang.registrant_age_must_be_16_or_greater }}
+                    </div>
+                    <div class="help-block text-danger" *ngIf="userForm.get('dateofbirth')?.hasError('maxdateofbirth')">
+                      {{ lang.registrant_age_must_be_60_or_below }}
+                    </div>
+
+                  </div>
+                  <div class="form-group col-12 col-md-6  ">
+                    <label id="label" for="gender">{{ lang.gender }}<span class="text-danger">*</span></label>
+                    <select class="form-select border border-dark" id="gender" placeholder="Select"
+                      formControlName="gender">
+                      <option value="null">{{ lang.select }}</option>
+                      <option value="Male">{{ lang.male }}</option>
+                      <option value="Female">{{ lang.female }}</option>
+                      <option value="Non-Binary">{{ lang.nonBinary }}</option>
+                      <option value="Undisclosed">{{ lang.unDisclosed }}</option>
+                    </select>
+
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('gender')?.touched &&
+                                userForm.get('gender')?.hasError('required')) ||
+                                (userForm.get('gender')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_select_gender }}
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <!-- **************************************************************************************** -->
+                <!-- Home Mailing Address start -->
+
+                <div class="row">
+                  <div class="form-group col-12  ">
+                    <b id="header-font">{{ lang.homeMailingAddress }}</b>
+                    <hr class="homeMailingAddressHrLine hrLineMargins">
+                  </div>
+                </div>
+                <!--  (keypress)="alphabatesOnly($event)" -->
+                <div class="row  ">
+                  <div class="form-group col-12 col-md-4">
+                    <label>{{lang.streetAddressLine }}<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control checking-field border border-dark text-capitalize"
+                      id="streetaddress" placeholder="{{ lang.streetAddressLine }}" formControlName="streetaddress"
+                       [(ngModel)]="line1" />
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('streetaddress')?.touched &&
+                  userForm.get('streetaddress')?.hasError('required')) ||
+                (userForm.get('streetaddress')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_street_address }}
+                    </div>
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('streetaddress')?.touched &&
+                      userForm.get('streetaddress')?.hasError('pattern')) ||
+                    (userForm.get('streetaddress')?.hasError('pattern') && myForm.submitted)">
+                      {{shouldtallownumberandspecialcharacters}}
+                    </div>
+                  </div>
+
+                  <div class="form-group col-12 col-md-4  ">
+                    <label id="label">{{ lang.streetAddressLine2 }}<span></span></label>
+                    <input type="text" class="form-control border border-dark text-capitalize" id="streetaddressline2"
+                      placeholder="{{ lang.streetAddressLine2 }}" formControlName="streetaddressline2"
+                       [(ngModel)]="line2"/>
+
+
+                    <!-- <div class="help-block text-danger" *ngIf="(userForm.get('streetaddressline2')?.touched &&
+                                    userForm.get('streetaddressline2')?.hasError('required')) ||
+                                  (userForm.get('streetaddressline2')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_street_address }}
+                    </div> -->
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('streetaddressline2')?.touched &&
+                                        userForm.get('streetaddressline2')?.hasError('pattern')) ||
+                                      (userForm.get('streetaddressline2')?.hasError('pattern') && myForm.submitted)">
+                      {{shouldtallownumberandspecialcharacters}}
+                    </div>
+                  </div>
+
+                  <div class="form-group col-12 col-md-4  ">
+                    <label id="label" id="suiteNumber">{{ lang.apartSuite }}<span></span></label>
+                    <input type="text" class="form-control border border-dark text-capitalize" id="apt_suite"
+                      placeholder="{{ lang.apartSuite }}" formControlName="apt_suite" maxlength="50" />
+
+                    <div class="help-block text-danger"
+                      *ngIf="userForm.get('apt_suite')?.touched && userForm.get('apt_suite')?.hasError('aptexpression')">
+                      {{lang.enter_valid_apt}}
+                    </div>
+
+                    <!-- <div class="help-block text-danger" *ngIf="
+                      userFormControl['apt_suite'].touched &&
+                      userFormControl['apt_suite'].invalid
+                    ">
+                      <div *ngIf="
+                        userFormControl['apt_suite'].errors &&
+                        userFormControl['apt_suite'].errors['aptexpression']
+                      ">
+                        {{lang.enter_valid_apt}}
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+
+                <div class="row  ">
+                  <div class="form-group col-12 col-md-4  ">
+                    <label id="label">{{ lang.city }}<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control checking-field border border-dark text-capitalize" id="city"
+                      placeholder="{{ lang.city }}" formControlName="city" [(ngModel)]="city" />
+                    <!-- <div class="help-block text-danger" *ngIf="
+                      userFormControl['city'].touched &&
+                      userFormControl['city'].invalid
+                    ">
+                    <div *ngIf="
+                        userFormControl['city'].errors &&
+                        userFormControl['city'].errors['required']
+                      ">
+                      {{ lang.please_enter_city }}
+                    </div>
+                  </div> -->
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('city')?.touched &&
+                  userForm.get('city')?.hasError('required')) ||
+                (userForm.get('city')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_city }}
+                    </div>
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('city')?.touched &&
+                    userForm.get('city')?.hasError('pattern')) ||
+                  (userForm.get('city')?.hasError('pattern') && myForm.submitted)">
+                      {{shouldtallownumberandspecialcharacters}}
+                    </div>
+                  </div>
+
+                  <div class="form-group col-12 col-md-4  ">
+                    <label id="label" for="Province">{{ lang.province }}<span class="text-danger">*</span></label>
+                    <select class="form-select border border-dark ProvinceClass" id="Province" placeholder="Select"
+                      formControlName="province" (change)="provincelist12345($event)" [(ngModel)]="state">
+                      <option value="null" selected>{{ lang.select }}</option>
+                      <option *ngFor="let name of configprovinceres" [value]="name.shortName">
+                        {{ name.shortName }}
+                      </option>
+                    </select>
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('province')?.touched &&
+                  userForm.get('province')?.hasError('required')) ||
+                (userForm.get('province')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_select_province }}
+                    </div>
+
+                  </div>
+                  <!-- changeTextToUppercase -->
+                  <div class="form-group col-12 col-md-4  ">
+                    <label id="label">{{ lang.postalCode }}<span class="text-danger">*</span></label>
+
+                    <input type="text" class="form-control checking-field border border-dark" id="postalcode"
+                      placeholder="{{ lang.postalCode }}" formControlName="postalcode"
+                      (input)="changeTextToUppercasePostalCode('postalcode', $event)" [(ngModel)]="postalZip" />
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('postalcode')?.touched &&
+                            userForm.get('postalcode')?.hasError('required')) ||
+                          (userForm.get('postalcode')?.hasError('required') && myForm.submitted)">
+                      {{ lang.please_enter_postal_code }}
+                    </div>
+
+                    <div class="help-block text-danger" *ngIf="
+                      (userForm.get('postalcode')?.touched &&
+                        userForm
+                          .get('postalcode')
+                          ?.hasError('invalidPostalCode')) ||
+                      (invalidpostalcodeprivince &&
+                        !userForm.get('province')?.hasError('required'))
+                    ">{{ lang.please_enter_valid_postal_code }}</div>
+                  </div>
+                </div>
+
+
+                <!-- Are you an International student started -->
+                <ng-temlate *ngIf="displayStudentId" else displayGig>
+                <div class="row  ">
+                  <div class="form-group col-12 col-md-6 " id="box">
+                    <div class="col-12 ps-0">
+                      <label for=""> {{ lang.are_u_foreign_student }}<span class="text-danger">*</span></label>
+                    </div>
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="foreignStudent"
+                        id="foreignStudentyes" value="true" formControlName="foreignStudent"
+                        (change)="areYouInternationalStudent('yes')" />
+                      <label class="form-check-label" for="foreignStudentyes">{{
+                        lang.yes
+                        }}</label>
+                    </div>
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="foreignStudent"
+                        id="foreignStudentno" value="false" formControlName="foreignStudent"
+                        (change)="areYouInternationalStudent('no')" />
+                      <!-- (mouseover)="provincialhealthpopup() -->
+                      <label class="form-check-label" for="foreignStudentno">{{
+                        lang.no
+                        }}</label>
+                    </div>
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('foreignStudent')?.touched &&
+                  userForm.get('foreignStudent')?.hasError('required')) ||
+                  (userForm.get('foreignStudent')?.hasError('required') && myForm.submitted)">
+                      {{ lang.choose_foreign_student }}
+                    </div>
+
+                  </div>
+
+
+
+                  <div class="form-group col-12 col-md-6" id="box" *ngIf="checkstudenthealthcardstatus">
+                    <div class="col-12  ps-0">
+                      <label for="">{{ lang.confirm_uhip }}<span class="text-danger">*</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="uhipprovincialhealth"
+                        id="uhipprovincialhealthyes" value="true" formControlName="uhipprovincialhealth"
+                        (change)="uhipprovincialhealth($event)" />
+                      <label class="form-check-label" for="uhipprovincialhealthyes">{{ lang.yes }}</label>
+                    </div>
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="uhipprovincialhealth"
+                        id="uhipprovincialhealthno" value="false" formControlName="uhipprovincialhealth"
+
+                        (change)="uhipprovincialhealth($event)" />
+                      <!-- (mouseover)="provincialhealthpopup() -->
+                      <label class="form-check-label" for="provincialhealthno">{{
+                        lang.no
+                        }}</label>
+                    </div>
+
+
+
+                    <div class="help-block text-danger"
+                      *ngIf="(userForm.get('uhipprovincialhealth')?.touched &&
+                  userForm.get('uhipprovincialhealth')?.hasError('required')) ||
+                  (userForm.get('uhipprovincialhealth')?.hasError('required') && myForm.submitted) || checkhealthcardstatusuhip">
+                      {{ lang.UNIP_error }}
+                    </div>
+                  </div>
+                  <!-- <div class="form-group col-12 col-md-6 ps-0" id="box" *ngIf="checkstudenthealthcardstatus_UHIP">
+                    <div class="col-12 ps-0">
+                      <label for=""> {{ lang.student_health_coverage }}<span class="text-danger">*</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="provincialhealth"
+                        id="provincialhealthyes" value="true" formControlName="provincialhealth"
+                        (change)="provincialhealth($event)" />
+                      <label class="form-check-label" for="provincialhealthyes">
+                        {{lang.yes}}</label>
+                    </div>
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="provincialhealth"
+                        id="provincialhealthno" value="false" formControlName="provincialhealth"
+                         (change)="provincialhealth($event)" />
+                      <label class="form-check-label" for="provincialhealthno">{{
+                        lang.no
+                        }}</label>
+                    </div>
+                    <div class="help-block text-danger" *ngIf="(userForm.get('provincialhealth')?.touched &&
+                  userForm.get('provincialhealth')?.hasError('required'))||
+                  (userForm.get('provincialhealth')?.hasError('required')&& myForm.submitted) || checkhealthcardstatus">
+                      {{ lang.not_eligible_without_healthcard }}
+                    </div>
+
+                  </div> -->
+                </div>
+
+                <!-- Are you an International student end *********** -->
+
+                <!-- Are you covered by parental health insurance  -->
+                <div class="row">
+                  <div class="form-group col-12 " id="box">
+                    <div class="col-12 ps-0">
+                      <label for="">{{ lang.covered_parental_health_insurance }}<span class="text-danger">*</span></label>
+                    </div>
+                    <div class="col-12 col-md-6 ps-0">
+
+                      <div class="form-check form-check-inline col-3 ">
+                        <input class="form-check-input border border-dark" type="radio" name="parentalinsurance"
+                          id="parentalinsuranceyes" value="true" formControlName="parentalinsurance"
+                          (change)="checkparentalhealthinsuarnce($event)" />
+                        <label class="form-check-label" for="parentalinsuranceyes">{{
+                          lang.yes
+                          }}</label>
+                      </div>
+                      <div class="form-check form-check-inline col-3">
+                        <input class="form-check-input border border-dark" type="radio" name="parentalinsurance"
+                          id="parentalinsuranceno" value="false" formControlName="parentalinsurance"
+                          (change)="checkparentalhealthinsuarnce($event)" />
+                        <!-- (mouseover)="provincialhealthpopup() -->
+                        <label class="form-check-label" for="parentalinsuranceno">{{
+                          lang.no
+                          }}</label>
+                      </div>
+                    </div>
+                    <div class="help-block text-danger" *ngIf="
+                      (userForm.get('parentalinsurance')?.touched &&
+                        userForm
+                          .get('parentalinsurance')
+                          ?.hasError('required')) ||
+                      parentalhelathinsuranecheck ||
+                      (userForm.get('parentalinsurance')?.invalid &&
+                        myForm.submitted)
+                    ">
+                      {{ lang.student_parent_health_insurance_error }}
+                    </div>
+                  </div>
+
+                </div>
+              </ng-temlate>
+              <ng-temlate #displayGig *ngIf="displatGig">
+                <div class="row">
+                  <div class="form-group col-12 col-md-6 " id="box">
+                    <div class="col-12 ps-0">
+                      <label for="">I confirm that I am actively working 20 or more hours per week to meet plan eligibility.<span class="text-danger">*</span></label>
+                    </div>
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="workinghours"
+                        id="workinghoursYes" value="true" formControlName="workinghours"
+                        (change)="workinghours($event.target.value)" />
+                      <label class="form-check-label" for="workinghoursYes">{{
+                        lang.yes
+                        }}</label>
+                    </div>
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="workinghours"
+                        id="workinghoursNo" value="false" formControlName="workinghours"
+                        (change)="workinghours($event.target.value)"/>
+                      <!-- (mouseover)="provincialhealthpopup() -->
+                      <label class="form-check-label" for="workinghoursNo">{{
+                        lang.no
+                        }}</label>
+                    </div>
+
+                    <div class="help-block text-danger" *ngIf="(userForm.get('workinghours')?.touched &&
+                    userForm.get('workinghours')?.hasError('required')) ||
+                  (userForm.get('workinghours')?.hasError('required') && myForm.submitted)">
+                  To enroll in the plan you need to be working 20 or more hours per week
+                    </div>
+                  </div>
+                  <div class="form-group col-12 col-md-6" id="box" *ngIf="hourperweekvalue">
+                    <div class="col-12 ps-3">
+                      <label for="">How many hours per week do you work?<span class="text-danger">*</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline col-6">
+                      <input class="form-control checking-field border border-dark" type="number"
+                        id="hoursperweek" formControlName="hoursperweek"
+                        maxlength="2"
+                        min="20"
+                        max="80"
+                        (change)="hoursperweekvalue($event)"/>
+                    </div>
+
+
+
+
+                    <div class="help-block text-danger ps-3"
+                      *ngIf="(userForm.get('hoursperweek')?.touched &&
+                  userForm.get('hoursperweek')?.hasError('required')) ||
+                  (userForm.get('hoursperweek')?.hasError('required') && myForm.submitted)">
+                  Please select working hours per week
+                    </div>
+                    <div class="help-block text-danger ps-3"
+                    *ngIf="userForm.get('hoursperweek').touched &&
+                      userForm.get('hoursperweek').hasError('mininvalidhours')"
+                    >{{lang.hours_per_week_should_be_more_than_20}}</div>
+                  <div class="help-block text-danger ps-3"
+                    *ngIf="
+                      userForm.get('hoursperweek').touched &&
+                      userForm.get('hoursperweek').hasError('maxinvalidhours')">
+                      {{lang.hours_per_week_should_be_less_than_80}}</div>
+
+                  </div>
+                  <div class="form-group col-12 col-md-6" id="box" *ngIf="checkstudenthealthcardstatus_UHIP">
+                    <div class="col-12">
+                      <label for=""> {{ lang.student_health_coverage }}<span class="text-danger">*</span></label>
+                    </div>
+
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="provincialhealth"
+                        id="provincialhealthyes" value="true" formControlName="provincialhealth"
+                        (change)="provincialhealth($event)" />
+                      <label class="form-check-label" for="provincialhealthyes">{{
+                        lang.yes
+                        }}</label>
+                    </div>
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="provincialhealth"
+                        id="provincialhealthno" value="false" formControlName="provincialhealth"
+                         (change)="provincialhealth($event)" />
+                      <label class="form-check-label" for="provincialhealthno">{{
+                        lang.no
+                        }}</label>
+                    </div>
+                    <div class="help-block text-danger" *ngIf="(userForm.get('provincialhealth')?.touched &&
+                  userForm.get('provincialhealth')?.hasError('required'))||
+                  (userForm.get('provincialhealth')?.hasError('required')&& myForm.submitted) || checkhealthcardstatus">
+                      {{ lang.not_eligible_without_healthcard }}
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6 grpinfo-right" id="box">
+                    <div class="lineheight">
+                     {{lang.provinceHealthCover }}
+                    </div>
+
+                    <div class="form-check form-check-inline col-md-5">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="provincialhealth"
+                        id="provincialhealthyes"
+                        value="true"
+                        formControlName="provincialhealth"
+                        (change)="provincialhealth($event)"
+                      />
+                      <label class="form-check-label" for="provincialhealthyes"
+                        >{{lang.yes }}</label
+                      >
+                    </div>
+                    <div class="form-check form-check-inline col-md-5">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="provincialhealth"
+                        id="provincialhealthno"
+                        value="false"
+                        formControlName="provincialhealth"
+                        (change)="provincialhealth($event)"
+                      />
+
+                      <label class="form-check-label" for="provincialhealthno"
+                        >{{lang.no }}</label
+                      >
+                    </div>
+                    <div class="clearfix"></div>
+                    <span
+                      class="help-block text-danger"
+                      *ngIf="
+                        (userForm.get('provincialhealth').touched &&
+                          userForm
+                            .get('provincialhealth')
+                            .hasError('invalidhealthcard')) ||
+                        checkhealthcardstatus ||
+                        (userForm.get('provincialhealth').hasError('required') &&
+                          myForm.submitted)
+                      "
+                      >    {{lang.not_eligible_health_card_province }}</span
+                    >
+
+                  </div>
+                </div>
+              </ng-temlate>
+
+
+
+
+                <!-- Spouse Information -->
+                <div class="row">
+                  <div class="form-group col-12  ">
+                    <b id="header-font">{{ lang.spouseinfo }}</b>
+                    <hr class="spouceInfoInfoHrLine hrLineMargins">
+                  </div>
+                  <div class="col-12">
+                    <label for="form-label"> {{ lang.checkSpouse }}<span class="text-danger">*</span></label>
+                  </div>
+
+                  <div class="col-12 col-md-6">
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="havingspouse"
+                        id="havingspouseyes" value="true" formControlName="havingspouse" (change)="spouseinfo($event)" />
+                      <label class="form-check-label" for="havingspouseyes">{{ lang.yes }}</label>
+                    </div>
+
+                    <div class="form-check form-check-inline col-3">
+                      <input class="form-check-input border border-dark" type="radio" name="havingspouse"
+                        id="havingspouseno" value="false" formControlName="havingspouse" (change)="spouseinfo($event)" />
+                      <label class="form-check-label" for="havingspouseno">{{ lang.no }}</label>
+                    </div>
+                  </div>
+
+                  <div class="help-block text-danger" *ngIf="
+                (userForm.get('havingspouse')?.touched &&
+                  userForm
+                    .get('havingspouse')
+                    ?.hasError('required')) ||
+                (userForm.get('havingspouse')?.invalid &&
+                  myForm.submitted)
+              ">
+                    {{ lang.please_choose_spouse_status }}
+                  </div>
+
+                  <!-- spouce information if yes -->
+                  <div *ngIf="spouseinformation">
+                    <div class="row  ">
+                      <div class="col-12 col-md-4">
+
+                        <label for="spousefirstname">{{ lang.first_name
+                          }}<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control checking-field border border-dark text-capitalize"
+                          id="spousefirstname"  (keypress)="alphabatesOnly($event)" placeholder="{{
+                          lang.name_as_shown_on_provincial_health_card
+                        }}" formControlName="spousefirstname" />
+
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spousefirstname')?.touched && userForm.get('spousefirstname')?.hasError('required'))
+                        || (userForm.get('spousefirstname')?.hasError('required') && myForm.submitted)">
+                          {{ lang.please_enter_spouse_first_name }}
+                        </div>
+
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spousefirstname')?.touched && userForm.get('spousefirstname')?.hasError('minlength'))
+                        || (userForm.get('spousefirstname')?.hasError('minlength') && myForm.submitted)">
+                          {{ lang.firstName_minm_error }}
+                        </div>
+
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spousefirstname')?.touched && userForm.get('spousefirstname')?.hasError('pattern'))
+                        || (userForm.get('spousefirstname')?.hasError('pattern') && myForm.submitted)">
+                          {{shouldtallownumberandspecialcharacters}}
+                        </div>
+
+                        <!-- <div class="help-block text-danger" *ngIf="
+                          userFormControl['spousefirstname'].touched &&
+                          userFormControl['spousefirstname'].invalid">
+                          <div *ngIf="
+                            userFormControl['spousefirstname'].errors &&
+                            userFormControl['spousefirstname'].errors['required']
+                          ">
+                            {{ lang.please_enter_spouse_first_name }}
+                          </div>
+                        </div> -->
+                      </div>
+                      <div class="col-12 col-md-4">
+                        <label for="spousefirstname">{{ lang.lastName
+                          }}<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control checking-field border border-dark text-capitalize"
+                          id="spouselastname"  (keypress)="alphabatesOnly($event)"
+                          placeholder="{{ lang.name_as_shown_on_provincial_health_card }}"
+                          formControlName="spouselastname" />
+
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spouselastname')?.touched
+                          && userForm.get('spouselastname')?.hasError('required'))
+                          || (userForm.get('spouselastname')?.hasError('required') && myForm.submitted)">
+                          {{ lang.please_enter_spouse_last_name }}
+                        </div>
+
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spouselastname')?.touched
+                        && userForm.get('spouselastname')?.hasError('minlength'))
+                        || (userForm.get('spouselastname')?.hasError('minlength') && myForm.submitted)">
+                        {{ lang.lastName_minm_error }}
+                      </div>
+
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spouselastname')?.touched
+                          && userForm.get('spouselastname')?.hasError('pattern'))
+                          || (userForm.get('spouselastname')?.hasError('pattern') && myForm.submitted)">
+                          {{shouldtallownumberandspecialcharacters}}
+                        </div>
+
+                        <!-- <div class="help-block text-danger" *ngIf="
+                          userFormControl['spouselastname'].touched &&
+                          userFormControl['spouselastname'].invalid
+                        ">
+                          <div *ngIf="
+                            userFormControl['spouselastname'].errors &&
+                            userFormControl['spouselastname'].errors['required']
+                          ">
+                            {{ lang.please_enter_spouse_last_name }}
+                          </div>
+                        </div> -->
+                      </div>
+                      <div class="form-group col-12 col-md-4">
+                        <label for="">{{ lang.gender }}<span class="text-danger">*</span></label>
+                        <select class="form-control border border-dark" formControlName="spousegender"
+                          placeholder="Select">
+                          <option value="" [selected]="!userForm.get('spousegender')?.value">{{ lang.select }}</option>
+                          <option value="Male">{{ lang.male }}</option>
+                          <option value="Female">{{ lang.female }}</option>
+                          <option value="Non-Binary">{{ lang.nonBinary }}</option>
+                          <option value="Undisclosed"> {{ lang.unDisclosed }} </option>
+                        </select>
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spousegender')?.touched
+                        && userForm.get('spousegender')?.hasError('required'))
+                        || (userForm.get('spousegender')?.hasError('required') && myForm.submitted)">
+                          {{ lang.please_select_gender }}
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row  ">
+                      <div class="col-12 col-md-4">
+
+                        <label>{{ lang.dateOfBirth
+                          }}<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control checking-field border border-dark" placeholder="MM-DD-YYYY"
+                          formControlName="spousedateofbirth" bsDatepicker [minDate]="minDate" [maxDate]="maxDate"
+                          [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" />
+
+                        <!-- <input type="text" placeholder="MM-DD-YYYY" class="form-control checking-field border border-dark"
+                    formControlName="dateofbirth"
+                    bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"/> -->
+
+                        <div class="help-block text-danger" *ngIf="(userForm.get('spousedateofbirth')?.touched &&
+                    userForm.get('spousedateofbirth')?.hasError('required')) ||
+                    (userForm.get('spousedateofbirth')?.hasError('required') && myForm.submitted)">
+                          {{ lang.please_choose_date_of_birth }}
+                        </div>
+                        <div class="help-block text-danger"
+                          *ngIf="userForm.get('spousedateofbirth')?.hasError('mindateofbirth')">
+                          {{ lang.registrant_age_must_be_16_or_greater }}
+                        </div>
+                        <div class="help-block text-danger"
+                          *ngIf="userForm.get('spousedateofbirth')?.hasError('maxdateofbirth')">
+                          {{ lang.registrant_age_must_be_60_or_below }}
+                        </div>
+
+
+                        <!-- <div class="help-block text-danger" *ngIf="
+                          userFormControl['spousedateofbirth'].touched &&
+                          userFormControl['spousedateofbirth'].invalid
+                        ">
+                          <div *ngIf="
+                            userFormControl['spousedateofbirth'].errors &&
+                            userFormControl['spousedateofbirth'].errors[
+                              'required'
+                            ]
+                          ">
+                            {{ lang.please_choose_date_of_birth }}
+                          </div>
+                          <div *ngIf="
+                            userFormControl['spousedateofbirth'].errors &&
+                            userFormControl['spousedateofbirth'].errors[
+                              'mindateofbirth'
+                            ]
+                          ">
+                            {{ lang.registrant_age_must_be_16_or_greater }}
+                          </div>
+                          <div *ngIf="
+                            userFormControl['spousedateofbirth'].errors &&
+                            userFormControl['spousedateofbirth'].errors[
+                              'maxdateofbirth'
+                            ]
+                          ">
+                            {{ lang.registrant_age_must_be_60_or_below }}
+                          </div>
+                        </div> -->
+                      </div>
+                      <!-- Below email why it is written dont have idea -->
+                      <div class="col-12 col-md-4">
+                        <div *ngIf="requireSpouseEmail">
+                          <label>{{ lang.email
+                            }}<span class="text-danger">*</span></label>
+                          <input type="email" class="form-control checking-field border border-dark" id="email"
+                            placeholder="{{ lang.email }}" formControlName="spouseemail" />
+                          <div class="help-block text-danger" *ngIf="
+                            userFormControl['spouseemail'].touched &&
+                            userFormControl['spouseemail'].invalid
+                          ">
+                            <div *ngIf="
+                              userFormControl['spouseemail'].errors &&
+                              userFormControl['spouseemail'].errors['required']
+                            ">
+                              {{ lang.please_enter_email }}
+                            </div>
+                            <div *ngIf="
+                              userFormControl['spouseemail'].errors &&
+                              userFormControl['spouseemail'].errors[
+                                'invalidEmail'
+                              ]
+                            ">
+                              {{ lang.please_enter_valid_email }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- ************************************************** -->
+                    </div>
+                    <!-- Is your spouse covered by another Health and/or Dental insurance plan through their employer? -->
+                    <div *ngIf="requireDentalHealthCoverage" class=" ">
+                      <div *ngIf="spouseinformation">
+                        <div class="row pt-2 ">
+                          <label for="" class="form-label"> {{ lang.spouseCover }} <span
+                              class="text-danger">*</span></label>
+                          <div class="form-group col-12 col-md-6">
+                            <div class="form-check form-check-inline col-3">
+                              <input class="form-check-input border border-dark" type="radio" id="spousehealthcardyes"
+                                value="true" formControlName="spousehealthcard" (click)="spousehealthcard($event)" />
+                              <label class="form-check-label" for="spousehealthcardyes">
+                                {{ lang.yes }}</label>
+                            </div>
+                            <div class="form-check form-check-inline col-3">
+                              <input class="form-check-input border border-dark" type="radio" id="spousehealthcardno"
+                                value="false" formControlName="spousehealthcard" (click)="spousehealthcard($event)" />
+                              <label class="form-check-label" for="spousehealthcardno">{{ lang.no }}</label>
+                            </div>
+                            <!-- spouce errors -->
+
+                            <div class="help-block text-danger" *ngIf="(userForm.get('spousehealthcard')?.touched && userForm.get('spousehealthcard')?.hasError('required'))
+                        || (userForm.get('spousehealthcard')?.hasError('required') && myForm.submitted)">
+                              {{ lang.please_choose_spouse_insurance_status }}
+                            </div>
+
+                            <!-- <div class="help-block text-danger" *ngIf="
+                            userFormControl['spousehealthcard'].touched &&
+                            userFormControl['spousehealthcard'].invalid
+                          ">
+                          <div *ngIf="
+                              userFormControl['spousehealthcard'].errors &&
+                              userFormControl['spousehealthcard'].errors[
+                                'required'
+                              ]
+                            ">
+                            {{ lang.please_choose_spouse_insurance_status }}
+                          </div>
+                        </div> -->
+                          </div>
+                        </div>
+
+
+                        <div class="row" *ngIf="spousehealthcardinfo">
+                          <div class="col-12 col-md-4">
+                            <label class="">{{ lang.name_of_the_carrier }}<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control checking-field border border-dark text-capitalize"
+                              id="spousenameofthecarrier" placeholder="{{ lang.name_of_the_carrier }}"
+                              (keypress)="alphabatesOnly($event)"
+                              formControlName="Spousenameofthecarrier" />
+
+                            <div class="help-block text-danger" *ngIf="(userForm.get('Spousenameofthecarrier')?.touched && userForm.get('Spousenameofthecarrier')?.hasError('required'))
+                        || (userForm.get('Spousenameofthecarrier')?.hasError('required') && myForm.submitted)">
+                              {{ lang.please_enter_name_of_carrier }}
+                            </div>
+
+                            <!-- <div class="help-block text-danger" *ngIf="
+                          userFormControl['Spousenameofthecarrier'].touched &&
+                          userFormControl['Spousenameofthecarrier'].invalid">
+                          <div *ngIf="
+                            userFormControl['Spousenameofthecarrier'].errors &&
+                            userFormControl['Spousenameofthecarrier'].errors['required'] ">
+                            {{ lang.please_enter_name_of_carrier }}
+                          </div>
+                        </div> -->
+                          </div>
+                          <div class="col-12 col-md-4">
+                            <label *ngIf="spousehealthcardinfo &&
+                          userFormControl['spousehealthcard'].value === 'true' ">{{ lang.cob_coverage }}
+                              <span class="text-danger">*</span></label>
+
+                            <select class="form-control border border-dark" id="spousecob" placeholder="Select"
+                              formControlName="spousecob" *ngIf="spousehealthcardinfo">
+                              <option value="" [selected]="!userFormControl['spousecob'].value">{{ lang.select }}
+                              </option>
+                              <option value="SINGLE">{{ lang.single }}</option>
+                              <option value="COUPLE">{{ lang.couple }}</option>
+                              <option value="FAMILY">{{ lang.family }}</option>
+                            </select>
+
+                            <!-- <select class="form-control border border-dark" placeholder="Select" formControlName="childInfoGender">
+                              <option  value="" [selected]="!childFormGroup.get('childInfoGender')?.value" >{{ lang.select }}</option>
+                              <option value="Male">{{ lang.male }}</option>
+                              <option value="Female">{{ lang.female }}</option>
+                              <option value="Non-Binary">{{ lang.nonBinary }}</option>
+                              <option value="Undisclosed"> {{ lang.unDisclosed }} </option>
+                            </select> -->
+
+                            <div class="help-block text-danger" *ngIf="(userForm.get('spousecob')?.touched && userForm.get('spousecob')?.hasError('required'))
+                        || (userForm.get('spousecob')?.hasError('required') && myForm.submitted)">
+                              {{ lang.please_enter_name_of_cob_coverage }}
+                            </div>
+                            <!-- <div class="help-block text-danger" *ngIf="
+                          userFormControl['spousecob'].touched &&
+                          userFormControl['spousecob'].invalid
+                        ">
+                          <div *ngIf="
+                            userFormControl['spousecob'].errors &&
+                            userFormControl['spousecob'].errors['required'] &&
+                            spousehealthcardinfo
+                          ">
+                            {{ lang.please_enter_name_of_cob_coverage }}
+                          </div>
+                        </div> -->
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- Spouce information end -->
+                <!-- ******************************************************************************************************* -->
+                <!-- Child information started from here -->
+
+                <div class="row">
+                  <!-- <div class="row"> -->
+                  <div class="form-group col-12  ">
+                    <b id="header-font">{{ lang.dependent }} <i class="fa fa-info-circle"
+                        data-bs-target="#dependentChildInfoModal" data-bs-toggle="modal"></i></b>
+                    <hr class="dependentChildInfoHrLine hrLineMargins">
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="col-12">
+                      <label for=""> {{ lang.dependentChild }}<span class="text-danger">*</span></label>
+                    </div>
+                    <!-- <div class="row"> -->
+                    <div class="col-11">
+                      <div class="form-check form-check-inline col-4 col-md-7">
+                        <input class="form-check-input border border-dark" type="radio" name="Dependentchildren"
+                          id="Dependentchildrenyes" value="true" [checked]="applicanthavingchildren === 'true'"
+                          formControlName="Dependentchildren" data-bs-target="#childInfo"
+                          (click)="havingchildren($event)" />
+                        <label class="form-check-label" for="Dependentchildrenyes">{{ lang.yes }}</label>
+                      </div>
+
+                      <div class="form-check form-check-inline col-2">
+                        <input class="form-check-input border border-dark" type="radio" name="Dependentchildren"
+                          id="Dependentchildrenno" value="false" [checked]="applicanthavingchildren === 'false'"
+                          formControlName="Dependentchildren" (click)="havingchildren($event)" />
+                        <label class="form-check-label" for="Dependentchildrenno">{{ lang.no }}</label>
+                      </div>
+
+                      <div class="help-block text-danger" *ngIf="
+                    (userForm.get('Dependentchildren')?.touched &&
+                      userForm
+                        .get('Dependentchildren')
+                        ?.hasError('required')) ||
+                    (userForm.get('Dependentchildren')?.invalid &&  myForm.submitted)">
+                        {{ lang.please_choose_children_status }}
+                      </div>
+                      <div class="help-block text-danger"
+                        *ngIf="userForm.get('Dependentchildren')?.value== 'true' && childTableRowsLength==0&&myForm.submitted">
+                        Please add at least one child
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- no of childrens flow start -->
+                  <div class="col-12 col-md-6">
+                    <div class="form-group col-8 col-md-8 d-flex"
+                      *ngIf=" childrenhealthinformation &&  userForm.get('Dependentchildren')?.value === 'true'">
+
+                      <div class="form-group col-6">
+                        <div class="col-12">
+                          <label class="" for="noofchildren">{{ lang.noChildren }}<span
+                              class="text-danger">*</span></label>
+                        </div>
+                        <input class="form-control border border-dark noofchildren" type="text" name="noofchildren"
+                          id="noofchildren" [value]="noOfChildrenChangedValue" formControlName="noofchildren"
+                          (change)="noofchildrenchanged($event)" maxlength="3"
+                          onkeypress="return /^[0-9]+$/.test(event.key)" />
+                        <div class="help-block text-danger"
+                          *ngIf=" userFormControl['noofchildren'].touched && userFormControl['noofchildren'].invalid">
+                          <div *ngIf="
+                          userFormControl['noofchildren'].errors &&
+                        userFormControl['noofchildren'].errors['required']">
+                            {{ lang.please_select_children }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-4 pt-3"
+                        *ngIf=" childrenhealthinformation &&  userForm.get('Dependentchildren')?.value === 'true'">
+                        <button type="button"
+                          class="btn btn-primary buttonBorder modalPopupHeaderAndButtonBgColor text-white backgroundColor ms-2 p-1"
+                          (click)="childAddFun()">Add</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Child information end here -->
+                <!-- ******************************************************************************************************* -->
+
+                <!-- child info table started -->
+                <div class="row  " *ngIf="childTableRowsLength>0">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr class="trbottomsolid">
+                          <th class="bgColor-tr" scope="col">S.no</th>
+                          <th class="bgColor-tr" scope="col">{{lang.first_name}}</th>
+                          <th class="bgColor-tr" scope="col">{{lang.last_name}}</th>
+                          <th class="bgColor-tr" scope="col">{{lang.gender}}</th>
+                          <th class="bgColor-tr" scope="col">{{lang.dateOfBirth}}</th>
+                          <th class="bgColor-tr" scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let childData of childInfoAddDataArray; let i = index">
+                          <td class="thBottomNone"> {{i+1}}</td>
+                          <td class="thBottomNone text-capitalize"> {{childData.childInfoFirstName}}</td>
+                          <td class="thBottomNone text-capitalize"> {{childData.childInfoLastName}}</td>
+                          <td class="thBottomNone"> {{childData.childInfoGender}}</td>
+                          <td class="thBottomNone"> {{childData.childInfoDOB}}</td>
+                          <td class="thBottomNone">
+
+                            <i class="bi bi-pencil-square childEditSymbleColor" (click)="childInforTableEdit(i)"></i>
+                            <i class="bi bi-trash-fill ms-2 childDeleteSymbleColor"
+                              (click)="deleteChildrenSwal(i)"></i>
+
+
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- <hr class="newline" /> -->
+
+                <!-- <div class="row ms-1">
+                  <div class="form-check col-md-12 termsandconditions">
+                    <input type="checkbox" formControlName="termsandconditions"
+                      class="form-check-input border border-dark" />&nbsp;<span class="termsandconditions"
+                      id="termsandconditions">{{ lang.read_terms_and_conditions_2 }}
+
+                      <span class="termsandconditionspara"
+                       style="line-height: 0px" (click)="termandconditions()">
+                        <span class="pointer  " style="color: #007bff">{{ lang.click_terms_and_conditions }}</span>
+                      </span>
+                    </span>
+                    <span class="help-block text-danger ms-3" *ngIf="
+                      (userForm.get('termsandconditions')?.touched &&
+                        userForm.get('termsandconditions')?.hasError('required')) ||
+                      (userForm.get('termsandconditions')?.hasError('required') && myForm.submitted)">{{
+                      lang.please_read_the_terms_and_conditions }}
+                    </span>
+
+                  </div>
+                </div>
+
+                <div class="row   ms-1">
+                  <div class="form-check col-md-12">
+                    <input type="checkbox" class="form-check-input border border-dark"
+                      formControlName="disclouseradvisor" />
+                    &nbsp;<span class="Advisor pointer" id="termsandconditions">{{ lang.read_advisor_disclosure_2 }}
+
+                      <span>
+                        <span class="termsandconditionslink" (click)="avisordisclosure()" style="color: #007bff">{{
+                          lang.click_advisor_disclosure
+                          }}</span>
+                      </span>
+                    </span>
+
+                    <span class="help-block text-danger ms-3" *ngIf="
+                      (userForm.get('disclouseradvisor')?.touched &&
+                        userForm
+                          .get('disclouseradvisor')
+                          ?.hasError('required')) ||
+                      (userForm.get('disclouseradvisor')?.hasError('required') &&
+                        myForm.submitted)">{{ lang.please_read_the_advisor_disclosure }}</span>
+                  </div>
+                </div> -->
+
+                <div class="row">
+                  <div class="col 8"></div>
+                  <div class="col 4">
+                    <div class="text-end">
+                      <button class="text-end" type="submit" class="btn btn-primary personalinfobutton"  (click)="personalInfoSubmit()">
+                        {{lang.next}}&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+
+              </form>
+            </div>
+            <div *ngIf="selectedTab === 'tab2'">
+
+              <div class="firstname text-capitalize" style="font-size: 16px;">hi&nbsp;Admin,</div>
+              <div class=" info_eligibility_plans" style="font-size: 16px;">{{completeapplicantinfo}}</div>
+              <!-- {{(isStudent)}} -->
+              <div *ngIf="isStudent; else GIGBlock">
+
+                <div *ngFor="let group of specialpackages[0].groups">
+
+                  <div class="row plansscreen" *ngFor="let plan of group['plans']; let i = index">
+                    <!-- <div [ngClass]="{'AddOnsClass' : cartcheckvalue&&plan.name=='Athabasca University Student Plan - Add Ons'}">-cartcheckvalue &&plan.name=='Athabasca University Student Plan - Add Ons' -->
+                    <div [ngClass]="(cartcheckvalue&&!plan.isMandatory)?'AddOnsClass':'selectedHealthPlan'">
+                      <div class="form-row" *ngIf="specialpackages[0].groups[0].plans.length > 0">
+
+                        <span class="plans text-center"><strong>{{ plan.name}}</strong></span>
+                      </div>
+                      <!-- ********************************** -->
+
+
+                      <div class="form-group col-md-12 package" *ngIf="plan.productAddonss">
+                        <div class="package-groups col-md-4"
+                          *ngFor="let product of plan.productAddonss | keyvalue:pipeFunction; let j = index" title=""
+                          [style.background-color]="plan.productAddonssCSS[product.key].backgroundColor">
+                          <!-- <span class="productlogo" *ngIf="plan.productAddonss[product.key][0].product.display=='LOGO'">
+                            <img
+                              src="https://testapi.groupbenefitz.aitestpro.com/{{plan.productAddonss[product.key][0].product.logo}}"
+                              style="width: 180px;">
+                            </span> -->
+                          <p class="plantitle"> {{product.key}}</p>
+
+                          <div class="planbody">
+                            <ng-container *ngIf="product.key=='Health Plan'">
+
+                            </ng-container>
+                            <ng-container *ngIf="product.key=='High Cost Drugs'">
+
+                            </ng-container>
+                            <ng-container *ngIf="product.key!='Health Plan' && product.key!='High Cost Drugs'">
+
+                            </ng-container>
+
+                          </div>
+
+                          <div class="plancoverage">
+                            <li class="plansCoverageDetails"
+                              *ngFor="let coverage of plan.productAddonss[product.key]; let k = index"><!---->
+                              <span class="overflow-ellipsis2 plancoverageClrNdSize text-white" style="float: right;">
+                                {{ currencySymbol}}{{ coverage.price | number: "1.2-2"}}<small>*</small></span>
+                              <span class="mt-1 overflow-ellipsis plancoverageClrNdSize text-white" style="float: left;"
+                                title={{coverage.planCoverageUI}}>
+                                <input type="checkbox" *ngIf="product.key=='Health Plan';else AddOnPlans"
+                                  id="plancheck{{ coverage.id}}" (change)="
+                          onCheckboxChangestudent($event,plan,plan.name, plan.id,
+                            product.key,
+                            coverage,k)" class="plancheckbox{{ coverage.planCoverage }} plancv mt-1">
+                                <ng-template #AddOnPlans>
+                                  <input type="checkbox" id="plancheck{{ coverage.id}}" (change)="
+                            onCheckboxChangestudent($event,plan,plan.name,
+                              plan.id,
+                              product.key,
+                              coverage,k)" class="plancheckbox{{ coverage.planCoverage }} plancv AddOnsChecked">
+                                  <!-- [checked]="false" -->
+                                </ng-template>
+
+                                {{coverage.planCoverageUI}}</span><span class="clearfix"></span><!---->
+                            </li>
+                          </div>
+
+                          <!-- <div class="taxes">
+                            *{{lang.monthly_plus_any_applicable_taxes}}
+                          </div> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <ng-template #GIGBlock>
+
+
+
+                <div *ngFor="let package of specialpackages" class="plansscreen">
+                  <span style="color:black">{{package.name}}</span>
+
+
+                  <!-- <div class="wraptext"> -->
+                    <div class="row">
+                  <div class="column" *ngFor="let group of package.groups">
+                            <div *ngFor="let plan of group.plans; let i = index">
+
+                              <div class="card"  *ngFor="let product of plan.productAddonss | keyvalue; let j = index" title="" [style.background-color]="
+                              plan.isBundle==false?plan.productAddonss[product.key][0].planlevel.backgroundColor:group.backgroundColor">
+                                <span class="card-header" style="color:white">{{product.key}}</span>
+                                <div class="row" *ngFor="let coverage of product.value; let k = index">
+
+                                      <div class="col-md-6">
+                                        <input
+                                        type="checkbox"
+
+                                        id="plancheck{{ plan.productAddonss[product.key][k].id }}"
+                                        class="plancheckbox{{ package.id }} plancv"
+                                        attr.data="{{ package.name }}##{{ group.name }}##{{
+                                          plan.planCoverage
+                                        }}##{{plan.productAddonss[product.key][k].calculatedTax.price}}##0##0##0##{{ plan.id }}##{{ plan.fusebillId }}##{{
+                                          plan.frqMonthly
+                                        }}##{{ package.optIn }}##{{
+                                          group.disallowedPlanLevels
+                                        }}##{{ group.parentId }}##{{ group.id }}##{{
+                                          plan.name
+                                        }}##{{ plan.planLevel }}##{{ plan.packageId }}##0##{{plan.planOptions}}##{{plan.productAddonss[product.key][k].id}}"
+                                        (change)="
+                                          onCheckboxChange(
+                                            $event,
+                                            package.allowMultiple,
+                                            group.disallowedPlanLevels,
+                                            plan.planOptions,
+                                            group.parentId,
+                                            package.name,
+                                            group.name,
+                                            plan.planCoverage,
+                                            0,
+                                            0,
+                                            0,
+                                            0,
+                                            $event,
+                                            i,
+                                            j,
+                                            k,
+                                            plan,
+                                            plan.productAddonss[product.key][k],package,group
+                                          )
+                                        "><span>{{coverage.planCoverageUI}}</span>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <li class="plansCoverageDetails" ><!---->
+                                          <span class="overflow-ellipsis2" style="float: right; color: white">
+                                            {{ currencySymbol}}{{ coverage.price | number: "1.2-2"}}<small>*</small></span>
+                                          <span class="overflow-ellipsis" style="float: left; color: white" title={{coverage.planCoverageUI}}>
+
+
+
+                                            </span><span class="clearfix"></span></li>
+                                      </div>
+
+
+                                </div>
+                              </div>
+                              <!-- <div class="package-groups col-md-4"
+                                *ngFor="let product of plan.productAddonss | keyvalue; let j = index" title="" [style.background-color]="
+                                plan.isBundle==false?plan.productAddonss[product.key][0].planlevel.backgroundColor:group.backgroundColor">
+
+                                <span class="plantitle" > {{product.key}}</span>
+
+                                <div class="plancoverage">
+                                  <li class="plansCoverageDetails" *ngFor="let coverage of product.value; let k = index">
+                                    <span class="overflow-ellipsis2" style="float: right; color: white">
+                                      {{ currencySymbol}}{{ coverage.price | number: "1.2-2"}}<small>*</small></span>
+                                    <span class="overflow-ellipsis" style="float: left; color: white" title={{coverage.planCoverageUI}}>
+                                       <input
+                            type="checkbox"
+
+                            id="plancheck{{ plan.productAddonss[product.key][k].id }}"
+                            class="plancheckbox{{ package.id }} plancv"
+                            attr.data="{{ package.name }}##{{ group.name }}##{{
+                              plan.planCoverage
+                            }}##{{plan.productAddonss[product.key][k].calculatedTax.price}}##0##0##0##{{ plan.id }}##{{ plan.fusebillId }}##{{
+                              plan.frqMonthly
+                            }}##{{ package.optIn }}##{{
+                              group.disallowedPlanLevels
+                            }}##{{ group.parentId }}##{{ group.id }}##{{
+                              plan.name
+                            }}##{{ plan.planLevel }}##{{ plan.packageId }}##0##{{plan.planOptions}}##{{plan.productAddonss[product.key][k].id}}"
+                            (change)="
+                              onCheckboxChange(
+                                $event,
+                                package.allowMultiple,
+                                group.disallowedPlanLevels,
+                                plan.planOptions,
+                                group.parentId,
+                                package.name,
+                                group.name,
+                                plan.planCoverage,
+                                0,
+                                0,
+                                0,
+                                0,
+                                $event,
+                                i,
+                                j,
+                                k,
+                                plan,
+                                plan.productAddonss[product.key][k],package,group
+                              )
+                            ">
+
+
+                                     <span>{{coverage.planCoverageUI}}</span> </span><span class="clearfix"></span></li></div>
+
+
+                              </div> -->
+
+
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- </div> -->
+                      </div>
+                  </ng-template>
+
+              <div class="form-row d-flex justify-content-between mt-2">
+                <button type="submit" class="btn btn-primary previousButtonMargins  " (click)="selectTab('tab1')"> <i
+                    aria-hidden="true" class="fa fa-chevron-left"></i>
+                  {{lang.previous}}
+                </button>
+
+                <div class="form-row text-end  ">
+                  <button type="submit" class="btn btn-primary personalinfobutton" [disabled]="planAmount==0.00"
+                    (click)="paymentpage(3)">
+                    {{lang.next}}&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- tab3 enrollment summary -->
+            <div *ngIf="selectedTab === 'tab3'">
+              <div class="row mt-2">
+                <div class="form-group col-12">
+                  <b style="float: left;" id="header-font">SELECTED PLANS</b>
+                  <hr class="employeeInfoHrLine hrLineMargins">
+                </div>
+              </div>
+
+              <!-- ************* Plans table ******************* -->
+              <div class="row mt-2">
+
+                <div *ngIf="isStudent; else isGigPlans">
+
+                  <table class="table table-bordered" id="customerPlansTable">
+                    <thead>
+                      <tr>
+                        <th colspan="6" style="font-size: 14px;background-color: #ffff;">{{lang.plans_summary}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th class="w45">{{lang.plan}}</th>
+                        <th class="w10">Coverage</th>
+                        <th class="align-center w15">{{lang.amount || 'Amount'}}</th>
+                        <th class="align-center w15">{{lang.tax}}</th>
+                        <th class="align-center w15">{{lang.total}}</th>
+
+                      </tr>
+                      <ng-container *ngFor="
+                      let plan of finalenrollemntsummary;
+                      let i = index">
+                      <tr style="background-color:rgb(20,42,73);color:white">
+                        <td colspan="6">
+                          {{plan.name}}
+                        </td>
+                      </tr>
+                      <tr *ngFor="let product of plan.products;let j = index">
+                        <td>
+                        {{product.name}}
+                        </td>
+
+                        <td class="align-center">
+                          <span *ngIf="product.planCoverage =='NORTON_LIFELOCK' || product.planCoverage =='DEPENDENT_CRITICAL_ILLNESS' ;else placheck">---</span>
+                          <ng-template #placheck>{{product.planCoverage}}</ng-template>
+
+                        </td>
+                        <td class="align-right">
+                          {{product.calculatedTax.price  | currency:"USD"}}
+                        </td>
+                        <td class="align-right">
+                          {{product.calculatedTax.tax  | currency:"USD"}}
+                        </td>
+                        <td class="align-right">
+                          {{product.calculatedTax.total  | currency:"USD"}}
+                        </td>
+                      </tr>
+                      </ng-container>
+
+                              <!-- <tr>
+                                <td colspan="6"></td>
+                              </tr> -->
+                              <tr>
+                                <td colspan="4"><b>Total</b></td>
+                                <!-- <td colspan="3"></td> -->
+                                <td class="grandTotal align-right">
+                                 {{planAmount | currency:"USD"}}
+                                </td>
+                              </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+
+                <ng-template #isGigPlans>
+                  <table class="table table-bordered" id="customerPlansTable">
+                    <thead>
+                      <tr>
+                        <th colspan="6" style="font-size: 14px;background-color: #ffff;">{{lang.plans_summary}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th class="w45">{{lang.plan}}</th>
+                        <!-- <th class="w25"></th> -->
+                        <th class="w10">Coverage</th>
+                        <th class="align-center w15">{{lang.amount || 'Amount'}}</th>
+                        <th class="align-center w15">{{lang.tax}}</th>
+                        <th class="align-center w15">{{lang.total}}</th>
+                      </tr>
+                      <ng-container *ngFor="
+                      let plan of finalenrollemntsummary;
+                      let i = index">
+                      <tr style="background-color:rgb(20,42,73);color:white">
+                        <td colspan="6">
+                          {{plan.packagename}}
+                        </td>
+                      </tr>
+                      <tr *ngFor="let product of plan.products;let j = index">
+                        <td>
+                        {{product.name}}
+                        </td>
+
+                        <td class="align-center">
+                          <span *ngIf="product.planCoverage =='SINGLE' || product.planCoverage =='COUPLE' || product.planCoverage =='FAMILY';else placheck">{{product.planCoverage}}</span>
+                          <ng-template #placheck>---</ng-template>
+
+                        </td>
+                        <td class="align-right">
+                          {{product.calculatedTax.price  | currency:"USD"}}
+                        </td>
+                        <td class="align-right">
+                          {{product.calculatedTax.tax  | currency:"USD"}}
+                        </td>
+                        <td class="align-right">
+                          {{product.calculatedTax.total  | currency:"USD"}}
+                        </td>
+                      </tr>
+                      </ng-container>
+
+                              <!-- <tr>
+                                <td colspan="6"></td>
+                              </tr> -->
+                              <tr>
+                                <td colspan="4"><b>Total</b></td>
+                                <!-- <td colspan="3"></td> -->
+                                <td class="grandTotal align-right">
+                                 {{planAmount | currency:"USD"}}
+                                </td>
+                              </tr>
+                    </tbody>
+                  </table>
+                </ng-template>
+
+
+              </div>
+
+              <!-- ******************enrollment form start ************* -->
+              <form action="https://payments.subscriptionplatform.com/v2/payments/create"
+               method="post" #enrollmentForms1
+                #enrollmentForms="ngForm"
+                 [formGroup]="enrollmentForm" class="mt-2">
+                <div class="container">
+
+                  <div class="row">
+                    <div class="col-12 mt-1">
+                      <label for="" class="mt-1">{{lang.payment_method}}</label>
+                      <div class="form-check"><input type="radio" name="paymentMethodSelection"
+                          class="form-check-input mt-1" (change)="paymentMethodSelect('Pre-Authorized')"> <label
+                          for="">{{lang.pre_authorized_debit}}</label> </div>
+                      <div class="form-check"><input type="radio" name="paymentMethodSelection"
+                          class="form-check-input" (change)="paymentMethodSelect('Credit_Card')" checked> <label
+                          for="">{{lang.credit_card}}</label></div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-12 col-md-6">
+                      <!-- <div class="row">
+                        <div class="form-group col-12">
+                          <label for="" class=""> {{lang.email}} <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control no-drop border border-dark enrollmentEmailFontClr"
+                            [ngModel]="paymentemail" formControlName="enrollmentSummaryEmail" placeholder="Email"
+                            readonly>
+                        </div>
+                      </div> -->
+
+
+
+                      <!-- ************************** Pre-Authorized Debit END ***************************** -->
+
+                    </div>
+                  </div>
+                  <!-- ************************** Enrollment Form END ***************************** -->
+                  <div class="form-row mt-2">
+                    <div class="form-group d-flex">
+                      <input type="checkbox"  class="form-check-input border border-dark"
+                        formArrayName="homeAddressSameasBillingAddress" [checked]="homeaddresscheckvalue" (change)="homeaddressEnrollment($event)">
+                      <label for="" class="ms-1">{{lang.home_address_same_billing_address}}</label>
+                    </div>
+                  </div>
+
+                  <div *ngIf="!homeaddressEnrollmentVal">
+                    <div class="row">
+                      <div class="form-group mt-1 col-12 col-md-6 mt-2">
+                        <label for="">{{lang.apartSuite}}</label>
+                        <input type="text" class="form-control border border-dark text-capitalize"
+                          placeholder="{{lang.apartSuite}}" formControlName="enrollmentSummaryApartSuite">
+                        <div class="help-block text-danger"
+                          *ngIf="enrollmentForm.get('enrollmentSummaryApartSuite')?.touched && enrollmentForm.get('enrollmentSummaryApartSuite')?.hasError('aptexpression')">
+                          {{lang.enter_valid_apt}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-md-6 mt-1">
+                        <label for="">{{lang.streetAddressLine}} <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control border border-dark text-capitalize"
+                          placeholder="{{ lang.streetAddressLine }}" formControlName="enrollmentSummaryStreetAddress"
+                           />
+
+                        <div class="help-block text-danger"
+                          *ngIf="(enrollmentForm.get('enrollmentSummaryStreetAddress')?.touched &&
+                      enrollmentForm.get('enrollmentSummaryStreetAddress')?.hasError('required')) ||
+                      (enrollmentForm.get('enrollmentSummaryStreetAddress')?.hasError('required') && enrollmentForms.submitted)">
+                          {{ lang.please_enter_street_address }}
+                        </div>
+
+                      </div>
+                      <div class="col-12 col-md-6 mt-1">
+                        <label for="">{{lang.streetAddressLine2}} </label>
+                        <input type="text" class="form-control border border-dark"
+                          placeholder="{{lang.streetAddressLine2}}" formControlName="enrollmentSummaryStreetAddressLane2">
+
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 col-md-4 mt-1">
+                        <label for="">{{lang.city}} <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control border border-dark text-capitalize"
+                          placeholder="{{lang.city}}" formControlName="enrollmentSummaryCity">
+                        <!-- <div class="help-block text-danger" *ngIf="enrollmentFormControl['enrollmentSummaryCity'].touched &&
+                          enrollmentFormControl['enrollmentSummaryCity'].invalid">
+                          <div
+                            *ngIf="enrollmentFormControl['enrollmentSummaryCity'].errors && enrollmentFormControl['enrollmentSummaryCity'].errors['required']">
+                            {{ lang.please_enter_city }}
+                          </div>
+                        </div> -->
+
+                        <div class="help-block text-danger"
+                          *ngIf="(enrollmentForm.get('enrollmentSummaryCity')?.touched &&
+                        enrollmentForm.get('enrollmentSummaryCity')?.hasError('required')) ||
+                        (enrollmentForm.get('enrollmentSummaryCity')?.hasError('required') && enrollmentForms.submitted)">
+                          {{ lang.please_enter_city }}
+                        </div>
+
+                      </div>
+
+                      <div class="col-12 col-md-4 mt-1">
+                        <label for="">{{lang.province}} <span class="text-danger">*</span></label>
+                        <select type="text" class="form-select border border-dark"
+                          formControlName="enrollmentSummaryProvince" (change)="provinceEnrollmentlist($event)">
+                          <option value="null" [selected]="!enrollmentFormControl['enrollmentSummaryProvince']?.value">{{lang.select}}</option>
+                          <option *ngFor="let name of configprovinceres" [value]="name.shortName">
+                            {{ name.shortName }}
+                          </option>
+                        </select>
+
+                        <div class="help-block text-danger" *ngIf="enrollmentFormControl['enrollmentSummaryProvince'].touched &&
+                          enrollmentFormControl['enrollmentSummaryProvince'].invalid">
+                          <div
+                            *ngIf="enrollmentFormControl['enrollmentSummaryProvince'].errors && enrollmentFormControl['enrollmentSummaryProvince'].errors['required']">
+                            {{ lang.please_select_province }}
+                          </div>
+                        </div>
+
+
+                      </div>
+
+                      <div class="col-12 col-md-4 mt-1">
+                        <label>{{lang.postalCode}} <span class="text-danger">*</span></label>
+
+                        <input type="text" class="form-control checking-field border border-dark"
+                          placeholder="{{ lang.postalCode }}" formControlName="enrollmentSummaryPostalCode"
+                          (input)="changeTextToUppercaseenrollmentPostalCode('enrollmentSummaryPostalCode',$event)" />
+
+                        <div class="help-block text-danger"
+                          *ngIf="(enrollmentForm.get('enrollmentSummaryPostalCode')?.touched &&
+                      enrollmentForm.get('enrollmentSummaryPostalCode')?.hasError('required')) ||
+                            (enrollmentForm.get('enrollmentSummaryPostalCode')?.hasError('required') && enrollmentForms.submitted)">
+                          {{ lang.please_enter_postal_code }}
+                        </div>
+
+                        <div class="help-block text-danger" *ngIf="
+                      (enrollmentForm.get('enrollmentSummaryPostalCode')?.touched &&
+                      enrollmentForm .get('enrollmentSummaryPostalCode')?.hasError('invalidPostalCode')) ||
+                      (!enrollmentForm.get('enrollmentSummaryProvince')?.hasError('required') && invalidenrollmentpostalcodeprovince)
+                    ">{{ lang.please_enter_valid_postal_code }}</div>
+
+
+                      </div>
+
+
+
+
+                    </div>
+                  </div>
+
+
+
+
+
+                  <!-- <div *ngIf="!paymentMethodSelectCC" class="container mt-4"> signaturePadClear -->
+                  <!-- <div  class="container mt-4"> -->
+                  <div class="form-row" class="paymentMethodSelectCC">
+                    <!-- <div class="col-md-6">
+                      <label for="">{{lang.signature}} </label>
+                      <div class="signature-pad">
+                        <canvas #signaturePadCanvas
+                          class="border border-darker signature-padBgColour signPad border border-dark"
+                          (touchstart)="startSigning($event)" (click)="startSigning($event)">
+                        </canvas>
+
+
+                        <p class="clear-button text-danger underline-text singnaturPad" *ngIf="signaturePadClear"
+                          (click)="clearSignature()"> x Clear</p>
+
+
+                      </div>
+                    </div> -->
+                  </div>
+                  <!-- </div> -->
+                  <!-- recaptcha box**************************************************** -->
+
+                  <!-- <div class="form-row captchavalidation" *ngIf="paymentMethodSelectCC">
+                    <re-captcha
+                      (resolved)="resolved($event)"
+                      formControlName="recaptchaReactive"> {{fusbillinfocaptchavalue}}
+                    </re-captcha>
+
+                    <input
+                      id="recaptcha_token"
+                      type="hidden"
+                      name="recaptcha_token"
+                      [value]="recaptchaResponse"
+                    />
+                    <span
+                        class="help-block text-danger"
+                        style="margin-left: 10px"
+                        *ngIf="
+                        bankPayForm.get('recaptchaReactive')?.touched &&
+                        bankPayForm.get('recaptchaReactive')?.hasError('required')">{{lang.please_check_captcha_validation}}</span
+                      >
+                  </div> -->
+                  <!-- <div class="form-row captchavalidation" *ngIf="paymentMethodSelectCC">
+                    <re-captcha
+                      (resolved)="resolved($event)"
+                      formControlName="recaptchaReactive"
+
+                      siteKey={{fusbillinfocaptchavalue}}
+                    >
+                    </re-captcha>
+
+                    <input
+                      id="recaptcha_token"
+                      type="hidden"
+                      name="recaptcha_token"
+                      [value]="recaptchaResponse" />
+
+                  </div> -->
+
+                  <div class="form-row d-flex justify-content-between mt-2">
+
+                    <button type="submit" class="btn btn-dark previousButtonMargins mt-2" (click)="selectTab('tab2')">
+                      <i aria-hidden="true" class="fa fa-chevron-left"></i>
+                      {{lang.previous}}
+                    </button>
+                    <button type="submit" class="btn btn-dark personalinfobutton"
+                      (click)="enrollmentFormSubmit(enrollmentForms1)">
+                      {{lang.submit}}
+                    </button>
+
+                  </div>
+                </div>
+              </form>
+
+              <!-- *********** enrollment form ended *************** -->
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    <!-- </div> -->
+  </main>
+
+  <div class="modal" role="dialog" data-bs-backdrop="static" aria-labelledby="modal-label" id="QCproviance">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+
+      <div class="modal-content">
+
+        <div class="modal-header modalPopupHeaderAndButtonBgColor d-flex headerBottomRadius10px">
+
+          <div class="col-12 text-white text-center">
+          {{lang.service_unavailability}}
+          </div>
+
+        </div>
+        <div class="model-body ms-3 mt-2">
+          <p>
+            {{lang.not_operateing_quebec}}
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-dark buttonSizeNDColor backgroundColor" style="font-size: 14px;border-radius:5px" data-bs-dismiss="modal"
+            (click)="closeprovinceinfo()">
+            <strong style="color: white" (click)="closePopup('QCproviance')">{{lang.close}}</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal modalposition modal-md" role="dialog" data-bs-backdrop="static" aria-labelledby="modal-label" id="checkuhipstatusModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header modalPopupHeaderAndButtonBgColor justify-content-center text-white headerBottomRadius10px">
+          <div class="col-1">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 text-center">
+            <a>{{lang.student_health_coverage}}</a>
+          </div>
+        </div>
+        <div class="modal-body">
+          <a>{{lang.student_please_visit}}
+            <a style="word-wrap: break-word;" href="{{ provincialHealthcareUrl }}" target="_blank">
+              {{ provincialHealthcareUrl }}</a>&nbsp;{{lang.student_provincial_health_coverage_apply_later}}</a>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary buttonSizeNDColor backgroundColor text-white" data-bs-dismiss="modal">
+            {{lang.close}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modalposition modal-md" role="dialog" data-bs-backdrop="static" aria-labelledby="modal-label" id="checkuhipstatusModalStudent">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header modalPopupHeaderAndButtonBgColor justify-content-center text-white headerBottomRadius10px">
+          <div class="col-1">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 text-center">
+            <a>{{lang.provincial_UHIP}}</a>
+          </div>
+        </div>
+        <div class="modal-body">
+          <!-- <a>{{lang.apply_UHIP}}
+           </a> -->
+           <p [innerHTML]="lang.apply_UHIP"></p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary buttonSizeNDColor backgroundColor text-white" (click)="closePopup('checkuhipstatusModalStudent')" data-bs-dismiss="modal">
+            {{lang.close}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div  class="modal modalposition modal-md" data-bs-backdrop="static" aria-labelledby="modal-label" id="checkphcpstatusModal" >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="z-index:9999 !important">
+        <div class="modal-header modalPopupHeaderAndButtonBgColor justify-content-center text-white headerBottomRadius10px">
+          <div class="col-1 ">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          </div>
+          <div class="col-11 text-center">
+            Provincial Health Coverage
+
+          </div>
+        </div>
+        <div class="modal-body">
+          <!-- <a>
+                  {{language.apply_UHIP}}</a> -->
+          <p>
+            Provincial health Coverage is a prerequisite. Please visit <a [href]="provincialHealthcareUrl"> {{provincialHealthcareUrl}}</a> to apply for provincial health coverage and reapply when it is received.
+          </p>
+        </div>
+        <!-- <div [innerHtml]="sanitizedApplyUHIPHtml"></div> -->
+        <div class="modal-footer ">
+          <button class="btn btn-primary buttonSizeNDColor text-white closeButton" data-bs-dismiss="modal" (click)="closePopup('checkphcpstatusModal')">
+            {{lang.close}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="childInfoModal" class="modal modalposition modal-md" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header modalPopupHeaderAndButtonBgColor d-flex headerBottomRadius10px">
+          <!-- <div class=""> -->
+          <div class="col-11 text-white text-center">
+           {{childInfoModalAddAndUpdateButton}} Dependent
+          </div>
+          <div class="col-1 text-end">
+            <!-- <i class="fa fa-times-circle text-white" role="button" aria-hidden="true" data-bs-dismiss="modal"></i> -->
+
+            <i class="fa-solid fa-xmark fa-lg text-white closebutton" role="button" (click)="childrenPopupClose()" aria-hidden="true"
+              data-bs-dismiss="modal"></i>
+
+          </div>
+          <!-- </div> -->
+        </div>
+        <div class="modal-body p-2">
+          <form action="" [formGroup]="childFormGroup" style="padding-left: 15px;padding-right: 15px;">
+            <div class="container">
+
+              <div class="row">
+                <div class="form-group col-12 col-lg-6 p-1 ">
+                  <label for="" class="">{{lang.first_name}} <span class="text-danger">*</span></label>
+                  <input class="form-control border border-dark text-capitalize" type="text" placeholder="First Name"
+                    formControlName="childInfoFirstName"  (keypress)="alphabatesOnly($event)">
+
+                  <div class="help-block text-danger"
+                    *ngIf="(childFormGroup.get('childInfoFirstName')?.touched  && childFormGroup.get('childInfoFirstName')?.hasError('required'))">
+                    <!-- {{lang.please_enter_first_name_cp}}  -->
+                    Please enter first name
+                  </div>
+
+                  <div class="help-block text-danger"
+                  *ngIf="(childFormGroup.get('childInfoFirstName')?.touched  && childFormGroup.get('childInfoFirstName')?.hasError('minlength'))">
+                  {{ lang.firstName_minm_error}}
+                </div>
+
+                  <div class="help-block text-danger"
+                    *ngIf="(childFormGroup.get('childInfoFirstName')?.touched  && childFormGroup.get('childInfoFirstName')?.hasError('pattern'))">
+                    {{shouldtallownumberandspecialcharacters}}
+                  </div>
+                </div>
+                <div class="form-group col-12 col-lg-6 p-1">
+                  <label for="" class="">{{lang.lastName}} <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control border border-dark text-capitalize" placeholder="Last Name"
+                    formControlName="childInfoLastName"  (keypress)="alphabatesOnly($event)">
+                  <div class="help-block text-danger" *ngIf="childInfoControl['childInfoLastName'].touched &&
+                       childInfoControl['childInfoLastName'].invalid">
+                    <div
+                      *ngIf="childInfoControl['childInfoLastName'].errors && childInfoControl['childInfoLastName'].errors['required']">
+                      <!-- {{ lang.please_enter_last_name_cp }} -->
+                      Please enter last name
+                    </div>
+
+                    <div class="help-block text-danger"
+                  *ngIf="(childFormGroup.get('childInfoLastName')?.touched  && childFormGroup.get('childInfoLastName')?.hasError('minlength'))">
+                  {{ lang.lastName_minm_error}}
+                </div>
+
+                    <div
+                      *ngIf="childInfoControl['childInfoLastName'].errors && childInfoControl['childInfoLastName'].errors['pattern']">
+                      {{shouldtallownumberandspecialcharacters}}
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="form-group col-12 col-lg-6 p-1">
+                  <label for="" class="">{{lang.gender}} <span class="text-danger">*</span></label>
+
+                  <select class="form-control border border-dark" placeholder="Select" formControlName="childInfoGender">
+                    <option value="" [selected]="!childFormGroup.get('childInfoGender')?.value">{{ lang.select }}
+                    </option>
+                    <option value="Male">{{ lang.male }}</option>
+                    <option value="Female">{{ lang.female }}</option>
+                    <option value="Non-Binary">{{ lang.nonBinary }}</option>
+                    <option value="Undisclosed"> {{ lang.unDisclosed }} </option>
+                  </select>
+
+                  <div class="help-block text-danger" *ngIf="childInfoControl['childInfoGender'].touched &&
+                  childInfoControl['childInfoGender'].invalid">
+                    <div
+                      *ngIf="childInfoControl['childInfoGender'].errors && childInfoControl['childInfoGender'].errors['required']">
+                      {{ lang.please_select_gender }}
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-12 col-lg-6 p-1">
+                  <label for="childInfoDOB" class="">{{lang.dateOfBirth}}<span class="text-danger">*</span></label>
+                  <input type="text" class="form-control border border-dark" id="childInfoDOB" placeholder="MM-DD-YYYY"
+                    formControlName="childInfoDOB" [minDate]="minDatechild" [maxDate]="maxDatechild"  bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }">
+                  <div class="help-block text-danger" *ngIf="childInfoControl['childInfoDOB'].touched &&
+                  childInfoControl['childInfoDOB'].invalid">
+                    <div
+                      *ngIf="childInfoControl['childInfoDOB'].errors && childInfoControl['childInfoDOB'].errors['required']">
+                      {{ lang.please_choose_date_of_birth }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-12 mt-1">
+                  <label for="childDependentInsurence" class="">{{lang.dependentCover}} <span class="text-danger">*</span>
+                  </label>
+
+                  <div class="form-check form-check-inline col-4 col-md-6">
+                    <input class="form-check-input border border-dark" value="true" type="radio"
+                      name="DependentchildInsurence" formControlName="DependentchildInsurence"
+                      (click)="havingchildrenDependentInsurence($event)" />
+                    <label class="form-check-label" for="DependentchildInsurenceyes">{{ lang.yes }}</label>
+                  </div>
+
+                  <div class="form-check form-check-inline col-2">
+                    <input class="form-check-input border border-dark" value="false" type="radio"
+                      name="DependentchildInsurence" formControlName="DependentchildInsurence"
+                      (click)="havingchildrenDependentInsurence($event)" />
+                    <label class="form-check-label" for="DependentchildInsurenceno">{{ lang.no }}</label>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="dependentchildInsurenceval" class="row">
+                <div class="form-group col-12 col-md-6 pt-1">
+                  <label for="" class="">{{lang.name_of_the_carrier}} <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control border border-dark text-capitalize"
+                    placeholder="{{lang.name_of_the_carrier}}" formControlName="childInfoCarrierName">
+                  <div class="help-block text-danger"
+                    *ngIf="childFormGroup.get('childInfoCarrierName')?.touched && childFormGroup.get('childInfoCarrierName')?.hasError('required')">
+                    {{ lang.please_enter_name_of_carrier }}
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row mt-2">
+                <div class="form-group col-12 paddingLeft6px">
+                  <input type="checkbox" class="" name="" id="" formControlName="childdisablility"
+                    (click)="childdsiablility($event)" />&nbsp;{{
+                  lang.childdsiablility }}&nbsp;
+
+                  <i class="fa fa-info-circle" (click)="dependentWithSpecialNeedsShow()"></i>
+                </div>
+              </div>
+              <div class="row mt-2 ">
+                <div class="form-group col-12 paddingLeft6px">
+                  <input type="checkbox" class="" name="" id="" formControlName="childPostGraduate"
+                    (click)="enrolledunversity($event)" />&nbsp;{{
+                  lang.enrolledunversity }}&nbsp;
+
+                  <i class="fa fa-info-circle" (click)="postSecondaryShow()"></i>
+                </div>
+              </div>
+
+              <div class="form-group col-md-6 mt-1 marginLeft6px" *ngIf="graducationdaycheck">
+                <label class="">{{ lang.graduation_day}}<span class="text-danger">*</span></label>
+                <input type="text" placeholder="MM-DD-YYYY" class="form-control checking-field border border-dark"
+                  bsDatepicker [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }" [placement]='"top"'
+                  formControlName="childInfoGraduationday" />
+                <!-- <input type="date" placeholder="MM-DD-YYYY" class="form-control checking-field border border-dark"
+                 formControlName="childInfoGraduationday" /> -->
+
+                <div class="help-block text-danger"
+                  *ngIf="childFormGroup.get('childInfoGraduationday')?.touched && childFormGroup.get('childInfoGraduationday')?.hasError('required')">
+                   <!-- {{lang.please_enter_graduation_date_cp}} -->
+                   Please choose graduation date
+                </div>
+              </div>
+              <div class="row justify-content-end mt-2">
+                <div class="col-4 col-md-3 marginRightMinus3">
+                  <button type="submit" class="btn btn-dark buttonBorder modalPopupHeaderAndButtonBgColor text-white p-1"
+                  data-bs-dismiss="modal" (click)="closeAddChildrenPopup()">
+                  Cancel
+                  </button>
+                </div>
+                <div class="col-4 col-md-3 marginRightMinus3">
+                  <button type="submit" class="btn btn-dark buttonBorder  modalPopupHeaderAndButtonBgColor text-white p-1"
+                    data-bs-dismiss="modal" [disabled]="childFormGroup.invalid"
+                    (click)="childInfoAddData()">{{childInfoModalAddAndUpdateButton}}</button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="modal"  #advisoranddisclousreModal tabindex="-1" role="dialog" aria-labelledby="modal-label"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header modalPopupHeaderAndButtonBgColor d-flex headerBottomRadius10px">
+        <div class="col-11 text-white text-center">
+          {{ lang.advisor_disclosure }}
+        </div>
+
+      </div>
+      <div class="model-body Advisordisclousremodel modalHightNdWidth">
+
+        <span *ngIf="pdfvisibleadvisouredisclosure">
+          <img src="../../../assets/img/logo/tenor.gif" width="100" style=" display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 25%;">
+        </span>
+
+        <pdf-viewer [src]="disclosureAgreement" [render-text]="true" [original-size]="false" class="popupPdf"
+          (after-load-complete)="AdviserDisclosureloading($event)">
+
+        </pdf-viewer>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary buttonSizeNDColor" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="modal" #termsAndConditionsModal tabindex="-1" role="dialog" aria-labelledby="modal-label"
+  data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header modalPopupHeaderAndButtonBgColor d-flex headerBottomRadius10px">
+        <div class="col-11 text-white text-center">
+          {{ lang.terms__conditions }}
+        </div>
+
+      </div>
+
+      <div class="model-body termsandcodionsmodel">
+        <span *ngIf="pdfvisibletermsandcodionsmodel">
+          <img src="../../../assets/img/logo/tenor.gif" width="100" style=" display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 25%;">
+        </span>
+
+        <pdf-viewer [src]="term_and_conditions" [render-text]="true" [original-size]="false" class="popupPdf"
+          (after-load-complete)="termAndConditionsLoading($event)"></pdf-viewer>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary buttonSizeNDColor " data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- </div> -->
+
+<div class="modal fade modal-lg modalposition" data-bs-backdrop="static" id="showplanoptions-modal" *ngIf="showoptions" style="max-width: 100%;">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" id="modal-dialog">
+      <div class="modal-content" id="modal-content">
+          <div class="modal-header" id="backgroundColor">
+              <span class="modal-title">Choose Options</span>
+              <i class="bi bi-x-circle" role="button" aria-hidden="true" data-bs-dismiss="modal"></i>
+          </div>
+          <div class="model-body" style="max-width: 800px;
+
+          overflow-y: scroll;">
+
+
+      <!--  -->
+            <input type="hidden" id="plandetailsobj" value="{{plandetailsobjvalue}}">
+            <input type="hidden" id="optionumber" value="{{optionstitle.length}}">
+
+            <div *ngFor="let option of optionstitle; let i = index" style="max-height: 350px;
+            overflow-y: scroll;">
+               <span></span>
+              <span><b>{{option.name}}</b><span style="color: red">*</span></span>
+
+
+
+            <div *ngFor="let optionvalue of option.planOptionsValues; let j = index">
+              <div class="row">
+                <div class="col-md-12" style="border: 1px solid black;padding:5px 15px;border-bottom:1px !important">
+                  <input type="radio" value="{{optionvalue.json}}" id="planselectionvalue-{{optionvalue.id}}-{{option.id}}" class="optionselectionmethod-{{option.id}}" (click)="planoptionselection($event,optionvalue,option.id,optionvalue.id)">&nbsp;{{optionvalue.name}}
+
+                </div>
+              </div>
+            </div>
+              <br>
+            </div>
+
+            <!-- <p id="planoptionmessage">{{optionmessage}}</p> -->
+          </div>
+
+          <div class="modal-footer">
+            <p id="planoptionmessage"><b>{{optionmessage}}</b></p>
+            <button type="button" class="btn btn-sm btn-light closebutton" data-bs-dismiss="modal" (click)="closeoptionsselection()"
+            id="cancelButton"><b>Close</b></button>
+
+            <button type="button" class="btn btn-sm btn-light" (click)="confirmoptionsselection()"
+            ><b>Confirm</b></button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal" data-bs-backdrop="static" id="postSecondaryStudent">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header modalPopupHeaderAndButtonBgColor text-white justify-content-center text-center">
+        <div class="col-1">
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+        </div>
+        <div class="col-11 justify-content-center">
+          <b> {{ lang.post_secondary_student_cp }}</b>
+
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="ms-2">
+          {{ lang.enrolled_attending_university }}
+        </p>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary modalPopupHeaderAndButtonBgColor" data-bs-dismiss="modal" (click)="closePopup('postSecondaryStudent')">
+            <strong style="color: white">{{ lang.close }}</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="dependentWithSpecialNeeds" data-bs-backdrop="static">
+  <div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+      <div class="modal-header modalPopupHeaderAndButtonBgColor text-white justify-content-center text-center">
+        <div class="col-1">
+          <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+        </div>
+        <div class="col-11 justify-content-center">
+          <b> {{ lang.childdsiablility }}</b>
+
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="ms-2">
+          {{ lang.disabled_children_coverage_contacted }}
+        </p>
+
+        <div class="modal-footer">
+          <button class="btn btn-primary modalPopupHeaderAndButtonBgColor" data-bs-dismiss="modal" (click)="closePopup('dependentWithSpecialNeeds')">
+            <strong style="color: white">{{ lang.close }}</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" role="dialog" data-bs-backdrop="static" aria-labelledby="modal-label" id="gsPlans">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header modalPopupHeaderAndButtonBgColor d-flex headerBottomRadius10px">
+
+        <div class="col-12 text-white text-center">
+        Green Shield Provision
+        </div>
+
+      </div>
+      <div class="model-body ms-3 mt-2" style="font-family: sans-serif;">
+       <div  [formGroup]="greenShiledForm">
+       <div class="row">
+        <div class=" col-md-5">
+          <label for="greenShiledNumber">Green Shiled Provision</label>
+         </div>
+         <div class="col-md-6">
+          <input class="form-check-input border border-dark" type="radio"  formControlName="showGreenShieldProv" name="showGreenShieldProv"  value="false" (click)="changeShowGreenShieldProv($event)" label="name" />
+          <label class="form-check-label pe-4 ps-1" for="foreignStudentyes" >{{lang.yes }}</label>
+          <input class="form-check-input border border-dark"  type="radio"  formControlName="showGreenShieldProv" name="showGreenShieldProv" value="true" (click)="changeShowGreenShieldProv($event)" label="name" />
+          <label class="form-check-label ps-1" for="foreignStudentyes">{{
+            lang.no}}</label>
+            <div class="help-block text-danger" *ngIf="greenShiledForm.get('showGreenShieldProv').touched">
+              <div *ngIf="greenShiledForm.get('showGreenShieldProv').hasError('required')">
+                Please Select Green Shield Prov.
+              </div>
+            </div>
+         </div>
+        </div>
+
+         <div class="row pt-2" *ngIf="showGreenShiled">
+          <div class="col-md-5">
+          <label for="greenShiledNumber">green shiled Id</label></div>
+          <div class="col-md-5">
+          <input type="text"  class="form-control checking-field border border-dark"  formControlName="greenShiledNumber" name="greenShiledNumber" label="name" />
+        </div>
+         </div>
+         <div class="row">
+          <div class="col-md-5"></div>
+          <div class="col-md-7">
+            <div class="help-block text-danger" *ngIf="greenShiledForm.get('greenShiledNumber').touched&&showGreenShiled">
+              <div *ngIf="greenShiledForm.get('greenShiledNumber').hasError('required')">
+                Please  enter green shiled Id.
+              </div>
+            </div>
+          </div>
+         </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-dark buttonSizeNDColor backgroundColor gsPlans"  (click)="closeFormPopup('gsPlans',greenShiledForm)"
+         data-bs-dismiss="modal"> {{lang.close}}</button>
+        <button class="btn btn-dark buttonSizeNDColor backgroundColor gsPlans" (click)="saveGsPlans('gsPlans')">Save</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" role="dialog" data-bs-backdrop="static" aria-labelledby="modal-label" id="eqPlans">
+  <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+
+    <div class="modal-content">
+
+      <div class="modal-header modalPopupHeaderAndButtonBgColor d-flex headerBottomRadius10px">
+
+        <div class="col-12 text-white text-center">
+        Equitable Provision
+        </div>
+
+      </div>
+      <div class="model-body ms-3 mt-2" style="font-family: sans-serif;">
+       <div  [formGroup]="EquitableForm">
+       <div class="row">
+        <div class=" col-md-5">
+          <label for="EquitableFormProv">Equitable Provision</label>
+         </div>
+         <div class="col-md-6">
+          <input class="form-check-input border border-dark" type="radio"  formControlName="EquitableFormProv" name="EquitableFormProv" value="false"  (click)="changeShowEquitableProv($event)" label="name" />
+          <label class="form-check-label pe-4 ps-1" for="foreignStudentyes" >{{lang.yes }}</label>
+          <input class="form-check-input border border-dark"  type="radio"  formControlName="EquitableFormProv" name="EquitableFormProv" value="true" (click)="changeShowEquitableProv($event)" label="name" />
+          <label class="form-check-label ps-1" for="foreignStudentyes">{{
+            lang.no}}</label>
+            <div class="help-block text-danger" *ngIf="EquitableForm.get('EquitableFormProv').touched">
+              <div *ngIf="EquitableForm.get('EquitableFormProv').hasError('required')">
+                Please Select Equitable Prov.
+              </div>
+            </div>
+         </div>
+        </div>
+         <div class="row" *ngIf="showEquitable">
+          <div class="col-md-5">
+          <label for="EquitableNumber">Equitable Id</label></div>
+          <div class="col-md-5">
+          <input type="text"  class="form-control checking-field border border-dark"  formControlName="EquitableNumber" name="EquitableNumber" label="name" />
+        </div>
+         </div>
+         <div class="row">
+          <div class="col-md-5"></div>
+          <div class="col-md-7">
+            <div class="help-block text-danger" *ngIf="EquitableForm.get('EquitableNumber').touched">
+              <div *ngIf="EquitableForm.get('EquitableNumber').hasError('required')">
+                Please  enter Equitable Id.
+              </div>
+            </div>
+          </div>
+         </div>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-dark buttonSizeNDColor backgroundColor gsPlans" (click)="closeFormPopup('eqPlans',EquitableForm)"
+        data-bs-dismiss="modal">{{lang.close}} </button>
+        <button class="btn btn-dark buttonSizeNDColor backgroundColor gsPlans" (click)="saveeqPlans('eqPlans')">Save</button>
+      </div>
+    </div>
+  </div>
+</div>

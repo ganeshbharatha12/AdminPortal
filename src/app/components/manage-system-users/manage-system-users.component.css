@@ -1,0 +1,26 @@
+.admintitle{
+  margin-top: 0px;
+
+  opacity: 1;
+  color:white;
+  padding:6px;
+  margin-bottom: 0px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+  /* font-size: 16px; */
+  }
+  .form-control
+{
+line-height: 2.0 !important;
+border-radius:5px !important;
+/* border: 2px solid #ced4da !important; */
+/* background-color: #FEF7EE; */
+border: 1px solid #8B8B8B !important;
+text-transform: capitalize;
+background: rgb(232,234,240);
+box-shadow: 0px 3px 6px #00000029;
+
+opacity: 1;
+
+}

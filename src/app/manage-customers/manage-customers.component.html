@@ -1,0 +1,105 @@
+<main id="main" class="main">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="admintitle">
+        Manage Members&nbsp;&nbsp;<i class="bi bi-info-circle"></i>
+      </h6>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="form-group col-12 col-md-12">
+
+
+      <button (click)="openModelAddMumber()" class="addCustomer mt-4" data-bs-target="#openModelAddMumber" data-bs-toggle="modal">Add Member</button>
+
+
+  </div>
+
+  </div>
+
+  <div class="row">
+    <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table text-nowrap">
+      <thead>
+      <tr>
+<!-- Fusbill Id
+Name
+email
+phone
+dob/gender
+advsior
+parent
+status
+registartion Date -->
+        <th>S.no</th>
+        <th>iGBMS Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Registartion Date</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of members; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{client.fusebillCustomerId}} </td>
+        <td (click)="showDetails(client)" style="cursor: pointer;"><span  class="viewCorporate" data-bs-target="#memberdetails" data-bs-toggle="modal">{{client.firstName}} {{client.lastName}}</span></td>
+        <td >{{client.user?.username??''}}</td>
+        <ng-template [ngIf]="client?.contactInformations==undefiend" [ngIfElse]="contactInformations">
+          <td></td>
+        </ng-template>
+        <ng-template #contactInformations>
+          <td>{{client?.contactInformations[0]?.primaryPhone??''}}</td>
+        </ng-template>
+
+        <ng-template [ngIf]="client?.registrationDate?.includes('00-00')??true" [ngIfElse]="registrationDate">
+          <td></td>
+        </ng-template>
+        <ng-template #registrationDate>
+          <td> {{client?.registrationDate | date: 'MM/dd/yyyy' }}</td>
+        </ng-template>
+        <td>
+          <select
+          class="form-control1"
+          id="gender" [(ngModel)]="client.status" [ngModelOptions]="{standalone: true}"
+          placeholder="Select"  (change)="brokerStatus(client,brokerstatus.value,i)" #brokerstatus >
+
+          <option value="Active"> Active </option>
+          <option value="Inactive"> Inactive </option>
+          <option value="Draft"> Draft </option>
+
+        </select>
+        </td>
+
+        <!-- <td>
+          <button class="brokertablestatus" *ngIf="client.status==false" style="color:red">Inactive</button>
+          <button class="brokertablestatus" *ngIf="client.status==true" style="color:green">Active</button>
+        </td> -->
+        <td style="display:flex">
+          <!-- <a class="viewicon" title="View/Edit" data-toggle="tooltip" ><i class="fa fa-eye" (click)="viewBrokerDetails(client,i)"></i></a>&nbsp; -->
+          <a class="deleteicon" title="Delete" data-toggle="tooltip" ><i class="bi bi-trash-fill" *ngIf="role=='ADMINISTRATOR'" (click)="deletebrokerDetails(client,i)"></i></a>&nbsp;
+          <a class="deleteicon" title="Send Invite" data-toggle="tooltip" ><i class="fa fa-paper-plane" style="color: rgb(56,76,159);" *ngIf="role=='ADMINISTRATOR'" (click)="invitationbroker(client,i)"></i></a>&nbsp;
+
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+</div>
+
+
+
+</main>
+<app-add-customer id="openModelAddMumber" [valuFormChaild]="true" class="modal fade"  data-bs-backdrop="static">
+</app-add-customer>
+<!-- app-overview -->
+
+<app-overview class="modal fade" *ngIf="showmemberData" id="memberdetails" [customerIdOfMember]="customerId" [popupDisplay]="popupDisplay"   data-bs-backdrop="static">
+</app-overview>
+
+<!-- <app-overview *ngIf="showmemberData" id="memberdetails" class="modal fade"  data-bs-backdrop="static">
+</app-overview> -->
+

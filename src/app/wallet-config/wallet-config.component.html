@@ -1,0 +1,139 @@
+<div class="row">
+<div class="col-12 col-md-12">
+
+  <form class="plansform">
+    <div class="row">
+
+      <div class="form-group col-12 col-md-12">
+        <h6 class="admintitle">Set up group GroupBenefitz Wallet<sup>TM</sup> for employees&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="form-group col-12 col-md-6 offset-md-3" id="walletconfig" [formGroup]="walletconfig">
+        <h6 class="admintitle" style="margin-top:10px">Health and Wellness Spending Accounts&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+        <input type="radio" id="nontaxable" name="taxable" formControlName="taxable" value="HEATH_SPENDING_ACCOUNT"  [(ngModel)]="walletConfigType"  [checked]="walletConfigType=='HEATH_SPENDING_ACCOUNT'">
+        <label for="nontaxable" class="walletInfo">&nbsp;&nbsp;Health Spending Account (non-taxable)</label><br>
+        <input type="radio" id="taxable" name="taxable" formControlName="taxable" value="WELLNESS_SPENDING_ACCOUNT" [(ngModel)]="walletConfigType"  [checked]="walletConfigType=='WELLNESS_SPENDING_ACCOUNT'">
+        <label for="taxable" class="walletInfo">&nbsp;&nbsp;Wellness Spending Account (taxable)</label><br>
+        <input type="radio" id="both" name="taxable" formControlName="taxable" value="BOTH" [(ngModel)]="walletConfigType"  [checked]="walletConfigType=='BOTH'">
+        <label for="both" class="walletInfo">&nbsp;&nbsp;Both</label>
+        <div *ngIf="wallet['taxable'].touched && wallet['taxable'].invalid" class="help-block text-danger">
+          <div *ngIf="wallet['taxable'].errors && wallet['taxable'].errors['required']">Please choose health and wellness spending account</div>
+
+        </div>
+        <br>
+        <h6 class="admintitle">Health and Wellness Spending Accounts&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+        <input type="radio" id="fullyearallotment" name="fullyearallotment" formControlName="fullyearallotment" value="FULL_YEAR" [(ngModel)]="walletAllotment"  [checked]="walletAllotment=='FULL_YEAR'">
+        <label for="age1" class="walletInfo">&nbsp;&nbsp;Full Year Allotment</label><br>
+        <input type="radio" id="prorated" name="fullyearallotment" formControlName="fullyearallotment" value="PRORATED" [(ngModel)]="walletAllotment"  [checked]="walletAllotment=='PRORATED'">
+        <label for="age2" class="walletInfo">&nbsp;&nbsp;Pro-Rated</label><br>
+        <div *ngIf="wallet['fullyearallotment'].touched && wallet['fullyearallotment'].invalid" class="help-block text-danger">
+          <div *ngIf="wallet['fullyearallotment'].errors && wallet['fullyearallotment'].errors['required']">Please choose health and wellness spending account</div>
+
+        </div>
+
+      <h6 class="admintitle">Roll over of Unused GroupBenefitz Wallet Funds&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+      <p style="font-size:12px"><b>Roll over unused employee's limit to the next calendar year?</b></p>
+      <input type="radio" id="rolloverfalse" name="rollover" value="0" formControlName="rollover" [(ngModel)]="roolOverLimitToTheNextYear"  [checked]="roolOverLimitToTheNextYear==0">
+      <label for="age1" class="walletInfo">&nbsp;&nbsp;No (recommended)</label><br>
+      <input type="radio" id="rollovertrue" name="rollover" value="1" formControlName="rollover"  [(ngModel)]="roolOverLimitToTheNextYear"  [checked]="roolOverLimitToTheNextYear==1">
+      <label for="age2" class="walletInfo">&nbsp;&nbsp;Yes</label><br>
+
+      <div *ngIf="wallet['rollover'].touched && wallet['rollover'].invalid" class="help-block text-danger">
+        <div *ngIf="wallet['rollover'].errors && wallet['rollover'].errors['required']">Please choose rollover</div>
+
+      </div>
+      <h6 class="admintitle">How does the company want to pay for the service?&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+      <input type="radio" id="Pre-Funded_monthly" name="PreFunded" value="PRE_FUNDED_MONTHLY"  formControlName="PreFunded" [(ngModel)]="payForService"  [checked]="payForService=='PRE_FUNDED_MONTHLY'">
+      <label for="Funded_monthly" class="walletInfo">&nbsp;&nbsp;Pre-Funded (Monthly)</label>
+      <p class="wallettax" >(total annual limit for all staff + 10% + tax divided by 12)</p>
+      <input type="radio" id="Pre-Funded_quarterly" name="PreFunded" value="PRE_FUNDED_QUATERLY" formControlName="PreFunded" [(ngModel)]="payForService"  [checked]="payForService=='PRE_FUNDED_QUATERLY'">
+      <label for="Pre-Funded_quarterly" class="walletInfo">&nbsp;&nbsp;Pre-Funded (Quarterly)
+      </label>
+      <p class="wallettax">(total annual limit for all staff + 10% + tax divided by 4)</p>
+      <input type="radio" id="Pre-Funded_quarterly" name="PreFunded" value="PRE_FUNDED_SEMI_YEARLY" formControlName="PreFunded" [(ngModel)]="payForService"  [checked]="payForService=='PRE_FUNDED_SEMI_YEARLY'">
+      <label for="Pre-Funded_yearly" class="walletInfo">&nbsp;&nbsp;Pre-Funded (Semi-Yearly)
+      </label>
+      <p class="wallettax">(total annual limit for all staff + 10% + tax divided by 2)</p>
+      <input type="radio" id="Pre-Funded_regular" name="PreFunded" value="PAY_AS_YOU_GO" formControlName="PreFunded" [(ngModel)]="payForService"  [checked]="payForService=='PAY_AS_YOU_GO'">
+      <label for="Pre-Funded_regular" class="walletInfo">&nbsp;&nbsp;Pay-as-you-go</label>
+      <p class="wallettax">(claims + 10% + tax as claims are submitted)</p>
+      <div *ngIf="wallet['PreFunded'].touched && wallet['PreFunded'].invalid" class="help-block text-danger">
+        <div *ngIf="wallet['PreFunded'].errors && wallet['PreFunded'].errors['required']">Please choose pay for the service</div>
+
+      </div>
+      <br>
+      <h6 class="admintitle">GroupBenefitz Wallet<sup>TM</sup>&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+      <div class="row">
+
+        <div class="form-group col-12 col-md-9">
+          <p><strong>GroupBenefitz Wallet<sup>TM</sup></strong> Spending Limit</p>
+        </div>
+        <div class="form-group col-12 col-md-3">
+
+          <span style="position: absolute; margin-left: -9px; margin-top: 6px;">$ &nbsp;</span>
+          <input type="text"  class="form-control1" id="walletamount" name="walletamount" formControlName="walletamount" (keypress)="numberOnly($event)"  [(ngModel)]="walletSpendingLimit">
+          <div *ngIf="wallet['walletamount'].touched && wallet['walletamount'].invalid" class="help-block text-danger">
+            <div *ngIf="wallet['walletamount'].errors && wallet['walletamount'].errors['required']">Please enter spending limit</div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+    <!-- <div class="form-group col-6">
+      <h6 class="admintitle">Multi-Tiered Health Benefits Options:&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+      <br>
+      <br>
+      <div class="form-group col-12" id="tierconfig">
+        <h6 class="admintitle" style="margin-top:10px">Tier :Level&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+        <label for="age1">&nbsp;&nbsp;1 Employee</label><br>
+
+        <label for="age2">&nbsp;&nbsp;2 Management</label>
+
+        <br>
+        <h6 class="admintitle">Tier :Length of Service&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+        <label for="age1">&nbsp;&nbsp;3 Seniors</label><br>
+        <label for="age2">&nbsp;&nbsp;4 New Joinees</label>
+
+      <h6 class="admintitle">Tier :% of Annual Income&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+      <label for="age1">&nbsp;&nbsp;5 Income One</label><br>
+
+
+    </div>
+  </div> -->
+
+
+
+
+
+
+    </form>
+
+    <div class="row">
+
+      <div id="container1">
+        <button class="btn btn-primary" id="leftButton" type="button" (click)="gotoplansInfo()"><i aria-hidden="true" class="fa fa-long-arrow-left"></i>&nbsp;&nbsp;Previous</button>
+        <button class="btn btn-primary" id="rightButton" type="button" (click)="submitwalletInfo()">Save & Next&nbsp;&nbsp;<i aria-hidden="true" class="fa fa-long-arrow-right"></i></button>
+    </div>
+    </div>
+
+    <!-- <div class="row">
+      <div class=" text-white text-left">
+        <button class="btn btn-primary" id="backbuttonForm" type="button" (click)="gotoplansInfo()" style="float:left"><i aria-hidden="true" class="fa fa-long-arrow-left" ></i>&nbsp;&nbsp;Previous</button>
+
+      </div>
+      <div class=" text-white text-right">
+
+        <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitwalletInfo()"> Save & Next&nbsp;&nbsp;<i aria-hidden="true" class="fa fa-long-arrow-right" ></i></button>
+      </div>
+    </div> -->
+</div>
+</div>

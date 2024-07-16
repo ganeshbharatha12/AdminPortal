@@ -1,0 +1,816 @@
+#container {
+  font-size: 13px;
+  font-family: sans-serif;
+}
+.modal-header{
+  background-color:rgb(20,42,73);
+}
+.gsPlans{
+  font-size: 14px;
+  border-radius:5px
+}
+.backgroundColor{
+  background: rgb(20,42,73) !important;
+}
+.checkButton{
+  background-color: rgb(56,76,159);
+  border-radius: 6px;
+  border: 1px solid #707070;
+  /* float: right; */
+  color: white;
+  width: 25%;
+  height: 90%;
+}
+.singnaturPad{
+  position: relative;
+  bottom: 155px;
+
+}
+.closebutton{
+  background: rgb(20,42,73);
+}
+
+label{
+  margin-bottom: 0px !important;
+}
+.tabs {
+  display: flex;
+}
+
+.tab {
+  /* padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  background-color: #f1f1f1;
+  border-radius: 5px 5px 0 0;
+  width:100% */
+  font-size: 16px;
+  color: rgb(25, 75, 128);
+  border-top: 2px solid rgb(25, 75, 128);
+  /* margin-top: -3px; */
+  padding: 5px;
+}
+
+.tab.active {
+  /* background-color: rgb(93,124,155); */
+  /* background-color: rgb(141, 232, 223); */
+  /* border-bottom: 1px solid #ccc; */
+  color: rgb(141, 232, 223);
+  border-top: 5px solid rgb(141, 232, 223) !important;
+  padding: 5px;
+  margin-top: -2px;
+  /* width:100% */
+}
+
+.bordertopColour {
+  border-top: 2px solid rgb(25, 75, 128);
+}
+
+
+.tab-content {
+  /* padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px; */
+  /* border-top: 1px solid #ccc; */
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.btn-primary {
+  --bs-btn-disabled-bg: #10104d;
+  /* --bs-btn-disabled-bg: #0d6efd; */
+}
+
+
+.buttonBorder {
+  width: 90px;
+  border-radius: 15px;
+}
+
+.modalRadius {
+  border-radius: 20px;
+}
+
+
+
+
+
+/* .form-control.checking-field.ng-touched.ng-invalid {
+  border-color: #D08000;
+  background-image: url('../../assets/tick.svg');
+} */
+
+/* .form-control.checking-field.ng-touched.ng-valid {
+  border-color: black;
+  background-image: url('../../assets/tick.svg');
+} */
+
+/* #homeMailingAddress {
+  margin-top: 12px;
+  font-size: 14px;
+  margin-bottom: 0px;
+} */
+
+.form-control {
+  font-size: 12px;
+  background-color:rgb(232,234,240);
+}
+
+.form-select {
+  font-size: 12px;
+  background-color: rgb(232,234,240);
+}
+
+.hrLineMargins {
+  float: right;
+  margin-top: 10px;
+  border-top: 2px solid black !important;
+}
+
+.homeMailingAddressHrLine {
+  width: 84%;
+}
+
+.dependentChildInfoHrLine {
+  width: 76%;
+}
+
+.spouceInfoInfoHrLine {
+  width: 86%;
+}
+
+.employeeInfoHrLine {
+  width: 85%;
+}
+
+.help-block {
+  margin-top: 5px;
+}
+
+/* #label {
+  margin-top: 5px;
+} */
+
+#header-font {
+  font-size: 14px;
+}
+
+.accordion-sub-header {
+  background-color: #d9d9e8;
+  cursor: pointer;
+  margin-top: 1px;
+  position: relative;
+  padding: 1px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  width: 97%
+}
+
+.termsandcodionsmodel {
+  max-width: 900px;
+  max-height: 375px;
+}
+
+.paddingLeft6px {
+  padding-left: 6px;
+}
+
+.marginLeft6px {
+  margin-left: -6px;
+}
+
+.marginRightMinus3 {
+  margin-right: -3.3%;
+}
+
+/* .border.border-dark{
+border-color: red !important;
+} */
+
+.trbottomsolid {
+  border-bottom: solid;
+
+}
+
+bgColor-tr {
+  background-color: #d3f0ed;
+}
+
+.thBottomNone {
+  border-bottom: none;
+
+}
+
+@media screen and (min-width: 400px) and (max-width: 414px) {
+  .employeeInfoHrLine {
+    width: 48%;
+  }
+
+  .homeMailingAddressHrLine {
+    width: 47%;
+  }
+
+  .spouceInfoInfoHrLine {
+    width: 52%;
+  }
+
+  .dependentChildInfoHrLine {
+    width: 22%;
+  }
+}
+
+.personalinfobutton {
+  /* background: black 0% 0% no-repeat padding-box; */
+  background: #10104d;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  /* font: normal normal bold 24px/44px Lato; */
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  /* top: 2182px;
+left: 1332px;
+width: 100px;
+height: 47px; */
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  margin-left: 86px;
+}
+
+
+.previousButtonMargins {
+  background: #10104d;
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (min-width: 360px) and (max-width: 391px) {
+  .employeeInfoHrLine {
+    width: 43%;
+  }
+
+  .homeMailingAddressHrLine {
+    width: 41%;
+  }
+
+  .spouceInfoInfoHrLine {
+    width: 48%;
+  }
+
+  .dependentChildInfoHrLine {
+    width: 16%;
+  }
+}
+
+@media screen and (min-width: 560px) and (max-width: 600px) {
+  .employeeInfoHrLine {
+    width: 48%;
+  }
+
+  .homeMailingAddressHrLine {
+    width: 47%;
+  }
+
+  .spouceInfoInfoHrLine {
+    width: 52%;
+  }
+
+  .dependentChildInfoHrLine {
+    width: 22%;
+  }
+}
+
+.not-allowed {
+  cursor: not-allowed;
+}
+
+.signature-padBgColour {
+  background-color: #FEF7EE;
+}
+
+/* .clear-button {
+position: absolute;
+bottom: 20%;
+right: 90%;
+cursor: pointer;
+}
+
+.dependentchildlist {
+list-style-type: lower-alpha;
+text-align: left;
+font: normal normal normal 14px/20px Lato;
+padding-left:10px;
+line-height:1.5
+}
+
+.no-drop{cursor: no-drop;}
+
+/* .signPad {
+background-color: #f0f0f0;
+color: #333;
+}
+.signPad:active {
+background-color: #007bff;
+color: #fff;
+} */
+
+.signbtn .btn {
+  padding: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border: 1px solid transparent;
+  font-size: 12px !important;
+  margin-left: 1px;
+}
+
+.clearBtnPosition {
+  position: relative;
+  left: -3%;
+  top: 54.7%;
+}
+
+.verifyBtnPosition {
+  position: relative;
+  left: -3.5%;
+  top: 54.7%;
+}
+
+.reviewAndSign {
+  background-color: #60b460 !important;
+  border: 1px solid transparent;
+  font-size: 14px !important;
+  padding: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+
+}
+
+.reviewAndSign:hover {
+  background: linear-gradient(45deg,
+      hsla(168, 85%, 52%, 0.5),
+      hsla(263, 88%, 45%, 0.5) 100%);
+}
+
+.previewButton {
+  padding: 1px;
+  font-size: 14px;
+  padding-left: 7px;
+  padding-right: 7px;
+  background-color: black;
+}
+
+.row.tabs {
+  /* border-top: 3px solid rgb(25, 75, 128); */
+}
+
+.cartlogo {
+  width: 55px;
+}
+
+.checkmark-width {
+  width: 19px;
+  margin-top: -10px;
+  /* background-color: red; */
+}
+
+.childEditSymbleColor {
+  color: #04255d;
+}
+
+.childDeleteSymbleColor {
+  color: #c51111;
+}
+
+.termsAndConditionsColor {
+  color: #007bff;
+}
+
+/* ganesh added css for plans page*/
+
+.productlogo {
+  height: 35px;
+  background-color: white;
+  cursor: pointer;
+  margin-top: 1px;
+  position: relative;
+  padding: 1px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  width: 99%;
+  border-radius: 5px;
+  background: white;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.plantitle {
+  font: normal normal 14px sans-serif;
+  text-align: center;
+  color: white;
+  padding-top: 5px;
+  font-family: sans-serif;
+  margin-bottom: 7px;
+}
+
+.planbody {
+  list-style: none;
+  overflow-y: scroll;
+  max-height: 170px;
+  background: #F1F6F9;
+  border-radius: 6px;
+}
+
+.price .planbody {
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+  font: normal normal normal 14px/21px Lato;
+  height: 300px;
+  letter-spacing: 0.77px;
+  color: black;
+}
+
+.featuutrebody {
+  text-align: center;
+  color: #FFFFFF;
+  color: black;
+  font: normal normal normal 14px/21px Lato;
+  letter-spacing: 0px;
+  font-family: sans-serif;
+
+}
+
+.featureinfofaicon {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.plansscreen {
+  background: #F8F8F8 0% 0% no-repeat padding-box;
+  display: block;
+  margin-top: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
+  /* border: 1px solid blue; */
+  border-radius: 15px;
+  border: 1px solid black;
+    border-radius: 5px;
+}
+
+.selectedHealthPlan {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.package {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.AddOnsClass {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.selectedHealthPlan {
+  pointer-events: all;
+  opacity: 1;
+}
+
+/* .package-groups {
+  height: auto;
+  border: 1px solid #707070;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin: 20px 9px;
+  max-width: 310px;
+  opacity: 1;
+  padding-bottom: 50px;
+  padding-left: 10px;
+  padding-right: 10px;
+} */
+
+.taxes {
+  font: normal normal normal 12px/21px Lato;
+  text-align: center;
+  color: white;
+  position: absolute;
+  /* bottom: 5px; */
+  padding-top: 1px;
+  font-size: 10px;
+
+}
+
+/* .plansCoverageDetails .overflow-ellipsis {
+  display: block;
+  padding-left: 18px;
+  width: calc(100% - 65px);
+  position: relative;
+  height: auto;
+  margin-bottom: 10px;
+  font: normal normal 16px Lato;
+}
+
+.plansCoverageDetails .overflow-ellipsis input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+} */
+
+.featuutrebody1 {
+  text-align: center;
+  color: #FFFFFF;
+  color: black;
+  height: 120px;
+  font: normal normal normal 14px/21px Lato;
+  letter-spacing: 0px;
+  font-family: sans-serif;
+}
+
+.tabitems .form-group {
+  margin-bottom: -4px;
+  margin-top: -4px;
+}
+
+.plancoverage {
+  /* height: 100px !important; */
+}
+
+/* ***************************19/10/2023 */
+::-webkit-scrollbar {
+  width: 5px;
+}
+.accordion-header {
+  height: 35px;
+  background-color: #a1a2c5;
+  cursor: pointer;
+  margin-top: 1px;
+  position: relative;
+  padding: 1px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  width: 99%;
+  border-radius: 5px;
+}
+
+.plansCoverageDetails {
+  padding: 2px;
+  color: #FFFFFF;
+  color: black;
+  padding: 10px 2px 2px;
+  list-style: none;
+}
+
+
+.isNotActive {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.hr {
+  opacity: 0;
+}
+
+.noofchildren {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.activeTab1Img {
+  display: none;
+
+}
+
+.closeBtnAlignments {
+  padding: 3px;
+  padding-inline: 8px;
+  font: message-box;
+}
+
+.headertabs {
+  position: fixed;
+  width: 79%;
+  margin-top: -85px;
+  background-color: #fffF;
+  z-index: 1;
+}
+.headertabs1 {
+  position: fixed;
+  /* width: 79%; */
+  margin-top: -10px;
+  background-color: #fffF;
+  z-index: 1;
+}
+.dependentchildlist {
+  list-style-type: lower-alpha;
+  padding-left:10px;
+  line-height:1.5
+}
+.accordion-content{
+  padding-left: 10px;
+}
+.alltabs {
+  margin-top: 70px;
+  padding-top: 30px;
+}
+
+.enrollmentEmailFontClr {
+  color: rgba(85, 85, 85, 0.7);
+}
+
+.fontSize18 {
+  font-size: 18px !important;
+}
+
+.imgSize {
+  width: 100%
+}
+
+.closeBtn {
+  padding: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border: 1px solid transparent;
+  font-size: 12px !important;
+}
+
+/* .fontSize14 {
+  font-size: 14px !important;
+} */
+
+
+.container1 {
+  position: relative;
+  width: 300px;
+  height: 100px;
+  border: 1px solid #ddd;
+}
+
+.btnverifyclear {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 60px;
+}
+
+.custom-textarea {
+  position: relative;
+  border: none;
+  width: 232px;
+  height: 100%;
+  resize: none;
+  outline: none;
+}
+
+.popupPdf {
+  height: 400px;
+  zoom: 0.85;
+  width: 100%;
+}
+
+.modalHightNdWidth {
+  max-width: 960px;
+  max-height: 375px
+}
+
+.tableS {
+  border-collapse: collapse;
+  border: 1px solid #194b80;
+}
+
+/* .tableBorder {
+  border: 1px solid #194b80;
+} */
+
+.tableS tr th {
+  border: 1px solid #194b80;
+}
+
+.tableS tr td {
+  border: 1px solid #194b80;
+}
+#backgroundColor {
+  /* background-color: rgb(93,124,155); */
+  background-color: #142A49;
+  color: white;
+  padding-block: 8px;
+}
+
+#cancelButton {
+  color: white;
+  /* border: 1px solid rgb(56,76,159); */
+  border: 1px solid #142A49;
+  font-size: 12px;
+}
+.tableHeader {
+  border: 1px solid #ffffff !important;
+  background-color: #194b80;
+  color: white !important;
+  text-align: center !important;
+  font: normal normal bold 14px sans-serif;
+}
+.wraptext{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: 1px solid #D08000;
+  border-radius: 10px;
+}
+.package-groups {
+
+
+      height: auto;
+      border: 1px solid #707070;
+      border-radius: 10px;
+      margin-top: 30px;
+      /* margin: 20px 9px; */
+      max-width: 342px;
+      opacity: 1;
+      padding-bottom: 25px;
+      margin: 2px 2px 2px 2px;
+    padding: 0px 0px 2px 0px;
+    width: 180px;
+    font-size: 14px;
+
+}
+.plancoverage{
+  height:auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.plansCoverageDetails{
+  text-align: center;
+  color:#FFFFFF;
+  color:black;
+  padding: 2px 2px 2px;
+  list-style-type: none;
+}
+
+.plansCoverageDetails .overflow-ellipsis {
+  display: block;
+  /* padding-left: 18px; */
+  width: calc(100% - 106px);
+    position: relative;
+    height:auto;
+    /* margin-bottom:10px; */
+}
+
+
+.plansCoverageDetails .overflow-ellipsis input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+}
+.overflow-ellipsis2{
+  margin-top:-5px;
+ }
+
+.plancoverageClrNdSize {
+  /* font: normal normal bold 14px sans-serif; */
+  color: white;
+}
+.column {
+  float: left;
+  width: 25%;
+  /* padding: 0 10px; */
+}
+
+/* Remove extra left and right margins, due to padding */
+/* .row {margin: 0 -5px;} */
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 2px;
+  margin-bottom:5px;
+  /* text-align: center; */
+  /* background-color: #f1f1f1; */
+}

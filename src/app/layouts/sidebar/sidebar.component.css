@@ -1,0 +1,14 @@
+span{
+  letter-spacing: 0px;
+    /* color: #FFFFFF; */
+    color:rgb(255,255,255);
+    /* opacity: 0.7; */
+    font-size: 14px;
+}
+/* .sidebar-nav{
+  background-color: rgb(20,42,73);
+} */
+
+.active{
+  background-color: rgb(93,124,155) !important;
+}

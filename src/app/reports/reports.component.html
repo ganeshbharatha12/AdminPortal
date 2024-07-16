@@ -1,0 +1,214 @@
+
+<main id="main" class="main">
+<section class="section dashboard">
+
+<div class="row">
+        <div class="col-md-12">
+          <h6 class="admintitle">Reports&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+      </div>
+</div>
+    <br>
+
+    <div class="tabs">
+      <div class="tab" [ngClass]="{ 'active': selectedTab === 'tab1' }" (click)="selectTab('tab1')">Generate</div>
+      <div class="tab" [ngClass]="{ 'active': selectedTab === 'tab2' }" (click)="selectTab('tab2')">History</div>
+    </div>
+
+    <div class="tab-content">
+      <div *ngIf="selectedTab === 'tab1'">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <div class="input-group">
+                <input type="text" name="daterange" autocomplete="off" bsDaterangepicker
+                  [bsConfig]="{ rangeInputFormat : 'MM-DD-YYYY', dateInputFormat: 'MM-DD-YYYY', showWeekNumbers: false }"
+                  id="DateOfBirth" placeholder="Select Date Range" (bsValueChange)="dateRangeCreated($event)"
+                  class="form-control" />
+                  &nbsp;&nbsp;<button class="btn btn-primary" type="button" style="margin-top:7px;border-radius:6px" (click)="getReportsRange()" >Get Reports</button>
+
+
+              </div>
+
+                </div>
+
+
+          </div>
+
+        <div class="col-md-7">
+          <div class="form-group">
+    <div style="display: flex;margin-top:7px" *ngIf="categoryRole">
+      <button class="brokerrole"style="color:red">Advisor</button>&nbsp;
+      <button class="brokerrole"style="color:green">Association</button>&nbsp;
+      <button class="brokerrole"style="color:blue">Brokerage</button>&nbsp;
+      <button class="brokerrole"style="color:orange">TPA/MGA</button>&nbsp;
+
+    </div>
+    <div style="display: flex;margin-top:7px" *ngIf="categoryProvider">
+      <button class="brokerrole"style="color:red">Greenshield</button>&nbsp;
+      <button class="brokerrole"style="color:green">Equitable</button>&nbsp;
+      <!-- <button class="brokerrole"style="color:blue">Brokerage</button>&nbsp;
+      <button class="brokerrole"style="color:orange">TPA/MGA</button>&nbsp; -->
+
+    </div>
+    </div>
+
+      </div>
+          <div class="col-md-2">
+            <div class="form-group">
+            <label for="Corporation" class="Corporation">Category<span style="color: red">*</span></label>
+
+            <select class="form-control" id="advisortype" (change)="selectBrokerrole(brokerrole.value)" #brokerrole>
+              <option value="" disabled selected>Select</option>
+              <option value="role">Role</option>
+              <option value="provider">Provider</option>
+            </select>
+          </div>
+        </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+
+          </div>
+          <div class="col-md-2">
+              <button class="brokertablestatus"  style="color:green" *ngIf="requestforapprove" (click)="requestapprove()">Request for Approve</button>
+
+              <button class="brokertablestatus"  style="color:green" *ngIf="approve" (click)="approvereport()">Approve</button>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="showtable">
+          <div class="col-md-10">
+
+          </div>
+          <div class="col-md-2">
+              <small><b>Report Id:</b>{{reportId}}</small><br>
+              <!-- <small>Created:</small> -->
+            </div>
+        </div>
+            <br>
+        <div class="row" *ngIf="showtable">
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+              <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Name</th>
+              <th>ProviderName</th>
+              <th>Category</th>
+              <th>Package</th>
+              <th>Product</th>
+              <th *ngIf="showaction"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let report of reportResults; let i = index">
+              <td>{{i+1}}</td>
+              <td>
+    <span *ngIf="report.type=='excel'" ><i class="fa fa-file-excel-o" aria-hidden="true"style="color:green" title="Excel" ></i>&nbsp;&nbsp;{{report.name | filerename}}</span>
+    <span *ngIf="report.type=='pdf'" ><i class="fa fa-file-pdf-o" aria-hidden="true" title="PDF" style="color:red"></i>&nbsp;&nbsp;{{report.name | filerename}}</span>
+                </td>
+              <td>{{report.providerName}}</td>
+              <td>{{report.category}}</td>
+              <td>{{report.package}}</td>
+              <td>{{report.product}}</td>
+              <td style="display:flex" *ngIf="showaction">
+                <a class="downloadicon" title="Download" data-toggle="tooltip"  (click)="viewReports(report)"><i class="fa fa-eye" ></i></a>&nbsp;&nbsp;
+                <a class="downloadicon" title="Download" data-toggle="tooltip"  (click)="downloadReports(report)"><i class="fa fa-download" ></i></a>&nbsp;&nbsp;
+                <a class="mailsenticon" title="Send mail" data-toggle="tooltip" (click)="sentmailtoAdvisor(report)"><i class="fa fa-envelope" ></i></a>&nbsp;&nbsp;
+              </td>
+          </tr>
+          </tbody>
+          </table>
+          </div>
+      </div>
+      </div>
+      <div *ngIf="selectedTab === 'tab2'">
+
+
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <div class="form-group">
+              <label for="Corporation" class="Corporation">Brokers</label>
+
+              <select
+              class="form-control select2"
+              id="parentidrole"
+              placeholder="Select" data-live-search="true">
+              <option value="" label="" disabled>Select</option>
+              <option
+                *ngFor="let broker of allBrokers"
+                [value]="broker.id">{{broker.name}}-{{broker.brokerType}}-{{broker.salesTrackingCode}}
+              </option>
+            </select>
+
+          </div>
+            </div>
+          </div>
+
+
+        <div class="row">
+          <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+              <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Name</th>
+              <th>ProviderName</th>
+              <th>Category</th>
+              <th>Package</th>
+              <th>Product</th>
+              <th *ngIf="showaction"></th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let report of reportResults; let i = index">
+              <td>{{i+1}}</td>
+              <td>
+    <span *ngIf="report.type=='excel'" ><i class="fa fa-file-excel-o" aria-hidden="true"style="color:green" title="Excel" ></i>&nbsp;&nbsp;{{report.name | filerename}}</span>
+    <span *ngIf="report.type=='pdf'" ><i class="fa fa-file-pdf-o" aria-hidden="true" title="PDF" style="color:red"></i>&nbsp;&nbsp;{{report.name | filerename}}</span>
+                </td>
+              <td>{{report.providerName}}</td>
+              <td>{{report.category}}</td>
+              <td>{{report.package}}</td>
+              <td>{{report.product}}</td>
+              <td style="display:flex" *ngIf="showaction">
+                <a class="downloadicon" title="Download" data-toggle="tooltip"  (click)="downloadReports(report)"><i class="fa fa-download" ></i></a>&nbsp;&nbsp;
+                <a class="mailsenticon" title="Send mail" data-toggle="tooltip" (click)="sentmailtoAdvisor(report)"><i class="fa fa-envelope" ></i></a>&nbsp;&nbsp;
+              </td>
+          </tr>
+          </tbody>
+          </table>
+          </div>
+      </div>
+      </div>
+    </div>
+
+
+
+      <div class="row">
+        <div class="text-white text-left">
+          <!-- <button class="btn btn-primary" id="backbuttonForm"
+          type="button" (click)="gotoplansorwalletInfo()" style="float:left"><i aria-hidden="true" class="fa fa-long-arrow-left" ></i>&nbsp;&nbsp;Previous</button> -->
+
+        </div>
+        <div class=" text-white text-right">
+          <!-- <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitEmployeeInfoInfo()"> Save</button> -->
+        </div>
+      </div>
+
+
+
+
+  </section>
+  </main>
+  <footer id="footer" class="footer">
+    <div class="copyright">Version IB:3.0.0 © 2024 Copyright:
+      <a class="text-reset fw-bold" href="https://www.groupbenefitz.ca/" target="-blank"> The GroupBenefitz Platform Inc.</a></div>
+ </footer>
+ <a (click)="scrollTop()" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

@@ -1,0 +1,369 @@
+<main id="main" class="main">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="admintitle">
+        Manage Members&nbsp;&nbsp;<i class="bi bi-info-circle"></i>
+      </h6>
+    </div>
+  </div>
+  <div class="row">
+
+
+    <div class="form-group col-12 col-md-12">
+
+
+      <button (click)="openModelAddMumber()" class="addCustomer mt-4" >Add Member</button>
+      <!-- data-bs-target="#openModelAddMumber" data-bs-toggle="modal" -->
+
+  </div>
+
+  </div>
+
+  <div class="row filterByStatus" >
+    <div class="col-12 col-md-6 p-0">
+      <label for="" style="font-size: 14px;font-family:'Open Sans';">Filter by Status:&nbsp;</label>
+    </div>
+    <div class="col-md-6 p-0">
+      <select name="" id="" class="form-select form-select-sm" (change)="changeStatus($event)">
+        <option value="all">Select</option>
+        <option *ngFor="let status of filterStatus" [value]="status">{{status}}</option>
+        <!-- <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+        <option value="Hold">Hold</option>
+        <option value="Draft">Draft</option>
+        <option value="Suspended">Suspended</option>
+        <option value="Incomplete">Incomplete</option> -->
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="table-responsive">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id= "DataTables_Table_0" class="table text-nowrap">
+      <thead>
+      <tr>
+<!-- Fusbill Id
+Name
+email
+phone
+dob/gender
+advsior
+parent
+status
+registartion Date -->
+        <th>S.no</th>
+        <th>IGBMS Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Registration Date</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of members; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{client.fusebillCustomerId}} </td>
+        <td (click)="showDetails(client)" style="cursor: pointer;"><span  class="viewCorporate" data-bs-target="#memberdetails" data-bs-toggle="modal">{{client.firstName | titlecase}} {{client.lastName |titlecase}}</span></td>
+        <td >{{client.user?.username??''}}</td>
+        <ng-template [ngIf]="client?.contactInformations==undefiend" [ngIfElse]="contactInformations">
+          <td></td>
+        </ng-template>
+        <ng-template #contactInformations>
+          <td>{{client?.contactInformations[0]?.primaryPhone??''}}</td>
+        </ng-template>
+
+        <ng-template [ngIf]="client?.registrationDate?.includes('00-00')??true" [ngIfElse]="registrationDate">
+          <td></td>
+        </ng-template>
+        <ng-template #registrationDate>
+          <td> {{client?.registrationDate | date: 'MM/dd/yyyy' }}</td>
+        </ng-template>
+        <td>
+          <select
+          class="form-control1"
+          id="gender" [(ngModel)]="client.status" [ngModelOptions]="{standalone: true}"
+          placeholder="Select"  (change)="brokerStatus(client,brokerstatus.value,i)" #brokerstatus >
+
+          <option value="Active"> Active </option>
+          <option value="Hold"> Hold </option>
+          <option value="Draft"> Draft </option>
+
+          <option value="Suspended"> Suspended </option>
+          <option value="Cancelled"> Cancelled </option>
+          <option value="Incomplete"> Incomplete </option>
+
+
+        </select>
+        </td>
+
+        <!-- <td>
+          <button class="brokertablestatus" *ngIf="client.status==false" style="color:red">Inactive</button>
+          <button class="brokertablestatus" *ngIf="client.status==true" style="color:green">Active</button>
+        </td> -->
+        <td style="display:flex">
+          <a class="viewicon" title="Terminate" data-toggle="tooltip" style="cursor: pointer;"><i class="fa fa-times" style="color:red" (click)="terminatemember(client,i)"></i></a>&nbsp;
+          <a class="viewicon" *ngIf="client.status=='Active'" title="Invitation" data-toggle="tooltip" >  <!-- fa fa-envelope -->
+            <i class="fa fa fa-envelope" style="color:rgb(56,76,159);cursor: pointer;" (click)="invitationMail(client.id)">
+            </i></a>&nbsp;
+
+
+          <!-- <a class="deleteicon" title="Delete" data-toggle="tooltip" ><i class="bi bi-trash-fill" *ngIf="role=='ADMINISTRATOR'" (click)="deletebrokerDetails(client,i)"></i></a>&nbsp; -->
+          <!-- <a class="deleteicon" title="Send Invite" data-toggle="tooltip" ><i class="fa fa-paper-plane" style="color: rgb(56,76,159);" *ngIf="role=='ADMINISTRATOR'" (click)="invitationbroker(client,i)"></i></a>&nbsp; -->
+
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+</div>
+
+
+
+</main>
+
+
+
+<div  class="modal" id="showmemberlist" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" id="modal-dialog" style="font-family: sans-serif;">
+      <div class="modal-content" id="modal-content">
+          <div class="modal-header" id="backgroundColor">
+              <span class="modal-title">Terminate&nbsp;&nbsp;<b>{{emplomentName}}</b></span>
+              <i class="bi bi-x-circle" role="button" aria-hidden="true" data-bs-dismiss="modal"
+                  ></i>
+          </div>
+          <div class="model-body">
+            <form class="onbordingform" [formGroup]="terminationform">
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label for="Corporation" class="Corporation">Please choose Termination Date</label>
+                    <input
+                    type="text"
+                    placeholder="MM-DD-YYYY"
+                    class="form-control checking-field"
+                    formControlName="terminationDate"
+                    [minDate]="minDate"
+                    bsDatepicker
+                    [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"
+                  />
+                  <div class="help-block text-danger" *ngIf="terminationform.get('terminationDate')?.touched ">
+                <div *ngIf="terminationform.get('terminationDate')?.hasError('required') ||
+                (terminationform.get('terminationDate')?.hasError('required'))">  Please Select Date</div>
+                      
+                      </div>
+                  </div>
+                </div>
+              </div>
+              </form>
+
+        </div>
+          <div class="modal-footer py-2">
+            <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal" #closemodel (click)="closeTerminatePopup('showmemberlist')">
+              Close
+            </button>
+            <button class="text-end" type="submit" class="btn btn-primary personalinfobutton"  (click)="submittermination()">
+              Submit&nbsp;&nbsp;
+            </button>
+              <!-- <button type="button" class="btn btn-secondary btn-light" id="updateButton" (click)="submittermination()" ><b>Submit</b></button>&nbsp;&nbsp; -->
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<div  class="modal" id="showTerminateMemberDetails" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered " id="modal-dialog" style="font-family: sans-serif;">
+      <div class="modal-content" id="modal-content">
+          <div class="modal-header" id="backgroundColor">
+              <span class="modal-title">Details&nbsp;&nbsp;<b>{{emplomentName}}</b></span>
+              <i class="bi bi-x-circle" role="button" aria-hidden="true" data-bs-dismiss="modal"></i>
+          </div>
+          <div class="model-body" style="font-family: sans-serif;">
+            <form class="onbordingform" [formGroup]="terminationformDetails">
+
+              <div class="row" *ngIf="terminateReasonsApplicable">
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label for="Corporation" class="Corporation">Reason</label>
+
+                    <select class="form-control select2" id="parentidrole" placeholder="Select"
+                      formControlName="reason" data-live-search="true">
+                      <option value="" label="" disabled>Select</option>
+                      <option value="" *ngFor="let reson of terminateReasonsWithKeys" [value]="reson.key">
+                        {{reson.display}}</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+              <div class="form-group col-12 col-md-6" id="box">
+                <div class="col-12">
+                  <label for=""> Proceed With Equitable<span class="text-danger">*</span></label>
+                </div>
+
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" name="proceedWithEquitable"
+                    id="proceedWithEquitableYes" [value]=true formControlName="proceedWithEquitable"
+                     />
+                  <label class="form-check-label" for="proceedWithEquitableYes">
+                    Yes</label>
+                </div>
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" [value]=false name="proceedWithEquitable"
+                    id="proceedWithEquitableNo"  formControlName="proceedWithEquitable"
+                     />
+                  <label class="form-check-label" for="proceedWithEquitableNo">No</label>
+                </div>
+
+              </div>
+
+              <div class="form-group col-12 col-md-6" id="box">
+                <div class="col-12">
+                  <label for=""> Proceed With Greenshield<span class="text-danger">*</span></label>
+                </div>
+
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" name="proceedWithGreenshield"
+                    id="proceedWithGreenshieldYes" [value]=true formControlName="proceedWithGreenshield"
+                     />
+                  <label class="form-check-label" for="proceedWithGreenshieldYes">
+                    Yes</label>
+                </div>
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" [value]=false name="proceedWithGreenshield"
+                    id="proceedWithGreenshieldNo"  formControlName="proceedWithGreenshield"
+                     />
+                  <label class="form-check-label" for="proceedWithGreenshieldNo">No</label>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="form-group col-12 col-md-6" id="box">
+                <div class="col-12">
+                  <label for=""> Proceed With Subscription Expiry<span class="text-danger">*</span></label>
+                </div>
+
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" name="proceedWithSubscriptionExpiry"
+                    id="proceedWithSubscriptionExpiryYes" [value]=true formControlName="proceedWithSubscriptionExpiry"
+                     />
+                  <label class="form-check-label" for="proceedWithSubscriptionExpiryYes">
+                    Yes</label>
+                </div>
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" [value]=false name="proceedWithSubscriptionExpiry"
+                    id="proceedWithSubscriptionExpiryNo"  formControlName="proceedWithSubscriptionExpiry"
+                     />
+                  <label class="form-check-label" for="proceedWithSubscriptionExpiryNo">No</label>
+                </div>
+
+              </div>
+
+              <div class="form-group col-12 col-md-6" id="box">
+                <div class="col-12">
+                  <label for=""> Proceed With Refund<span class="text-danger">*</span></label>
+                </div>
+
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" name="proceedWithRefund"
+                    id="proceedWithRefundYes" [value]=true formControlName="proceedWithRefund"
+                     />
+                  <label class="form-check-label" for="proceedWithRefundYes">
+                    Yes</label>
+                </div>
+                <div class="form-check form-check-inline col-3">
+                  <input class="form-check-input border border-dark" type="radio" [value]=false name="proceedWithRefund"
+                    id="proceedWithRefundNo"  formControlName="proceedWithRefund"
+                     />
+                  <label class="form-check-label" for="proceedWithRefundNo">No</label>
+                </div>
+
+              </div>
+            </div>
+
+              <div class="row pt-2">
+                <div class="col-md-4">
+                  <span>Customer Type</span>
+                </div>
+                <div class="col-md-4">{{terminateMemberDetails?.customerType }}</div>
+              </div>
+              <div class="row pt-2">
+                <div class="col-md-4">
+                  <span>Srvice Type</span>
+                </div>
+                <div class="col-md-4">{{terminateMemberDetails?.serviceType | titlecase}}</div>
+
+              </div>
+              <div class="row p-2" *ngIf="terminateMemberDetails?.serviceType!='NA'">
+                <table align="left">
+                  <tr>
+                    <th>Name</th>
+                    <th>Policy</th>
+                    <th>Full Name</th>
+                    <th>Carrier</th>
+                    <th>Issue No</th>
+                  </tr>
+                  <tbody>
+
+                    <tr>
+                      <td>{{servicDetails?.name}}</td>
+                      <td>{{servicDetails?.policy}}</td>
+                      <td>{{servicDetails?.fullName}}</td>
+                      <td>{{servicDetails?.carrier}}</td>
+                      <td>{{servicDetails?.issueNo}}</td>
+
+                  </tr>
+
+                </tbody>
+
+
+
+                </table>
+              </div>
+
+              <div class="row p-2">
+                <table align="left">
+                  <tr>
+                    <th>Refund Applicable</th>
+                    <th>Refund Amount</th>
+                    <th>Note</th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td>{{staxbillDetails?.refundApplicable}}</td>
+                      <td>{{staxbillDetails?.refundAmount}}</td>
+                      <td>{{staxbillDetails?.cancelCustomerNotes}}</td>
+                  </tr>
+                </tbody>
+                </table>
+              </div>
+              </form>
+
+        </div>
+          <div class="modal-footer py-2">
+            <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal" #closemodel (click)="closeModelPopup('showTerminateMemberDetails')">
+              Close
+            </button>
+            <button class="text-end" type="submit" class="btn btn-primary personalinfobutton"  (click)="submitterminationEnd()">
+              Terminate&nbsp;&nbsp;
+            </button>
+
+          </div>
+      </div>
+  </div>
+</div>
+<app-add-customer id="openModelAddMumber" [valuFormChaild]="valuFormChaild" class="modal fade"  data-bs-backdrop="static">
+</app-add-customer>
+<!-- app-overview -->
+
+<!-- <app-overview class="modal fade" *ngIf="showmemberData" id="memberdetails" [customerIdOfMember]="customerId" [popupDisplay]="popupDisplay"   data-bs-backdrop="static">
+</app-overview> -->
+
+<!-- <app-overview *ngIf="showmemberData" id="memberdetails" class="modal fade"  data-bs-backdrop="static">
+</app-overview> -->
+

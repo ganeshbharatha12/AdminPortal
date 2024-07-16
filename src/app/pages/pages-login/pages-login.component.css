@@ -1,0 +1,89 @@
+.backgroundstyle{
+  background-color: rgb(232,234,240);
+  /* background-image: url("./../../../assets/img/cpflow.png"); */
+}
+.submitbutton {
+  background-color: #142A49;
+  border-radius: 7px;
+  /* line-height: 2 !important; */
+}
+.fafaEyes {
+  cursor: pointer;
+    position: absolute;
+    margin-left: 72.5%;
+    margin-top: -37px;
+}
+.form-control
+{
+  border-radius: 7px !important;
+  line-height: 1.5 !important;
+  margin-bottom: 10px !important;
+  /* border:0.5px solid #000000 !important */
+}
+#heading {
+  font-size: 20px;
+  color: #00345D;
+}
+
+.small mb-0{
+color: #03223F  !important;
+}
+
+.login-container{
+  max-width: 570px;
+  margin: 60px auto 0;
+  background-color: white;
+  padding: 20px 20px 20px 20px;
+  border-radius:10px;
+  position: relative;
+}
+p{
+  /* text-align: left; */
+/* text-decoration: underline; */
+font-family: sans-serif;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+}
+.loginfooter{
+
+  text-align: center;
+  font-family: sans-serif;
+letter-spacing: 0px;
+color: #000000;
+opacity: 1;
+}
+.modal-title {
+  margin-bottom: 0;
+  line-height: 0.5;
+}
+.footer{
+  position:fixed;
+  bottom:0px;
+  background-color:#142A49;
+  width:100%;
+  padding: 5px 0;
+    font-size: 12px;
+    transition: all 0.3s;
+    text-align: center;
+    /* border-top: 1px solid #cddfff; */
+    margin-left: -10px !important;
+    /* z-index:999 */
+  }
+.modal-header  {
+  background-color: rgb(93,124,155);
+  color:white
+}
+.closeButton{
+  background-color: rgb(93,124,155);
+  border: none;
+  font-weight: bold;
+}
+.modal-dialog {
+  max-width: 550px;
+  margin: 12.75rem auto;
+}
+
+.loginformbox{
+  background-color: rgb(255,255,255);
+}

@@ -1,0 +1,1194 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+
+div{
+    font-family: sans-serif;
+}
+
+label {
+    margin-top: 1px;
+}
+.modal-lg{
+  max-width: 100%;
+}
+h6{
+  background-color: "";
+}
+.form-select{
+  line-height: 1.1 !important;
+}
+
+.card {
+    margin: 5px;
+    /* height:250px; */
+
+}
+.card1 {
+  margin: 5px;
+  /* height:250px; */
+
+}
+.activecard{
+  margin:0px !important;
+  /* border:1px solid #456786; */
+}
+
+
+.container {
+    padding: 1px;
+    /* border:1px solid black; */
+    border-radius: 5px;
+}
+
+span {
+    margin: inherit;
+    /* font-size: 14px !important; */
+    /* font: normal normal normal 14px/17px sa; */
+    font-family: sans-serif !important;
+    text-align: left;
+}
+
+label {
+    margin-top: 5px !important;
+    margin: inherit;
+    /* font-size: 16px !important; */
+    /* padding: 1px; */
+    /* font: normal normal bold 16px/19px Lato; */
+    font-family: sans-serif;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+   /* border-radius: 5px; */
+    /* max-height: 200px; */
+}
+.section-header.p-0 {
+
+  max-width: 300px;
+
+  height: 67px;
+
+  border-bottom: 1px solid black;
+  text-align: center;
+
+}
+.section-header.p-0 img {
+
+  width: auto;
+  max-height:60px
+
+}
+
+.br {
+    border-right: 1px solid black !important;
+
+}
+
+.brokerDiv {
+    border-radius: 5px;
+    border: 1px solid black !important;
+}
+
+.primaryInfo {
+    /* border-right: 1px solid #B4B6B4; */
+}
+
+/* .phoneNumPrimarySecondary {
+    font-size: 12px;
+} */
+
+/* .phoneNum {
+    font-size: 10px;
+} */
+
+.healthPlanDiv {
+    /* border: 1px solid rgb(167, 153, 153); */
+    /* border-radius: 7px; */
+    font-size: 11px;
+    padding: 2px;
+}
+
+.is-invalid {
+    border-radius: 7px;
+    border: 3px solid rgb(15, 15, 15);
+}
+.spouseDiv{
+    /* padding: 4px;   */
+}
+
+u span{
+    color:black
+}
+
+.widget-flat{
+    display: flex;
+    border: 1px solid rgb(234 234 243);
+    border-radius: 4px;
+    padding-left: 3px;
+    height: 70px;
+    margin-bottom: 10px;
+}
+
+.contrentDiv{
+    font-size: 12px;
+}
+
+#fontsize {
+    font-size: 12px;
+    text-align: center;
+}
+
+#height {
+    height: 100px;
+    padding-right: 20px;
+}
+
+.updateButton{
+    padding-bottom: 5px;
+}
+
+.downloadsInsideDiv{
+    border: 1px solid rgb(234 234 243);
+    border-radius: 4px;
+    margin-block: 5px;
+    padding: 12px;
+}
+
+.icons{
+    width: auto;
+}
+
+#viewButton {
+    color: #00345D;
+    /* background-color: rgb(56,76,159); */
+    border: 1px solid #00345D;
+    border-radius: 14px;
+    font-size: 12px;
+    width: auto;
+    /* align-items: center; */
+}
+.uploadData1 {
+  color: #00345D;
+  /* background-color: rgb(56,76,159); */
+  border: 1px solid #00345D;
+  border-radius: 5px;
+  font-size: 12px;
+  width: auto;
+  /* align-items: center; */
+}
+.modal-header{
+  background-color: #142A49;
+}
+
+.primaryInfoLabels {
+    font-size: 12px;
+}
+
+.subtext {
+    font-size: 9px;
+}
+
+th,td {
+    font-size: 14px;
+}
+
+#pencilIcon {
+    padding-top: 13px;
+}
+
+#img {
+    width: 20px;
+    height: 20px;
+    padding: -10 !important;
+}
+
+.img {
+    width: 20px;
+    height: 20px;
+    padding: -10 !important;
+}
+
+
+#backgroundColor {
+    /* background-color: rgb(93,124,155); */
+    background-color: #142A49;
+    color: white;
+    padding-block: 8px;
+}
+
+#cancelButton {
+    color: #142A49;
+    /* border: 1px solid rgb(56,76,159); */
+    border: 1px solid #142A49;
+    font-size: 12px;
+}
+
+#updateButton {
+    color: white;
+    /* background-color: rgb(56,76,159); */
+    background-color: #142A49;
+    font-size: 12px;
+}
+
+.tabs {
+    display: flex;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    background-color: #707070;
+    border-radius: 5px;
+    width:100%;
+    color: white;
+}
+
+.tab.active {
+    background-color: rgb(93,124,155);
+    border-bottom: 1px solid #ccc;
+    color:white;
+    width:50%;
+}
+
+thead {
+    background-color: rgb(93,124,155);
+    color: white;
+    border-radius: 5px 5px 0 0;
+}
+
+tr {
+    border: 1px solid #707070;
+}
+
+th {
+    padding-block: 10px;
+}
+
+#th {
+    padding-inline: 20px;
+    padding-block: 10px;
+}
+
+#booklet-td {
+    text-align: right;
+}
+
+#td {
+    padding-inline: 20px;
+}
+
+#table {
+    width: 100%;
+}
+
+#modal-labels {
+    font-size: 12px;
+    font-family: sans-serif;
+    /* position: absolute;
+    top: -4px;
+    z-index: 1;
+    left: 2em; */
+    /* box-shadow: 2em; */
+}
+
+#radio-labels {
+    font-size: 12px;
+    font-family: sans-serif;
+    margin-top: 0px !important;
+}
+
+input {
+    font-size: 12px !important;
+    font-family: sans-serif;
+}
+
+/* #valiSign {
+    color: red;
+}  */
+
+#valisign {
+    justify-content: center;
+}
+
+#bankInfo {
+    border: 1px solid lightgray;
+    font-size: 12px;
+    border-radius: 6px;
+    /* height: 80px; */
+    padding-block: 6px;
+    padding-inline: 12px;
+}
+
+.mobileIcon {
+    width: auto;
+}
+
+#dependentTable {
+    width: 120%;
+}
+
+th {
+    white-space: nowrap;
+}
+
+@media (max-width: 340px) {
+    .paddingStart {
+        padding-left: 0px;
+    }
+}
+
+@media (max-width: 767px) {
+    #table {
+        width: 180%;
+    }
+    #subcard {
+        border-radius: 30px 30px 12px 12px;
+    }
+    #invoicecard {
+        border-radius: 22px 22px 12px 12px;
+        background-color: #FFF5E2;
+    }
+
+    #mainbody {
+        overflow-y: auto;
+        height: 86vh !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .dependentDiv{
+        height: 335px;
+    }
+    .dependentDiv1{
+      height: 165px;
+  }
+    .downloadsDiv{
+        min-height: 250px;
+    }
+    .thirdRow{
+        min-height: 271px;
+    }
+    #cardheader {
+        /* height: 59px; */
+    }
+    #subcard {
+        border-radius: 17px 17px 12px 12px;
+    }
+    #invoicecard {
+        border-radius: 10px 10px 12px 12px;
+        background-color: #FFF5E2;
+        /* max-width: 17rem; */
+        padding:6px
+    }
+}
+
+@media(min-width: 768px) and (max-width: 1199px){
+    .dependentDiv{
+        min-height: 335px;
+    }
+    .dependentDiv1{
+      min-height: 165px;
+  }
+    .downloadsDiv{
+        min-height: 212px;
+    }
+    .thirdRow{
+        min-height: 420px;
+    }
+    .modelSize{
+        min-width: auto;
+    }
+    .widget-flat{
+        height: 50px;
+    }
+    #cardheader {
+        /* height: 65px; */
+    }
+    #subcard {
+        border-radius: 14px 14px 12px 12px;
+    }
+    #invoicecard {
+        border-radius: 10px 10px 12px 12px;
+        background-color: #FFF5E2;
+    }
+}
+
+.downloadwidth {
+    width: 115% !important;
+}
+.form-group{
+  margin-bottom: 0px !important;
+}
+
+input[type=text].form-control {
+    text-transform: capitalize;
+    font-size: 12px;
+}
+
+input[type=tel].form-control {
+    font-size: 12px;
+}
+
+.date {
+    text-transform: uppercase !important
+}
+
+.help-block {
+    font-size: 12px;
+}
+
+#checkbox {
+    margin-top: 1px;
+}
+
+/* .spouseCard {
+    padding-right: 12px !important;
+} */
+
+.dependentCard {
+    padding-left: 12px !important;
+}
+
+.subheader {
+    font-size: 12px;
+}
+
+#dataPicker {
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+
+#email {
+    text-transform: none;
+}
+
+.carousel-indicators {
+    margin-bottom: -9px;
+}
+
+.carousel-indicators [data-bs-target] {
+    border: 1px solid #707070;
+    width: 4px;
+    height: 4px;
+    border-radius: 3px;
+    background-color: #707070;
+}
+
+#chevron {
+    color: black;
+}
+
+.carousel-control-next, .carousel-control-prev {
+    top: auto;
+    margin-bottom: -1%;
+}
+.swiper-button-prev.slider-arrow {
+  top: -10px;
+}
+.swiper-button-next.slider-arrow {
+  top: -10px;
+}
+#planheader {
+    background-color: #E2F1FF;
+    border-radius: 15px 15px 5px 5px;
+    /* max-width:17rem; */
+    padding:6px;
+    /* overflow-y: auto; */
+}
+
+.subcardheight {
+    height: 263px;
+}
+
+.carousel-item {
+    opacity: 1;
+    z-index: 997;
+    display: inline;
+    width: 90%;
+}
+
+.carousel-item.active {
+    opacity: 0.5 !important;
+    z-index: 1;
+    transform: translateX(28px);
+}
+.swiper-slide-next{
+  /* opacity: 0.5!important; */
+  pointer-events: none;
+}
+swiper-slide-prev{
+  /* opacity: 0.5!important; */
+  pointer-events: none;
+}
+.card {
+    border-radius: 15px 15px 5px 5px;
+    /* max-width: 20rem; */
+}
+.card1 {
+  border-radius: 15px 15px 5px 5px;
+  /* max-width: 20rem; */
+}
+#uploadButtonExcel{
+  cursor:pointer;
+  background-color: rgb(56,76,159);
+  /* margin-top: 10px; */
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+  /* padding-top: 5px; */
+  /* padding-bottom: 1px; */
+  font-size: 12px;
+    margin-bottom: 0px;
+    /* height: 33px; */
+    color:#FFFFFF;
+    font-weight: 100;
+  }
+
+.card-header {
+    border-radius: 15px 15px -2px 0px;
+    background-color: #142A49;
+}
+.card1-header {
+  border-radius: 15px 15px 0px 0px;
+  background-color: #142A49;
+}
+
+.spousecard {
+    background-color: #FFE2FB;
+}
+
+.childcard {
+    background-color: #E2F1FF;
+}
+
+.roecard {
+    background-color: #FFF1D4;
+}
+
+#tr {
+    border: none;
+}
+
+.secondcarousel {
+    opacity: 2;
+
+}
+
+#bar {
+    border: 1px solid gray;
+    background-color: lightgray;
+}
+
+#mobile {
+    font-size: 20px;
+}
+
+#location {
+    font-size: 15px;
+}
+
+#planInfoCard {
+    background-color: #EAE8FF;
+    border-radius: 12px;
+    /* max-width:17rem */
+}
+
+#planholderfooter {
+    background-color: #EAE8FF;
+    border-top: none;
+    border-radius: 0px 0px 14px 14px;
+}
+
+#card-body {
+    padding-top: 5px;
+}
+
+.planBody{
+
+    list-style: none;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+   height: 175px;
+
+  padding-left: 2px;
+
+  /* background: #F1F6F9; */
+
+  /* border-radius: 6px; */
+
+  }
+
+  .planBody1{
+
+    list-style: none;
+
+  overflow-y: auto;
+
+  max-height: 85px;
+
+  padding-left: 5px;
+
+  /* background: #F1F6F9; */
+
+  /* border-radius: 6px; */
+
+  }
+  .planBody2{
+
+    list-style: none;
+
+  overflow-y: auto;
+
+  max-height: 245px;
+
+  padding-left: 5px;
+  overflow-x: clip;
+
+  /* background: #F1F6F9; */
+
+  /* border-radius: 6px; */
+
+  }
+
+  .futureBody {
+
+
+
+    text-align: center;
+
+    color:#FFFFFF;
+
+    color:black;
+
+    height:120px;
+  font: normal normal normal 12px/21px Lato;
+
+  letter-spacing: 0px;
+
+  /* // color: #1E1E1E; */
+
+  }
+
+.imagetext {
+    position: absolute;
+    top: 8px;
+    left: 5px;
+    background-color: #FFFFFF;
+    padding: 5px;
+    border-radius: 6px;
+    font-size: 12px;
+    opacity: 0.7;
+    font-weight: 700;
+}
+.imagetext img{
+  border-radius: 15px 15px !important;
+}
+.ult{
+    padding-left: 13px;
+}
+
+#carousellogos {
+    width: 12px;
+    height: 24px;
+}
+#carousellogos1 {
+    width: 12px;
+    height: 15px;
+
+}
+.iconsAllignment{
+    padding-right: calc(var(--bs-gutter-x) * .1);
+    padding-left: calc(var(--bs-gutter-x) * .1);
+}
+.corosalfooter{
+    /* background-color: beige; */
+    /* color: white; */
+    font-size: 14px;
+    height: auto;
+    background:none;
+    position: relative;
+    bottom:-122px;
+}
+.card-footer{
+  border:0px !important
+
+}
+.corosalfooter a{
+    color: white;
+}
+.forntsize{
+    font-size: 11px;
+}
+
+.carousellabels {
+    font-size: 12px;
+    /* padding-left: calc(var(--bs-gutter-x) * .5); */
+}
+
+
+
+#viewing {
+    width: 14px;
+    height: 14px;
+}
+
+.scroll {
+    height: 127px;
+    overflow-y: auto;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+#scrollcard {
+    height: 127px;
+    overflow-y: auto;
+    width: 100%;
+    overflow-x: hidden;
+}
+#scrollcard1 {
+  height: 190px;
+  overflow-y: auto;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 3px; /* Adjust the width as desired */
+    background-color: lightgrey;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #707070;
+}
+
+.downloads {
+    height: 130px;
+}
+
+/* .subcard {
+    height: 252px;
+} */
+
+#planbooklets {
+    background-color: #E2FAFF;
+}
+
+#membershipcard {
+    background-color: #FFF1D4;
+}
+
+#agreements {
+    background-color: #D9E4FF;
+}
+
+
+
+.plan_benefits_content {
+    font-size: 12px;
+    padding-left: 13px
+}
+
+video {
+    width: 100%;
+}
+
+.corosalfooter p {
+    margin-bottom: 3px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+
+:root {
+  --primary: #ec994b;
+  --white: #ffffff;
+  --bg: #f5f5f5;
+}
+
+/* html {
+  font-size: 62.5%;
+  font-family: "Montserrat", sans-serif;
+  scroll-behavior: smooth;
+} */
+
+
+/* .container {
+  max-width: 1240px;
+  padding: 0 10px;
+  margin: 0 auto;
+} */
+
+/* .text-center {
+  text-align: center;
+}
+
+.section-heading {
+  font-size: 30px;
+  color: var(--primary);
+  padding: 20px 0;
+}
+
+#tranding {
+  padding: 40px 0;
+} */
+
+
+#tranding .tranding-slider {
+  height: 290px;
+  /* padding: 20px 0; */
+  position: relative;
+}
+
+/* @media (max-width:500px) {
+  #tranding .tranding-slider {
+    height: 450px;
+  }
+  .activecard {
+    height: -webkit-fill-available;
+}
+} */
+
+.tranding-slide {
+  width: 240px;
+  height: 290px;
+  position: relative;
+}
+
+@media (max-width:500px) {
+  .tranding-slide {
+    width: 280px !important;
+    height: 360px !important;
+  }
+  .tranding-slide .tranding-slide-img img {
+    width: 280px !important;
+    height: 360px !important;
+  }
+}
+
+
+.tranding-slide .tranding-slide-img img {
+  width: 250px;
+  height: 250px;
+  border-radius: 20px;
+  /* object-fit: cover; */
+}
+
+.tranding-slide .tranding-slide-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.tranding-slide-content .food-price {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: var(--white);
+}
+
+.tranding-slide-content .tranding-slide-content-bottom {
+  position: absolute;
+  bottom: 190px;
+  left: 20px;
+  color: var(--white);
+}
+
+.food-rating {
+  padding-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.rating ion-icon {
+  color: var(--primary);
+}
+
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  display: none;
+}
+
+.tranding-slider-control {
+  position: relative;
+  font-size: 14px;
+  /* bottom: 10px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tranding-slider-control .swiper-button-next {
+  left: 70% !important;
+  transform: translateX(-70%) !important;
+}
+
+@media (max-width:990px) {
+  .tranding-slider-control .swiper-button-next {
+    left: 70% !important;
+    transform: translateX(-70%) !important;
+  }
+}
+
+@media (max-width:450px) {
+  .tranding-slider-control .swiper-button-next {
+    left: 80% !important;
+    transform: translateX(-80%) !important;
+  }
+}
+
+/* @media (max-width:990px) {
+  .tranding-slider-control .swiper-button-prev {
+    left: 30% !important;
+    transform: translateX(-30%) !important;
+  }
+}
+
+@media (max-width:450px) {
+  .tranding-slider-control .swiper-button-prev {
+    left: 20% !important;
+    transform: translateX(-20%) !important;
+  }
+} */
+
+.tranding-slider-control .slider-arrow {
+
+  width: 20px;
+  height: 30px;
+  border-radius: 50%;
+  left: 30%;
+  transform: translateX(-30%);
+  filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+  color:#838990
+}
+
+.tranding-slider-control .slider-arrow ion-icon {
+  font-size: 20px;
+  color: #222224;
+}
+
+.tranding-slider-control .slider-arrow::after {
+  content: '';
+}
+
+.tranding-slider-control .swiper-pagination {
+  /* position: relative;
+  width: 150px; */
+  bottom: 5px;
+  z-index:1
+}
+
+.tranding-slider-control .swiper-pagination .swiper-pagination-bullet {
+  filter: drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1));
+}
+
+.tranding-slider-control .swiper-pagination .swiper-pagination-bullet-active {
+  background: var(--primary);
+}
+
+.swiper-slide {
+  opacity: 1;
+
+}
+.swiper-slide-active {
+  opacity: 1;
+
+
+}
+::-webkit-scrollbar {
+  width: 3px; /* Adjust the width as desired */
+  background-color: lightgrey;
+}
+
+#image {
+    border-radius: 15px 15px 0px 0px;
+}
+
+#modal-content {
+    /* height: 525px; */
+    height: 88vh;
+}
+
+#paymentfooter {
+    background-color: #E2F1FF;
+    border-top: none;
+    border-radius: 0px 0px 14px 14px;
+}
+
+#invoicefooter {
+    background-color: #FFF5E2;
+    border-top: none;
+    border-radius: 0px 0px 14px 14px;
+}
+
+#modal-dialog {
+    margin-block: 60px;
+    margin-left: calc(17.66666667% + 5px);
+    margin-right: calc(16.66666667% + 5px);
+    max-width: unset;
+}
+
+#pdf-viewer {
+    /* height: 480px; */
+    height: 90vh;
+    zoom: 0.75;
+}
+
+#bankname {
+    font-size: 12px;
+}
+
+.benefitplanBody {
+    list-style: none;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+   height: 160px;
+
+  padding-left: 2px;
+}
+
+#singlecardimage {
+    height: 67px;
+}
+
+
+.shortlink {
+    text-decoration: none;
+    color: #00345D;
+}
+
+#mainbody {
+    overflow-y: auto;
+    height: 91vh;
+}
+
+#pharmaimg {
+    height: 67px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+#pharmafooter {
+    background-color: #FFF5E2;
+    border-radius: 0px 0px 14px 14px;
+}
+
+.ulpadding ul {
+    padding-left: 8px;
+}
+
+.modalposition {
+    overflow-y: hidden;
+}
+
+.title {
+    font-size: 14px;
+}
+
+#singledependent {
+    border-radius: 0px 0px 15px 15px;
+}
+
+.singledependentcard {
+    border-radius: 15px;
+}
+
+#swal2-html-container {
+    font-size: 14px;
+}
+
+#swal2-title {
+    font-size: 14px !important;
+}
+
+#yearselect select option {
+    overflow-y: auto;
+}
+
+.modal-title {
+    font-size: 14px;
+}
+
+#dependent-content {
+    height: 400px;
+    top: 85px;
+    position: absolute;
+}
+
+#updatePadModal {
+    margin-top: 30px;
+}
+
+#video-modal-body {
+    overflow-y: hidden;
+}
+
+
+.wraptext{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: 1px solid #D08000;
+  border-radius: 10px;
+}
+.package-groups {
+
+
+      height: auto;
+      border: 1px solid #707070;
+      border-radius: 10px;
+      margin-top: 30px;
+      /* margin: 20px 9px; */
+      max-width: 342px;
+      opacity: 1;
+      padding-bottom: 25px;
+      margin: 2px 2px 2px 2px;
+    padding: 0px 0px 2px 0px;
+    width: 180px;
+    font-size: 14px;
+
+}
+.plancoverage{
+  height:auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.plansCoverageDetails{
+  text-align: center;
+  color:#FFFFFF;
+  color:black;
+  padding: 2px 2px 2px;
+  list-style-type: none;
+}
+
+.plansCoverageDetails .overflow-ellipsis {
+  display: block;
+  padding-left: 18px;
+  width: calc(100% - 65px);
+    position: relative;
+    height:auto;
+    margin-bottom:10px;
+}
+
+
+.plansCoverageDetails .overflow-ellipsis input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+}
+.overflow-ellipsis2{
+  margin-top:-5px;
+ }

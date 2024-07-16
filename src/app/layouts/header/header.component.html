@@ -1,0 +1,172 @@
+<header id="header" class="header fixed-top d-flex align-items-center">
+  <div class="d-flex align-items-center justify-content-between"> <a routerLink="/dashboard" class="logo d-flex align-items-center">
+     <!-- <img src="assets/img/logo.png" alt=""> -->
+     <img [src]="dashBordLogo" alt="">
+     <!-- <img src="../../../assets/img/iGBMS-dashboad.png" alt=""> -->
+      </a> <i (click)="sidebarToggle()" class="bi bi-list toggle-sidebar-btn"></i>
+                                   <!-- _router.url ==='/manageCorporates/addCorporate'" -->
+    <div class="searchCorpdiv " *ngIf="searchbox && _router.url ==='/addCorporate'">
+      <!-- <div class="row"> -->
+      <div class="autocomplete">
+      <label class="searchCorp">Manage Corporate Clients
+        <!-- <input list="browsers"  name="myBrowser" style="text-transform: capitalize;" [(ngModel)]='currentUser' (change)="fetchSeries()"/> -->
+        <input list="browsers"  name="myBrowser" class="input" #myInput style="text-transform: capitalize;" [(ngModel)]='currentUser' (blur)="dropDownDisplay=false"/>
+      </label>
+      <ul *ngIf="dropDownDisplay" class="suggestion-list">
+        <li class="dropdownLi" *ngFor="let show of searchResults" (mousedown)="diaplayinInputbox(show)">{{show.name}}</li>
+
+      </ul>
+
+<i class="fa fa-search" aria-hidden="true" style="margin-left: 10px;" (click)="fetchSeries('myInput')"></i>
+<button  class="addgroupadmininfoemp" (click)="ShowCorpDetailsDetails()"  *ngIf="showAddButton">+&nbsp;Add</button>
+<button  class="editgroupadmininfoemp" *ngIf="showeditcorp" (click)="EditCorpDetails()" ><i class="fa fa-edit"></i>&nbsp;Edit</button>
+  </div>
+    </div>
+    <div class="searchCorpdiv" *ngIf="clienDetails&&_router.url.includes('edit-corporate')">
+    <table class="employeelist">
+      <tr >
+        <th style="padding:0px" >CORPORATE Client Name: <span style="color:black" class="text-capitalize">{{clientName}}</span></th>
+        <!-- <th style="padding:15px">Corporate Client ID:<span style="color:black">{{ClientId}}</span></th> -->
+        <th style="padding:30px">Account Status: <span style="color:black">{{appStatus}}</span></th>
+      </tr>
+    </table>
+  </div>
+          <!-- &&_router.url ==='/manageMembers/employee' -->
+  <div class="searchCorpdiv" *ngIf="userName">
+    <span style="color:black" class="text-capitalize">Member Name:&nbsp;<b>{{userName}}</b></span>
+  </div>
+
+
+  </div>
+
+  <nav class="header-nav ms-auto">
+     <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown1">
+          <select class=" ng-pristine ng-invalid ng-touched"  id="planenrollmentdate" placeholder="Select">
+            <!-- <option label="" value="">Select Language</option> -->
+            <option value="English" label="English" selected>English</option>
+            <!-- <option value="Spanish" label="Spanish">Spanish</option>
+            <option value="Telugu" label="Telugu">Telugu</option> -->
+          </select>
+
+        </li>&nbsp;&nbsp;
+
+
+     </ul>
+  </nav>
+  <!-- <li class="nav-item dropdown1 pe-3">
+    <a class="dropdown-item d-flex align-items-center" routerLink="/login" (click)="logout()"> <i class="bi bi-box-arrow-right" ></i>&nbsp;<span>Log Out</span> </a>
+
+
+  </li> -->
+
+  <div class="dropdown">
+    <button class="btn" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      <!-- <i class="fa fa-user" aria-hidden="true" style="font-size:25px"></i> -->
+      Welcome&nbsp;<b>{{adminname |titlecase}}</b>&nbsp;<i class="fa fa-caret-down" aria-hidden="true" style="font-size:12px"></i>
+    </button>
+
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item d-flex align-items-center"  (click)="changepassword()" style="cursor:pointer"><i class="fa fa-key" aria-hidden="true"></i>&nbsp;<span>Change Password</span></a></li>
+      <li><a class="dropdown-item d-flex align-items-center" routerLink="/login" (click)="logout()"> <i class="bi bi-box-arrow-right" ></i>&nbsp;<span>Log Out</span> </a></li>
+
+    </ul>
+  </div>
+
+</header>
+
+<!-- <app-mange-clients></app-mange-clients> -->
+
+
+
+
+<!-- changepassword model -->
+
+<div class="modal" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="changepasswordLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h6 class="modal-title">Change Password</h6>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true" (click)="closeChangepassmodel()">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+    <form [formGroup]="changepasswordform">
+<div class="row">
+<div class="form-group col-1"></div>
+<div class="form-group col-10">
+<label for="Corporation" class="Corporation">Old Password<span style="color: red">*</span></label>
+
+<input
+type="password"
+class="form-control checking-field"
+id="nameofcorporation"
+placeholder="Old Password"
+ formControlName="oldpassword"
+/>
+
+<div *ngIf="changepass['oldpassword'].touched && changepass['oldpassword'].invalid" class="help-block text-danger">
+<div *ngIf="changepass['oldpassword'].errors && changepass['oldpassword'].errors['required']">Please enter old password</div>
+<div *ngIf="changepass['oldpassword'].errors && changepass['oldpassword'].errors['minlength']">Password must be at least 8 characters</div>
+<div *ngIf="changepass['oldpassword'].errors && changepass['oldpassword'].errors['maxlength']">Password must not exceed 40 characters</div>
+</div>
+
+</div>
+<div class="form-group col-1"></div>
+</div>
+<div class="row">
+<div class="form-group col-1"></div>
+<div class="form-group col-10">
+  <label for="Corporation" class="Corporation">New Password<span style="color: red">*</span></label>
+
+  <input
+  type="password"
+  class="form-control checking-field"
+  id="nameofcorporation"
+  placeholder="New Password"
+   formControlName="newpassword"
+/>
+<div *ngIf="changepass['newpassword'].touched && changepass['newpassword'].invalid" class="help-block text-danger">
+  <div *ngIf="changepass['newpassword'].errors && changepass['newpassword'].errors['required']">Please enter new password</div>
+  <div *ngIf="changepass['newpassword'].errors && changepass['newpassword'].errors['minlength']">Password must be at least 8 characters</div>
+  <div *ngIf="changepass['newpassword'].errors && changepass['newpassword'].errors['maxlength']">Password must not exceed 40 characters</div>
+</div>
+
+</div>
+<div class="form-group col-1"></div>
+</div>
+<div class="row">
+  <div class="form-group col-1"></div>
+  <div class="form-group col-10">
+    <label for="Corporation" class="Corporation">Confirm Password<span style="color: red">*</span></label>
+
+    <input
+    type="password"
+    class="form-control checking-field"
+    id="nameofcorporation"
+    placeholder="Confirm Password"
+     formControlName="confirmpassword"
+  />
+  <div *ngIf="changepass['confirmpassword'].touched && changepass['confirmpassword'].invalid" class="help-block text-danger">
+    <div *ngIf="changepass['confirmpassword'].errors && changepass['confirmpassword'].errors['required']">Please enter confirm password</div>
+    <div *ngIf="changepass['confirmpassword'].errors && changepass['confirmpassword'].errors['minlength']">Password must be at least 8 characters</div>
+    <div *ngIf="changepass['confirmpassword'].errors && changepass['confirmpassword'].errors['maxlength']">Password must not exceed 40 characters</div>
+    <div *ngIf="changepass['confirmpassword'].errors && changepass['confirmpassword'].errors['confirmedValidator']">Passwords did not match</div>
+  </div>
+
+  </div>
+  <div class="form-group col-1"></div>
+  </div>
+
+</form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary submitbutton" [disabled]="changepasswordform.invalid"  (click)="SubmitChangePassword()">Submit</button>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="closeChangepassmodel()">Close</button>
+
+
+    </div>
+  </div>
+</div>
+</div>

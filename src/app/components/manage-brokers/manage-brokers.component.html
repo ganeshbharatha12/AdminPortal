@@ -1,0 +1,187 @@
+
+
+<main id="main" class="main">
+
+
+  <section class="section dashboard">
+
+<div class="row">
+
+    <form class="plansform">
+      <div class="row">
+        <div class="form-group col-12 col-md-12">
+          <h6 class="admintitle">Advisors&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+      </div>
+      <div class="form-group col-12 col-md-12 pt-2 pb-2">
+
+
+        <button  class="addgroupadmininfoemp" (click)="addBrokerDetails()"><strong>+&nbsp;Add</strong></button>
+
+    </div>
+
+    <div class="row" class="filterByStatus">
+      <div class="col-12 col-md-6 p-0" style="position: absolute;">
+        <label for="" style="font-size: 14px;font-family:'Open Sans';">Filter by Status:&nbsp;</label>
+      </div>
+      <div class="col-md-6 p-0" style="position: absolute;">
+        <select name="" id="" class="form-select form-select-sm filterSelect"  (change)="changeStatus($event)">
+          <option value="all">Select</option>
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
+
+        </select>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="table-responsive">
+      <table datatable [dtOptions]="dtOptions" id="dataTableId" [dtTrigger]="dtTrigger" class="table text-nowrap">
+        <thead>
+        <tr>
+          <th>S.no</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Sub Brokers List</th>
+          <th>Email</th>
+          <th>Sales Tracking Code</th>
+          <!-- <th>Customers Count</th>
+          <th>Children Count</th>
+          <th>License Count</th> -->
+          <th>GiG</th>
+          <th>Corporates</th>
+
+          <th>Prov Lic</th>
+
+          <th>E&O Status</th>
+          <th>Status</th>
+
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let broker of brokerList; let i = index">
+          <td>{{i+1}}</td>
+          <td (click)="viewBrokerDetails(broker,i)" class="viewCorporate" style="cursor: pointer;"><a>{{broker.name}}-{{broker.salesTrackingCode}}</a></td>
+          <td>{{broker.brokerType}}</td>
+          <td>
+            <button class="addgroupadmininfoemp" (click)="viewsubBrokerList(broker.subBrokers)">View</button>
+          </td>
+          <td>{{broker.email}}</td>
+          <td><span  class="tooltiptext" data-bs-toggle="tooltip" data-bs-placement="top" title="Desc:{{broker.salesTrackingCodeDescription}}"> {{broker.salesTrackingCode}}</span></td>
+          <td class="text-center text-center">{{broker.customersCount}}</td>
+          <td class="text-center"><span (click)="viewsubBrokerList(broker.subBrokers)"
+             class="tooltiptext text-center viewCorporate" style="cursor: pointer;"
+              data-bs-toggle="tooltip" data-bs-placement="top" title="Advisor:{{broker.childsCount.advisor}},Corporate:{{broker.childsCount.corporate}}"> {{broker.childsCount.corporate}}</span></td>
+          <td class="text-center"><span  class="tooltiptext text-center" data-bs-toggle="tooltip" data-bs-placement="top" title="Active:{{broker.license.active}},Expired:{{broker.license.expired}},AbovetoExpire:{{broker.license.aboveToExpire}}"> {{broker.license.count}}</span></td>
+          <td>
+            <button class="brokertablestatus text-center" *ngIf="broker.EOIStatus=='Expired'" style="color:red">{{broker.EOIStatus}}</button>
+            <button class="brokertablestatus text-center" *ngIf="broker.EOIStatus=='Valid'" style="color:green">{{broker.EOIStatus}}</button>
+            <button class="brokertablestatus text-center" *ngIf="broker.EOIStatus=='About to Expire'" style="color:rgb(255, 136, 0)">{{broker.EOIStatus}}</button>
+            <button class="brokertablestatus text-center" *ngIf="broker.EOIStatus!='Valid' &&  broker.EOIStatus!='Expired' &&  broker.EOIStatus!='About to Expire'" >{{broker.EOIStatus}}</button>
+          </td>
+          <td> <select
+            class="form-control1"
+            id="gender" [(ngModel)]="broker.status" [ngModelOptions]="{standalone: true}"
+            placeholder="Select"  (change)="brokerStatus(broker,brokerstatus.value,i)" #brokerstatus >
+
+            <option value="true"> Active </option>
+            <option value="false"> Inactive </option>
+
+          </select>
+          </td>
+          <td style="display:flex">
+            <!-- <a class="viewicon" title="View/Edit" data-toggle="tooltip" ><i class="fa fa-eye" (click)="viewBrokerDetails(broker,i)"></i></a>&nbsp; -->
+            <!-- <a *ngIf="role=='ADMINISTRATOR'" class="deleteicon" title="Delete" data-toggle="tooltip" ><i class="bi bi-trash-fill" (click)="deletebrokerDetails(broker,i)"></i></a>&nbsp; -->
+                                                                                    <!-- fa fa-paper-plane -->
+            <a class="viewicon" title="Send Invite" data-toggle="tooltip" ><i class="fa fa fa-envelope" style="color: rgb(56,76,159);" (click)="adviserInvitation(broker,i)"></i></a>&nbsp;
+          </td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+  </div>
+  <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"> Tooltip on top </button> <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right"> Tooltip on right </button> <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom"> Tooltip on bottom </button> <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left"> Tooltip on left </button> -->
+
+  </div>
+
+      </form>
+
+      <div class="row">
+        <div class=" text-white text-left">
+          <!-- <button class="btn btn-primary" id="backbuttonForm"
+          type="button" (click)="gotoplansorwalletInfo()" style="float:left"><i aria-hidden="true" class="fa fa-long-arrow-left" ></i>&nbsp;&nbsp;Previous</button> -->
+
+        </div>
+        <div class=" text-white text-right">
+          <!-- <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitEmployeeInfoInfo()"> Save</button> -->
+        </div>
+      </div>
+
+
+
+  </div>
+  </section>
+  </main>
+
+
+
+  <div class="modal" id="subGroupList-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">Sub Brokers List</div>
+
+      <div class="model-body" style="margin-top: 20px;">
+
+        <div class="row">
+          <div class="table-responsive">
+          <table id="DataTables_Table_1" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger1" class="table text-nowrap">
+            <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Name</th>
+              <th>Role</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let broker of customerslist; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{broker.name}}</td>
+              <td>{{broker.brokerType}}</td>
+
+              <td style="display:flex">
+                <a class="viewicon" title="View/Edit" data-toggle="tooltip" ><i class="fa fa-eye" (click)="viewBrokerCustomers(broker,i)"></i></a>&nbsp;&nbsp;
+                <!-- <a class="deleteicon" title="Delete" data-toggle="tooltip" ><i class="bi bi-trash-fill" (click)="deletebrokerDetails(broker,i)"></i></a>&nbsp;&nbsp; -->
+              </td>
+          </tr>
+          </tbody>
+          </table>
+          </div>
+      </div>
+      </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closePopup()" id="closeaddadmin" data-bs-dismiss="modal" #closemodel>
+        Close
+      </button>
+  </div>
+    </div>
+  </div>
+</div>
+
+  <!-- <footer id="footer" class="footer">
+    <div class="copyright">Version IB:3.0.0  © 2024 :
+      <a class="text-reset fw-bold" href="https://www.groupbenefitz.ca/" target="-blank"> The GroupBenefitz Platform Inc.</a></div>
+ </footer>
+ <a (click)="scrollTop()" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  -->
+ <!-- <main id="main" class="main">
+  <div class="mainScreen">
+    <span>Work in Progress!</span>
+  </div>
+  </main> -->
+

@@ -1,0 +1,156 @@
+<main id="main" class="main">
+
+
+  <section class="section dashboard">
+
+<div class="row">
+
+    <form class="plansform">
+      <div class="row">
+        <div class="form-group col-12 col-md-12">
+          <h6 class="admintitle">Customers&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+      </div>
+
+
+
+    <div class="row">
+      <div class="table-responsive">
+        <div class="row" *ngIf="showdata">
+          <div class="col-12 col-md-10" style="font-size: 14px;">
+            <p>Name:&nbsp;<b>{{BrokerName | titlecase}}</b></p>
+            <p>Broker Type:&nbsp;<b>{{brokerType}}</b></p>
+            <p>Broker/Advisor Name:&nbsp;<b>{{ParentName | titlecase}}</b></p>
+
+          </div>
+          <div class="col-12 col-md-2 pt-4">
+            <label for="Corporation" class="Corporation">Filter by status</label>
+
+            <select
+            class="form-control"
+            id="parentidrole"
+            placeholder="Select" data-live-search="true" (change)="filtercustomerstatus($event,status)">
+            <option value=""  disabled>Select</option>
+            <option value="All">All</option>
+            <option
+              *ngFor="let status of customerListStatus"
+              [value]="status" [selected]="status== 'Active'">
+              {{status}}
+            </option>
+          </select>
+          </div>
+        </div>
+
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table text-nowrap">
+        <thead>
+        <tr>
+          <th>S.no</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Email</th>
+          <th>DOB</th>
+          <th>plans</th>
+          <th>Status</th>
+          <th>Plans</th>
+
+        </tr>
+      </thead>
+      <!-- <i class="fa fa-info-circle" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="right" title={{customer.contactInformations[0].line1}}></i> -->
+      <tbody>
+        <tr *ngFor="let customer of customerList1; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{customer.firstName}}&nbsp;{{customer.lastName}}</td>
+          <td>{{customer.gender}}</td>
+          <td>{{customer.contactInformations[0].primaryEmail}}</td>
+          <td>{{customer.dob |date}}</td>
+          <td>{{customer.contactInformations[0].primaryPhone}} </td>
+          <!-- <td>{{customer.contactInformations[0].line1}},{{customer.contactInformations[0].city}},{{customer.contactInformations[0].state}},{{customer.contactInformations[0].postalCode}}</td> -->
+          <td>
+            <span *ngIf="customer.status== 'All'" style="color:black">{{customer.status}}</span>
+            <span *ngIf="customer.status== 'Active'" style="color:green">{{customer.status}}</span>
+            <span *ngIf="customer.status== 'Cancelled'" style="color:red">{{customer.status}}</span>
+            <span *ngIf="customer.status== 'Draft'" style="color:orange">{{customer.status}}</span>
+          </td>
+          <td>
+            <button class="planStatusView" (click)="viewcustomerPlansList(customer.customerPlans)">View</button>
+
+          </td>
+
+      </tr>
+      </tbody>
+      </table>
+      </div>
+  </div>
+  <!-- <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"> Tooltip on top </button> <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Tooltip on right"> Tooltip on right </button> <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom"> Tooltip on bottom </button> <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="left" title="Tooltip on left"> Tooltip on left </button> -->
+
+  </div>
+
+      </form>
+
+      <div class="row">
+        <div class=" text-white text-left">
+          <!-- <button class="btn btn-primary" id="backbuttonForm"
+          type="button" (click)="gotoplansorwalletInfo()" style="float:left"><i aria-hidden="true" class="fa fa-long-arrow-left" ></i>&nbsp;&nbsp;Previous</button> -->
+
+        </div>
+        <div class=" text-white text-right">
+          <!-- <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitEmployeeInfoInfo()"> Save</button> -->
+        </div>
+      </div>
+
+
+
+  </div>
+  </section>
+  </main>
+  <div class="modal" id="customerPlansList-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">Plan List</div>
+
+        <div class="model-body" style="margin-top: 20px;overflow: auto;">
+
+
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger1" id="customerPlansListTable" class="table text-nowrap">
+              <thead>
+              <tr>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Tax</th>
+                <th>Coverage</th>
+                <th>Signup Date</th>
+                <th>Enrolled Date</th>
+                <th>Status</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let plan of customersplanslist; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{plan.name}}</td>
+                <td>{{plan.price}}</td>
+                <td>{{plan.tax | number: "1.2-2"}}({{plan.taxesData[0].tax_name}})</td>
+                <td>{{plan.coverage}}</td>
+                <td>{{plan.signupDate | date}}</td>
+                <td>
+                  <span *ngIf="plan.enrolledDate !=null">{{plan.enrolledDate | date}}</span>
+                  <span *ngIf="plan.enrolledDate ==null">---</span>
+                </td>
+                <td>{{plan.status}}</td>
+
+            </tr>
+            </tbody>
+            </table>
+
+        </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="closeaddadmin" data-bs-dismiss="modal" (click)="closePopup()" #closemodel>
+          Close
+        </button>
+    </div>
+      </div>
+    </div>
+  </div>

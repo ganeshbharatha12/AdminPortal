@@ -1,0 +1,544 @@
+<main id="main" class="main">
+  <section class="section dashboard">
+
+    <div class="row">
+      <div class="col-sm-10">
+
+       <!-- Main Corporate Details Form -->
+     <div class="row" *ngIf="basicInfo">
+
+        <div class="col-sm-12">
+
+            <form class="onbordingform" [formGroup]="brokerregform">
+              <!-- <fieldset disabled="disabled" id="fieldsetattr"> -->
+              <div class="row">
+                <div class="form-group col-12">
+
+                <h6 class="admintitle"><a class="bartitlelabel">Broker Information&nbsp;&nbsp;<i class="bi bi-info-circle"></i></a></h6>
+
+              </div>
+              </div>
+              <div class="input-wrapper row" *ngIf="allBrokers && allBrokers.length>0">
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Brokers<span style="color: red">*</span></label>
+
+                  <select
+                  class="form-control select2"
+                  id="parentidrole"
+                  placeholder="Select"
+                  formControlName="brokerName" data-live-search="true">
+
+
+                  <option value="" label="" disabled>Select</option>
+                  <option
+                    *ngFor="let broker of allBrokers"
+                    [value]="broker.id"
+
+                  >{{broker.name}}-{{broker.brokerType}}-{{broker.salesTrackingCode}}
+                  </option>
+                </select>
+
+
+
+                <!-- <div *ngIf="broker['corporationName'].touched && broker['corporationName'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['corporationName'].errors && broker['corporationName'].errors['required']">Please enter corporation name</div>
+                  <div *ngIf="broker['corporationName'].errors && broker['corporationName'].errors['minlength']">Corporation name should be 3 character</div>
+                  <div *ngIf="broker['corporationName'].errors && broker['corporationName'].errors['maxlength']">Corporation name must not exceed 30 characters</div>
+                </div> -->
+
+                </div>
+              </div>
+              <div class="input-wrapper row">
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Name of Broker<span style="color: red">*</span></label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="nameofcorporation"
+                  placeholder="Name of Broker" style="text-transform: capitalize;"
+                   formControlName="brokersName"   [(ngModel)]="CorpName"
+                />
+                <div *ngIf="broker['brokersName'].touched && broker['brokersName'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['required']">Please enter broker name</div>
+                  <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['minlength']">Broker name should be 3 character</div>
+                  <div *ngIf="broker['brokersName'].errors && broker['brokersName'].errors['maxlength']">Broker name must not exceed 30 characters</div>
+                </div>
+
+                </div>
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Policy Start Date</label>
+
+                  <!-- <input type="text"
+                  placeholder="Policy Start Date"
+                  class="form-control"
+
+                  formControlName="PolicyStartDate"  [(ngModel)]="policyStartDate"
+                  bsDatepicker
+                  [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY' }"> -->
+
+                <select
+                class="form-control"
+                id="planenrollmentdate"
+                placeholder="Select"
+                formControlName="PolicyStartDate"
+
+              >
+                <option value="" label="">Select</option>
+                <option
+                  *ngFor="let name of enrollmentDates"
+                  [value]="name"
+                  [label]="name"
+                >
+                  {{ name }}
+                </option>
+              </select>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Street Address</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="Street Address"
+                  placeholder="Street Address"
+                  formControlName="streetAddress" [(ngModel)]="streetAddress"
+                />
+                <div *ngIf="broker['streetAddress'].touched && broker['streetAddress'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['required']">Please enter street address name</div>
+
+                </div>
+                </div>
+                <div class="form-group col-6">
+                  <label for="Corporation" class="Corporation">Street Address Line 2</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="StreetAddreess2"
+                  placeholder="Street Address Line 2" [(ngModel)]="streetAddress2"
+                  formControlName="streetAddress2"
+                />
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Country</label>
+
+                  <select
+                  class="form-control"
+                  id="country"
+                  placeholder="Country"
+                  formControlName="country"
+                  [(ngModel)]="country">
+                  <option value="">Select</option>
+                  <option value="canada">Canada</option>
+                  <!-- <option value="usa">USA</option> -->
+
+                  <!-- <option
+                    *ngFor="let name of configprovinceres"
+                    [value]="name.shortName"
+                  >
+                    {{ name.shortName }}
+                  </option> -->
+                  </select>
+                <div *ngIf="broker['country'].touched && broker['country'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['country'].errors && broker['country'].errors['required']">Please select country</div>
+                  <!-- <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['minlength']">Corporation name should be 3 character</div>
+                  <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['maxlength']">Corporation name must not exceed 30 characters</div> -->
+                </div>
+
+                </div>
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">City</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="city"
+                  placeholder="City" style="text-transform: capitalize;"
+                  formControlName="city" [(ngModel)]="city"
+                />
+                <div *ngIf="broker['city'].touched && broker['city'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['city'].errors && broker['city'].errors['required']">Please enter city name</div>
+                  <!-- <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['minlength']">Corporation name should be 3 character</div>
+                  <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['maxlength']">Corporation name must not exceed 30 characters</div> -->
+                </div>
+
+                </div>
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Province<span style="color: red">*</span></label>
+
+
+                <select
+                class="form-control"
+                id="Province"
+                placeholder="Province"
+                formControlName="Province"
+                (change)="provincelist($event)"
+                [(ngModel)]="province"
+
+              >
+                <option value="">Select</option>
+
+                <option
+                  *ngFor="let name of configprovinceres"
+                  [value]="name.shortName"
+                >
+                  {{ name.shortName }}
+                </option>
+              </select>
+
+
+              <div *ngIf="broker['Province'].touched && broker['Province'].invalid" class="help-block text-danger">
+                <div *ngIf="broker['Province'].errors && broker['Province'].errors['required']">Please select province</div>
+                <!-- <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['minlength']">Corporation name should be 3 character</div>
+                <div *ngIf="broker['streetAddress'].errors && broker['streetAddress'].errors['maxlength']">Corporation name must not exceed 30 characters</div> -->
+              </div>
+                </div>
+                <div class="form-group col-3">
+                  <label for="Corporation" class="Corporation">Postal Code</label>
+
+                  <input
+                  type="text"
+                  class="form-control checking-field"
+                  id="postalcode"
+                  placeholder="Postal Code" onkeyup="this.value = this.value.toUpperCase();"
+                  formControlName="postalCode" [(ngModel)]="postalCode"
+                  (input)="changeTextToUppercase('postalcode', $event)"
+                />
+                <div *ngIf="broker['postalCode'].touched" class="help-block text-danger">
+                  <div *ngIf="broker['postalCode'].errors && broker['postalCode'].errors['required']">Please enter postal code</div>
+                  <div *ngIf="invalidpostalcodeprivince || broker['postalCode'].touched &&broker['postalCode'].hasError('invalidPostalCode')">Please enter valid postal code</div>
+
+                  <!-- <div *ngIf="invalidpostalcodeprivince">Please enter valid postal code</div> -->
+                </div>
+                <!-- <div *ngIf="invalidpostalcodeprivince">
+                  <div>Please enter valid postal code</div>
+
+                </div> -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-12">
+                <h6 class="admintitle">Group Contacts&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+              </div>
+              </div>
+
+              <form class="onbordingform" [formGroup]="adminform" (ngSubmit)="addadmin()" *ngIf="addadminform">
+
+                <div class="input-wrapper row">
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">First Name<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="adminfirstname"
+                    placeholder="First Name"
+                    formControlName="adminfirstname"  style="text-transform: capitalize;"
+                  />
+
+                  <div *ngIf="f['adminfirstname'].touched && f['adminfirstname'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['adminfirstname'].errors && f['adminfirstname'].errors['required']">Please enter first name</div>
+                    <div *ngIf="f['adminfirstname'].errors && f['adminfirstname'].errors['minlength']">First name should be 3 character</div>
+                    <div *ngIf="f['adminfirstname'].errors && f['adminfirstname'].errors['maxlength']">First name must not exceed 20 characters</div>
+                  </div>
+                  <!-- <div *ngIf="submittedadmin && f['adminfirstname'].errors" class="invalid-feedback">
+                    <div *ngIf="f['adminfirstname'].errors['required']">First Name is required</div>
+                    <div *ngIf="f['adminfirstname'].errors['minlength']">
+                      First Name must be at least 3 characters
+                    </div>
+                    <div *ngIf="f['adminfirstname'].errors['maxlength']">
+                      First Name must not exceed 20 characters
+                    </div>
+                  </div> -->
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Last Name<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="adminlastname"
+                    placeholder="Last Name" style="text-transform: capitalize;"
+                    formControlName="adminlastname"
+                  />
+
+
+                  <div *ngIf="f['adminlastname'].touched && f['adminlastname'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['adminlastname'].errors && f['adminlastname'].errors['required']">Please enter Last name</div>
+                    <div *ngIf="f['adminlastname'].errors && f['adminlastname'].errors['minlength']">Last name should be 3 character</div>
+                    <div *ngIf="f['adminlastname'].errors && f['adminlastname'].errors['maxlength']">Last name must not exceed 20 characters</div>
+                  </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Phone Number<span style="color: red">*</span></label>
+
+                    <input
+                     type="tel"
+                    class="form-control checking-field"
+                    id="adminphone"
+                    placeholder="Phone" (keypress)="numberOnly($event)"
+                    formControlName="adminphone"
+                  />
+
+
+                  <div *ngIf="f['adminphone'].touched && f['adminphone'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['adminphone'].errors && f['adminphone'].errors['required']">Please enter Phone number</div>
+                    <div *ngIf="f['adminphone'].errors && f['adminphone'].errors['minlength']">Phone number minimum of 10 digits</div>
+                    <div *ngIf="f['adminphone'].errors && f['adminphone'].errors['maxlength']">Phone number maximum of 14 digits</div>
+
+                  </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Email<span style="color: red">*</span></label>
+
+                    <input
+                    type="text"
+                    class="form-control checking-field"
+                    id="email"
+                    placeholder="Email"
+                    formControlName="adminemail"
+                  />
+                  <div *ngIf="f['adminemail'].touched && f['adminemail'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['adminemail'].errors && f['adminemail'].errors['required']">Please enter email</div>
+                    <div *ngIf="f['adminemail'].errors && f['adminemail'].errors['pattern']">Please enter valid email</div>
+                    <!-- <span *ngIf="f['adminemail'].errors && f['adminemail'].pattern" class="text-danger">Please provide a valid email address </span> -->
+
+                    <!-- <span
+                    class="help-block text-danger"
+                    *ngIf="
+                      userForm.get('email').touched &&
+                      userForm.get('email').hasError('invalidEmail')
+                    "
+                    >Please enter valid email</span
+                  > -->
+
+                  </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="Corporation" class="Corporation">Role<span style="color: red">*</span></label>
+
+
+                  <select class="form-control" id="adminrole"  formControlName="role" placeholder="Role">
+                    <option value="" [disabled]="true">Select</option>
+                    <!-- <option value="CORPORATE_ADMIN">Admin</option> -->
+                    <option value="CORPORATE_EXECUTIVE">Executive</option>
+                    <option value="CORPORATE_PLAN_ADMINISTRATOR">Plan Administrator</option>
+                    <option value="CORPORATE_WELLNESS_CHAMPION">Wellness Champion</option>
+                    <option value="CORPORATE_OTHERS">Other</option>
+                  </select>
+
+
+                  <div *ngIf="f['role'].touched && f['role'].invalid" class="help-block text-danger">
+                    <div *ngIf="f['role'].errors && f['role'].errors['required']">Please select role</div>
+
+                  </div>
+                  </div>
+                  <div class="form-group col-4">
+                    <button [disabled]="adminform.invalid" type="submit" class="btn btn-primary">Save</button>
+
+
+                  </div>
+                </div>
+
+                </form>
+              <div class="row">
+                <div class="form-group col-12">
+
+                  <div style="overflow: auto; direction:ltr;  width: 100%;">
+                <table align="left" *ngIf="showaddadmin">
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th></th>
+                  </tr>
+                  <tbody>
+
+                    <tr *ngFor="let admin of adminData; let i = index" [ngClass]="{'orange': i % 2 == 0, 'white': i % 2 != 0}">
+                      <td>{{admin.firstName}}</td>
+                      <td>{{admin.lastName}}</td>
+                      <td>{{admin.phoneNum}}</td>
+                      <td>{{admin.email}}</td>
+                      <td>
+                        <!-- <span *ngIf="admin.role=='CORPORATE_ADMIN'">Admin</span> -->
+                        <span *ngIf="admin.role=='CORPORATE_EXECUTIVE'">Executive</span>
+                        <span *ngIf="admin.role=='CORPORATE_PLAN_ADMINISTRATOR'">Plan Administrator</span>
+                        <span *ngIf="admin.role=='CORPORATE_WELLNESS_CHAMPION'">Wellness Champion</span>
+                        <span *ngIf="admin.role=='CORPORATE_OTHERS'">Others</span></td>
+
+
+
+                      <td style="text-align:right"><button class="btn btn-default editpencil" data-bs-toggle="modal" data-bs-target="#basicModaledit"(click)="editadmin(admin,i)"><i class="bi bi-pencil-fill"></i></button>&nbsp;&nbsp;<button class="btn btn-default deleteicon" (click)="deleteadmin(i)"><i class="bi bi-trash-fill"></i></button></td>
+                  </tr>
+
+                </tbody>
+
+
+
+                </table>
+                <!-- <label  class="addgroupadmininfo" data-bs-toggle="modal" data-bs-target="#basicModal1" ><strong>Add More</strong></label> -->
+                <button *ngIf="showaddadmin"  class="btn btn-primary addgroupadmininfo" type="button"  data-bs-toggle="modal" data-bs-target="#basicModal1" (click)="hidegrpadmindetails()" >Add More</button>
+
+                </div>
+              </div>
+             </div>
+             <div class="row">
+              <div class="form-group col-12">
+          <h6 class="admintitle">Enrollment start date for new hires&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+            </div>
+            <div class="label waitingperiod">
+              <b>Waiting period for new Hires</b>
+            </div>
+            <table class="newhiresperiod">
+
+              <tr class="waitingperiodTable">
+                <td><input type="radio"  name="waitingPeriod" formControlName="waitingPeriod" value="0" id="nowaitingPeriod"  [(ngModel)]="waitTime" [checked]="waitTime == 0 || waitTime == '0'" (change)="customSelected = false" />&nbsp;<label for="y" class="waitingperiod">No Waiting Period</label></td>
+                <!-- <td><input type="radio" class="radio" name="waitingPeriod" formControlName="waitingPeriod" value="1" id="1" [(ngModel)]="waitTime" [checked]="waitTime == 1" (change)="customSelected = false" />&nbsp;<label for="y" class="waitingperiod">One Month</label></td> -->
+                <td><input type="radio"  name="waitingPeriod" formControlName="waitingPeriod" value="3" id="3" [(ngModel)]="waitTime" [checked]="waitTime == 3 || waitTime == '3'" (change)="customSelected = false" />&nbsp;<label for="y" class="waitingperiod">Three Months</label></td>
+                <td><input type="radio"  name="waitingPeriod" formControlName="waitingPeriod" value="6" id="6" [(ngModel)]="waitTime" [checked]="waitTime == 6 || waitTime == '6'" (change)="customSelected = false" />&nbsp;<label for="y" class="waitingperiod">Six Months</label></td>
+                <td><input type="radio"  name="waitingPeriod" formControlName="waitingPeriod" value=""  id="custom" (change)="customSelected = true"/>&nbsp;<label for="y" class="waitingperiod">Custom</label></td>
+                <td *ngIf="customSelected"><input type="text" class="form-control1"  (keypress)="numberOnly($event)" id="y"  formControlName="waitingPeriod" name="waitingPeriod" style="width:25%;margin-top:-5px"/>&nbsp;Months</td>
+              </tr>
+
+              <div *ngIf="broker['waitingPeriod'].touched && broker['waitingPeriod'].invalid" class="help-block text-danger">
+                <div *ngIf="broker['waitingPeriod'].errors && broker['waitingPeriod'].errors['required']">Please select waiting period</div>
+              </div>
+
+            </table>
+
+            </div>
+
+            <div class="row">
+              <div class="form-group col-3">
+          <h6 class="admintitle">Payment Information&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+          <div >
+            <input type="radio" id="creditpaymentInfo" name="paymentInfo" formControlName="paymentInfo" value="creditcard"  (click)="checkPaymentInfo($event)">
+            <label for="creditpaymentInfo" class="paymentInfo">&nbsp;&nbsp;Credit Card</label><br>
+            <input type="radio" id="padcreditpaymentInfo" name="paymentInfo" formControlName="paymentInfo" value="pad"  (click)="checkPaymentInfo($event)" checked>
+            <label for="padcreditpaymentInfo" class="paymentInfo">&nbsp;&nbsp;Pre-Authorized Debit</label><br>
+            <input type="radio" id="invoicepaymentInfo" name="paymentInfo" formControlName="paymentInfo" value="invoicemonthy" (click)="checkPaymentInfo($event)" *ngIf="role=='ADMINISTRATOR'">
+            <label for="invoicepaymentInfo" class="paymentInfo" *ngIf="role=='ADMINISTRATOR'">&nbsp;&nbsp;Invoice Monthly</label><br><br>
+
+            <div *ngIf="broker['paymentInfo'].touched && broker['paymentInfo'].invalid" class="help-block text-danger">
+              <div *ngIf="broker['paymentInfo'].errors && broker['paymentInfo'].errors['required']">Please select payment information</div>
+
+            </div>
+          </div>
+            </div>
+
+                    <div class="form-group col-3">
+                      <h6 class="admintitle">Corporate Logo&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+                      <label   for="adminlogo" class="adminlogo1" *ngIf="uploadlogoafter"><strong>&nbsp;Update</strong></label>
+                      <div class="uploadCorporateLogo">
+                        <label style="float:right;color:red"  title="Delete logo" *ngIf="uploadlogoafter" (click)="uploadadminlogoclear($event)"><i class="bi bi-trash-fill" ></i></label>
+
+                        <label for="adminlogo" class="adminlogo">
+                        <span *ngIf="showimagelogo">
+                         <p style="font-size:12px;"> Click to upload
+                          <br>
+                          COMPANY LOGO
+                          <br>
+                          Max. 300x100 px .png,.jpg </p>
+                        </span>
+                          <img [src]="imagedisplay" style="max-height: 50px">
+                        </label>
+
+
+                        <input id="adminlogo" type="file" accept="image/*" style="display: none;" formControlName="corporatelogo" (change)="uploadadminlogo($event)">
+
+                        <input id="adminlogo1" type="file" accept="image/*" style="display: none;" formControlName="corporatelogo" (change)="uploadadminlogo1($event)">
+                      </div>
+
+                      <div *ngIf="broker['corporatelogo'].touched && broker['corporatelogo'].invalid" class="help-block text-danger">
+                        <div *ngIf="broker['corporatelogo'].errors && broker['corporatelogo'].errors['required']">Please upload corporate logo</div>
+
+                      </div>
+                        </div>
+            </div>
+             <div class="row">
+              <div class="form-group col-4">
+          <h6 class="admintitle">GroupBenefitz Wallet<sup>TM</sup> for employees?&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+            <br>
+
+
+
+            <div class="form-check form-check-inline">
+              <input  type="radio" name="walletConfig" id="walletconfigyes" [value]=true formControlName="walletConfig" [(ngModel)]="setupWallet" [checked]="setupWallet === true">
+              <label  for="walletconfigyes" class="walletConfig">&nbsp;&nbsp;Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input  type="radio" name="walletConfig" id="walletconfigyno" [value]=false formControlName="walletConfig" [(ngModel)]="setupWallet" [checked]="setupWallet === false">
+              <label  for="walletconfigyno" class="walletConfig">&nbsp;&nbsp;No</label>
+            </div>
+
+
+            <div *ngIf="broker['walletConfig'].touched && broker['walletConfig'].invalid" class="help-block text-danger">
+              <div *ngIf="broker['walletConfig'].errors && broker['walletConfig'].errors['required']">Please select wallet configuration</div>
+
+            </div>
+            <div class="clearfix"></div>
+            </div>
+            <div class="form-group col-6">
+              <h6 class="admintitle">Create classification tiers of coverage&nbsp;&nbsp;<i class="bi bi-info-circle"></i>
+                </h6>
+
+                <br>
+
+                <div class="form-check form-check-inline">
+                  <input  type="radio"
+                  name="tierConfig"
+                  id="tierConfigyes"
+                  [value]=true
+                  formControlName="tierConfig" [(ngModel)]="setUplevelofCoverage" [checked]="setUplevelofCoverage === true" disabled>
+                  <label for="tierConfigyes" class="tierConfig">&nbsp;&nbsp;Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input  type="radio" name="tierConfig" id="tierConfigno" [value]=false formControlName="tierConfig" [(ngModel)]="setUplevelofCoverage" [checked]="setUplevelofCoverage === false">
+                  <label  for="tierConfigno" class="tierConfig">&nbsp;&nbsp;No</label>
+                </div>
+                <div *ngIf="broker['tierConfig'].touched && broker['tierConfig'].invalid" class="help-block text-danger">
+                  <div *ngIf="broker['tierConfig'].errors && broker['tierConfig'].errors['required']">Please select tier configuration</div>
+
+                </div>
+                <div class="clearfix"></div>
+
+              </div>
+                <div class="form-group col-2">
+                  <h6 class="admintitle">No of Employees</h6>
+<br>
+                  <input type="text" class="form-control" formControlName="expectednoofEmployees" (keypress)="numberOnly($event)" [(ngModel)]="noOfEmployees" style="margin-top:-12px">
+                  <div *ngIf="broker['expectednoofEmployees'].touched && broker['expectednoofEmployees'].invalid" class="help-block text-danger">
+                    <div *ngIf="broker['expectednoofEmployees'].errors && broker['expectednoofEmployees'].errors['required']">Please enter no.of employees</div>
+
+                  </div>
+                    </div>
+            </div>
+          <!-- </fieldset> -->
+          </form>
+
+              <br>
+              <div class=" text-white text-right">
+                <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitbasicInfo()"> Save & Next&nbsp;&nbsp;<i aria-hidden="true" class="fa fa-long-arrow-right" ></i></button>
+              </div>
+        </div>
+
+     </div>
+
+    </div>
+    </div>
+  </section>
+  </main>

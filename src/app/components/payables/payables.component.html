@@ -1,0 +1,63 @@
+
+<main id="main" class="main">
+  <section class="section dashboard">
+
+  <div class="row">
+          <div class="col-md-12">
+            <h6 class="admintitle">Payables&nbsp;&nbsp;<i class="bi bi-info-circle"></i></h6>
+
+        </div>
+  </div>
+      <br>
+
+      <div class="tabs">
+        <div class="tab" [ngClass]="{ 'active': selectedTab === 'tab1' }" (click)="selectTab('tab1')">Providers</div>
+        <div class="tab" [ngClass]="{ 'active': selectedTab === 'tab2' }" (click)="selectTab('tab2')">Advisor's Comissions</div>
+        <div class="tab" [ngClass]="{ 'active': selectedTab === 'tab3' }" (click)="selectTab('tab3')">Taxes</div>
+      </div>
+
+      <div class="tab-content">
+        <div *ngIf="selectedTab === 'tab1'">
+          <div class="row">
+
+            <img src="../../../assets//img/Payables.png">
+          </div>
+
+        </div>
+        <div *ngIf="selectedTab === 'tab2'">
+          <div class="row">
+            <img src="../../../assets//img/Payables-Advisor's Commissions.png">
+
+          </div>
+        </div>
+        <div *ngIf="selectedTab === 'tab3'">
+          <div class="row">
+
+            <img src="../../../assets//img/Payables-Taxes.png">
+          </div>
+        </div>
+      </div>
+
+
+
+        <div class="row">
+          <div class="text-white text-left">
+            <!-- <button class="btn btn-primary" id="backbuttonForm"
+            type="button" (click)="gotoplansorwalletInfo()" style="float:left"><i aria-hidden="true" class="fa fa-long-arrow-left" ></i>&nbsp;&nbsp;Previous</button> -->
+
+          </div>
+          <div class=" text-white text-right">
+            <!-- <button class="btn btn-primary" id="basicformSubmit" type="button" (click)="submitEmployeeInfoInfo()"> Save</button> -->
+          </div>
+        </div>
+
+
+
+
+    </section>
+    </main>
+    <footer id="footer" class="footer">
+      <div class="copyright">Version IB:3.0.0 © 2024 Copyright:
+        <a class="text-reset fw-bold" href="https://www.groupbenefitz.ca/" target="-blank"> The GroupBenefitz Platform Inc.</a></div>
+   </footer>
+   <a (click)="scrollTop()" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

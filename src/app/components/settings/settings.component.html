@@ -1,0 +1,133 @@
+<main id="main" class="main">
+  <div class="row">
+    <div class="col-md-12">
+      <h6 class="admintitle">
+        Settings&nbsp;&nbsp;<i class="bi bi-info-circle"></i>
+      </h6>
+    </div>
+  </div>
+  <div class="row">
+
+    <!-- <img src="../../../assets//img/Settings.png"> -->
+
+    <div class="row">
+      <div class="col-md-12">
+        <label>
+          {{settingsKeyLabel}}&nbsp;&nbsp;
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <form [formGroup]="mailConfigSmtp">
+        <div class="row">
+          <div class="form-group col 12 col-md-4">
+            <label for="memberType">Username<span class="text-danger">*</span></label>
+            <input type="email" class="form-control checking-field border border-dark" id="userName"
+            placeholder="userName"
+        formControlName="username" />
+        <div *ngIf="mailFormGet['username'].touched && mailFormGet['username'].invalid" class="help-block text-danger">
+          <div *ngIf="mailFormGet['username'].errors && mailFormGet['username'].hasError('required')">
+            Please enter other role
+          </div>
+          </div>
+          </div>
+          <div class="form-group col 12 col-md-4">
+            <label for="memberType">Password<span class="text-danger">*</span></label>
+            <input type="text" class="form-control checking-field border border-dark" id="Password"
+            placeholder="Password"
+        formControlName="password" />
+        <div *ngIf="mailFormGet['password'].touched && mailFormGet['password'].invalid" class="help-block text-danger">
+          <div *ngIf="mailFormGet['password'].errors && mailFormGet['password'].hasError('required')">
+            Please enter other role
+          </div>
+          </div>
+
+          </div>
+          <div class="form-group col-md-4">
+            <button class="btn-primary addgroupadmininfoemp" (click)="UpdatesmtpMail()">Update</button>
+          </div>
+        </div>
+        </form>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-md-12">
+        <label>
+          {{ccSettingsKeyLabel}}&nbsp;&nbsp;
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <form [formGroup]="cCmailConfigSmtp">
+        <div class="row">
+          <div class="form-group col 12 col-md-4">
+            <label for="memberType">GB Suport mail<span class="text-danger">*</span></label>
+            <input type="email" class="form-control checking-field border border-dark" id="userName"
+            placeholder="GB Suport mail"
+        formControlName="gbSuportMail" />
+        <div *ngIf="cCmailConfigSmtpGet['gbSuportMail'].touched && cCmailConfigSmtpGet['gbSuportMail'].invalid" class="help-block text-danger">
+          <div *ngIf="cCmailConfigSmtpGet['gbSuportMail'].errors && cCmailConfigSmtpGet['gbSuportMail'].hasError('required')">
+            Please enter other role
+          </div>
+          </div>
+          </div>
+          <div class="form-group col 12 col-md-4">
+            <label for="memberType">Email Regards Student<span class="text-danger">*</span></label>
+            <input type="text" class="form-control checking-field border border-dark" id="Password"
+            placeholder="Email Regards Student"
+        formControlName="mailRegardsStudent" />
+        <div *ngIf="cCmailConfigSmtpGet['mailRegardsStudent'].touched && cCmailConfigSmtpGet['mailRegardsStudent'].invalid" class="help-block text-danger">
+          <div *ngIf="cCmailConfigSmtpGet['mailRegardsStudent'].errors && cCmailConfigSmtpGet['mailRegardsStudent'].hasError('required')">
+            Please enter other role
+          </div>
+          </div>
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="form-group col 12 col-md-4">
+            <label for="memberType">System Admin Mail<span class="text-danger">*</span></label>
+            <input type="email" class="form-control checking-field border border-dark" id="userName"
+            placeholder="GB Suport mail"
+        formControlName="systemAdminMail" />
+        <div *ngIf="cCmailConfigSmtpGet['systemAdminMail'].touched && cCmailConfigSmtpGet['systemAdminMail'].invalid" class="help-block text-danger">
+          <div *ngIf="cCmailConfigSmtpGet['systemAdminMail'].errors && cCmailConfigSmtpGet['systemAdminMail'].hasError('required')">
+            Please enter other role
+          </div>
+          </div>
+          </div>
+          <div class="form-group col 12 col-md-4">
+            <label for="memberType">System Admin mail name<span class="text-danger">*</span></label>
+            <input type="text" class="form-control checking-field border border-dark" id="Password"
+            placeholder=""
+        formControlName="systemAdminName" />
+        <div *ngIf="cCmailConfigSmtpGet['systemAdminName'].touched && cCmailConfigSmtpGet['systemAdminName'].invalid" class="help-block text-danger">
+          <div *ngIf="cCmailConfigSmtpGet['systemAdminName'].errors && cCmailConfigSmtpGet['systemAdminName'].hasError('required')">
+            Please enter other role
+          </div>
+          </div>
+
+          </div>
+
+        </div>
+       <div class="row">
+        <div class="form-group col 12 col-md-4">
+          <label for="memberType">Mail Regards<span class="text-danger">*</span></label>
+          <input type="email" class="form-control checking-field border border-dark" id="userName"
+          placeholder="GB Suport mail"
+      formControlName="emailRegards" />
+      <div *ngIf="cCmailConfigSmtpGet['emailRegards'].touched && cCmailConfigSmtpGet['emailRegards'].invalid" class="help-block text-danger">
+        <div *ngIf="cCmailConfigSmtpGet['emailRegards'].errors && cCmailConfigSmtpGet['emailRegards'].hasError('required')">
+          Please enter Mail Regards
+        </div>
+        </div>
+        </div>
+       </div>
+        </form>
+    </div> -->
+
+
+
+  </div>
+</main>
